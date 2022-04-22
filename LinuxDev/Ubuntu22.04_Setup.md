@@ -5,13 +5,14 @@ From a fresh Ubuntu 22.04 installation, updated, username dev
 ## If using VMWare, have it mount shared folders
 
 ```sh
+mkdir /home/dev/host
 sudo vi /etc/fstab
 ```
 
 Add the following line
 
 ```
-vmhgfs-fuse    /mnt/hgfs    fuse    defaults,allow_other    0    0
+vmhgfs-fuse    /home/dev/host    fuse    defaults,allow_other    0    0
 ```
 
 Shared folders will mount on startup, but mount them now.
@@ -128,13 +129,16 @@ Add transparancy to the #dash background-color and border
   border: 1px solid #1f232b00; /*This line edited*/
   border-left: 0px;
   border-radius: 0px 5px 5px 0px; }
-</details>
 ```
+</details>
 
 ### Set the themes
 
-Open tweaks -> Appearance -> set applications, shell to Nordic-bluish-accent, set icons to Nordic
--> Window Titlebars -> Placement = Left
+Open Tweaks -> Appearance -> Themes
+Set Shell, Legacy Applications to Nordic-bluish-accent
+Set Icons to Nordic
+
+Tweaks -> Window Titlebars -> Placement = Left
 
 ### Install Alacritty & zsh
 
@@ -142,7 +146,7 @@ Alacritty PPA directions copied from [here](https://ubuntuhandbook.org/index.php
 
 ```sh
 sudo add-apt-repository ppa:aslatter/ppa
-sudo apt install alacritty zsh vim curl
+sudo apt install alacritty zsh vim curl git
 chsh
 ```
 set to /usr/bin/zsh
@@ -153,14 +157,23 @@ set to /usr/bin/zsh
 
 Follow directions on their [GitHub page](https://github.com/arcticicestudio/nord-alacritty)
 
-Also set background opacity
+Also set background opacity and font
 
 (This option was recently changed from background_opacity: 0.8 to the below)
 
 ```
 window:
   opacity: 0.8
+font:
+  normal:
+    family: "MesloLGS NF"
 ```
+
+#### Install fonts ####
+
+Install the 4 meslo fonts recommended for Powerline 10k
+Links [here](https://github.com/romkatv/powerlevel10k#meslo-nerd-font-patched-for-powerlevel10k)
+or in this base repo in fonts/ttf folder (might as well install JetBrains fonts at the smae time :) )
 
 #### Create custom launcher for Alacritty so border theme is applied
 
@@ -202,10 +215,6 @@ Name=New Terminal
 Exec=/home/dev/.local/share/applications/alacritty.sh
 ```
 
-#### Reboot
-
-This is a good time to reboot so all the changes get sourced properly.
-
 ### Install and Configure Powerline 10k
 
 Steal some of the zsh powerlevel10k stuff from Manjaro
@@ -213,7 +222,7 @@ Download the tarball hosting on GitHub [here](https://github.com/jasonmb626/Linu
 
 Unzip it to ~/.local/share
 
-Open Alacritty or Gnome Shell
+Open Gnome Terminal
 
 You won't have a .zshrc file yet, so just choose option "0" to create an empty one if prompted.
 
@@ -222,14 +231,14 @@ cd ~/Downloads
 tar xvf zsh.tar.xz -C ~/.local/share
 ```
 
-Install the 4 meslo fonts recommended for Powerline 10k
-Links [here](https://github.com/romkatv/powerlevel10k#meslo-nerd-font-patched-for-powerlevel10k)
-or in this base repo in fonts/ttf folder (might as well install JetBrains fonts at the smae time :) )
-
 ```sh
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
 echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
 ```
+
+#### Reboot
+
+This is a good time to reboot so all the changes get sourced properly.
 
 ### Install [zsh-nvm](https://github.com/lukechilds/zsh-nvm)
 
@@ -295,19 +304,10 @@ source ~/powerlevel10k/powerlevel10k.zsh-theme
 
 Exit terminal and reopen. It'll give a bit of an error but that's okay. It's a one-time error.
 
-### Install docker
+### Install pip3, venv
 
-These instruction copied from [official docker website](https://docs.docker.com/engine/install/ubuntu/)
-
-```sh
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-sudo apt-get update
-sudo apt-get install docker-ce docker-ce-cli containerd.io
-
-sudo usermod -aG docker dev
-sudo systemctl start docker
-sudo systemctl enable docker
+``sh
+sudo apt install python3-pip python3-venv
 ```
 
 ### Install Node LTS
@@ -333,48 +333,15 @@ Direct download [link](https://download.jetbrains.com/fonts/JetBrainsMono-2.225.
 #### If using Intellij IDEA
 
 ```sh
-flatpak install flathub com.jetbrains.IntelliJ-IDEA-Community
+snap install intellij-idea-community --classic
 ```
 
 #### If using VSCode
 
-Install [VS Code](https://code.visualstudio.com/docs/setup/linux#_rhel-fedora-and-centos-based-distributions)
-
-(Todo - VSCodium? Code-OSS)
-
 ```sh
-sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
-sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
-sudo dnf check-update
-sudo dnf install code
+sudo snap install code --classic
 ```
 
-### Install Docker Compose
+### Docker
 
-```sh
-sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
-```
-
-From this (link)[https://docs.docker.com/compose/install/]
-
-### Install Screenkey
-
-```sh
-sudo dnf install screenkey
-```
-
-Note: as of the time of this writing screenkey doesn't fully work on Wayland.
-
-### (optional) Make screenkey start on boot
-
-Superkey -> type "Startup" open startup applications
-Add new
-
-```
-screenkey -p fixed -g 325x50-5+5 --key-mode composed --bak-mode normal --mods-mode normal --bg-color '#434C5E' --font-color '#A3BE8C' --opacity '0.8'
-```
-
-Should we do this?
-
-https://itsfoss.com/enable-applet-indicator-gnome/
+Follow instructions [here](https://github.com/jasonmb626/LinuxDev/Ubuntu22.04_docker-postgres.md).
