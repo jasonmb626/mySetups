@@ -21,20 +21,19 @@ Shared folders will mount on startup, but mount them now.
 sudo mount -a
 ```
 
+The rest of the doc assumes you've shared you mySetups folder and so it'll be at ~/host/mySetups
+
 ## Install your ssh keys
 
 Copy your github-ssh_keys.zip to ~/.ssh
 
 ```sh
-unzip github-ssh_keys.zip
+mkdir ~/.ssh
+unzip ~/host/mySetups/resources/github-ssh_keys.zip -d ~/.ssh
+ls -l ~/.ssh
 ```
 
-(Enter password)
-
-```sh
-rm github-ssh_keys.zip
-ls -l
-```
+You'll be prompted for a password at the unzip. (Enter password)
 
 You should now have these files and permissions in that folder.
 
@@ -101,10 +100,15 @@ You'll need to install the browser plugin (it'll prompt you) and then refresh th
 
 ## Download your preferred theme
 
-Download [Nordic-bluish-accent.tar.xz](https://github.com/jasonmb626/LinuxDev/raw/main/Nordic-bluish-accent.tar.xz) and [Nordic-Folders.tar.xz](https://github.com/jasonmb626/LinuxDev/raw/main/Nordic-bluish-accent.tar.xz) from your GitHub
+Download [Nordic-bluish-accent.tar.xz](https://github.com/jasonmb626/LinuxDev/raw/main/Nordic-bluish-accent.tar.xz) and [Nordic-Folders.tar.xz](https://github.com/jasonmb626/LinuxDev/raw/main/Nordic-bluish-accent.tar.xz) from your GitHub or copy from you host share
 
-unzip Nordic-bluish-accent.tar.xz to ~/.themes
-unzip Nordic-Folders.tar.xz's its "nordic" folder to ~/.icons (you can ignore the noric-dark folder)
+```
+mkdir ~/.themes
+tar xvfJ ~/host/mySetups/LinuxDev/Nordic-bluish-accent.tar.xz -C ~/.themes
+mkdir ~/.icons
+tar xvfJ ~/host/mySetups/LinuxDev/Nordic-Folders.tar.xz -C ~/.icons
+```
+
 OR
 
 <details>
@@ -184,7 +188,7 @@ vim ~/.local/share/applications/alacritty.sh
 ```
 
 Make it read:
-```
+```bash
 #!/bin/bash
 env WINIT_UNIX_BACKEND=x11 alacritty
 ```
@@ -227,8 +231,7 @@ Open Gnome Terminal
 You won't have a .zshrc file yet, so just choose option "0" to create an empty one if prompted.
 
 ```sh
-cd ~/Downloads
-tar xvf zsh.tar.xz -C ~/.local/share
+tar xvfJ ~/host/mySetups/LinuxDev/zsh.tar.xz -C ~/.local/share
 ```
 
 ```sh
@@ -239,12 +242,6 @@ echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
 #### Reboot
 
 This is a good time to reboot so all the changes get sourced properly.
-
-### Install [zsh-nvm](https://github.com/lukechilds/zsh-nvm)
-
-```sh
-git clone https://github.com/lukechilds/zsh-nvm.git ~/.zsh-nvm
-```
 
 Restart terminal and Powerlevel10k will prompt you for options.
 
@@ -269,6 +266,12 @@ My options:
 * Enable Transient Prompt? -> y (Yes)
 * Instant Prompt Mode -> 1 (Verbose)
 * Apply changes to ~/.zshrc? -> y (Yes)
+
+### Install [zsh-nvm](https://github.com/lukechilds/zsh-nvm)
+
+```sh
+git clone https://github.com/lukechilds/zsh-nvm.git ~/.zsh-nvm
+```
 
 ### Edit your .zshrc
 
@@ -342,6 +345,6 @@ snap install intellij-idea-community --classic
 sudo snap install code --classic
 ```
 
-### Docker
+### Postgres
 
-Follow instructions [here](https://github.com/jasonmb626/LinuxDev/Ubuntu22.04_docker-postgres.md).
+Follow instructions [here](https://github.com/jasonmb626/LinuxDev/Ubuntu22.04_postgres-devel.md).

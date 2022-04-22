@@ -1,5 +1,6 @@
 ### Install and run postgres
 
+#### Via Docker
 <details>
   <summary>Via Docker</summary>
 
@@ -88,6 +89,7 @@ docker exec -it <container name> /usr/bin/psql -U postgres
 
 </details>
 
+#### Without Docker
 <details>
   <summary>Without Docker</summary>
 
@@ -119,7 +121,7 @@ exit
 
 </details>
 
-Create and connect to database
+### Create and connect to database
 
 ```sql
   CREATE DATABASE project_name;
