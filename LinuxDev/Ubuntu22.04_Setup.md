@@ -371,8 +371,8 @@ snap install intellij-idea-community --classic
 sudo snap install code --classic
 ```
 
-Follow instructions [here](https://github.com/jasonmb626/VSCode_Setup.md) to set up your VS Code environment.
+Follow instructions [here](https://github.com/jasonmb626/mySetups/blob/main/VSCode_Setup.md ) to set up your VS Code environment.
 
 ### Postgres
 
-Follow instructions [here](https://github.com/jasonmb626/LinuxDev/Ubuntu22.04_postgres-devel.md).
+Follow instructions [here](https://github.com/jasonmb626/mySetups/blob/main/LinuxDev/Ubuntu22.04_postgres-devel.md).
