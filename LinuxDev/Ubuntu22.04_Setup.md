@@ -50,12 +50,6 @@ Just install Google Chrome from [Google's Website](https://www.google.com/chrome
 
 Change the look and feel to your prefrences.
 
-### Set dark theme
-
-Settings -> Appearance -> Style
-
-Dark
-
 ### Move panel to bottom and make it a dock
 
 Settings -> Appearance -> Dock
@@ -73,9 +67,18 @@ Number of Workspaces: 6
 
 ### Get your wallpaper
 
-Download your [wallpaper](https://wallpaperaccess.com/download/blue-lagoon-3908317) and set it as your desktop wallpaper
+```sh
+mkdir ~/.local/share/wallpapers
+cp ~/host/mySetups/resources/Wallpapers/3908317.jpg ~/.local/share/wallpapers/
+```
+
+OR
+
+Download your [wallpaper](https://wallpaperaccess.com/download/blue-lagoon-3908317).
 
 (Recommend placing it in ~/.local/share/wallpapers)
+
+Right click desktop, select Change Background. Add Picture and set it as your desktop wallpaper
 
 ### Install dependencies for extending Gnome functionality
 
@@ -161,6 +164,13 @@ set to /usr/bin/zsh
 
 Follow directions on their [GitHub page](https://github.com/arcticicestudio/nord-alacritty)
 
+Using their src.yml in raw form, write it to your alacritty.yml file
+
+```sh
+mkdir ~/.config/alacritty
+vim ~/.config/alacritty/alacritty.yml
+```
+
 Also set background opacity and font
 
 (This option was recently changed from background_opacity: 0.8 to the below)
@@ -174,6 +184,15 @@ font:
 ```
 
 #### Install fonts ####
+
+Install from your host
+
+```sh
+mkdir ~/.local/share/fonts
+cp ~/host/mySetups/resources/fonts/ttf/* ~/.local/share/fonts
+```
+
+OR
 
 Install the 4 meslo fonts recommended for Powerline 10k
 Links [here](https://github.com/romkatv/powerlevel10k#meslo-nerd-font-patched-for-powerlevel10k)
@@ -221,18 +240,17 @@ Exec=/home/dev/.local/share/applications/alacritty.sh
 
 ### Install and Configure Powerline 10k
 
+From your host
+```sh
+tar xvfJ ~/host/mySetups/LinuxDev/zsh.tar.xz -C ~/.local/share
+```
+
+OR
+
 Steal some of the zsh powerlevel10k stuff from Manjaro
 Download the tarball hosting on GitHub [here](https://github.com/jasonmb626/LinuxDev/raw/main/zsh.tar.xz)
 
 Unzip it to ~/.local/share
-
-Open Gnome Terminal
-
-You won't have a .zshrc file yet, so just choose option "0" to create an empty one if prompted.
-
-```sh
-tar xvfJ ~/host/mySetups/LinuxDev/zsh.tar.xz -C ~/.local/share
-```
 
 ```sh
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
@@ -243,7 +261,7 @@ echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
 
 This is a good time to reboot so all the changes get sourced properly.
 
-Restart terminal and Powerlevel10k will prompt you for options.
+Open your Alacritty (Theme) and Powerlevel10k will prompt you for options.
 
 My options:
 * Diamond -> y
@@ -309,7 +327,7 @@ Exit terminal and reopen. It'll give a bit of an error but that's okay. It's a o
 
 ### Install pip3, venv
 
-``sh
+```sh
 sudo apt install python3-pip python3-venv
 ```
 
@@ -344,6 +362,8 @@ snap install intellij-idea-community --classic
 ```sh
 sudo snap install code --classic
 ```
+
+Follow instructions [here](https://github.com/jasonmb626/VSCode Setup.md) to set up your VS Code environment.
 
 ### Postgres
 
