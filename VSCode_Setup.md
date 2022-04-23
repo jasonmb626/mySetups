@@ -15,6 +15,7 @@ Current:
 - Jest Runner (firsttris)
 - Python (Microsoft)
 - Pylance (Microsoft) (Should install automically with above Python)
+- Camel Case Navigation (maptz)
 
 ### Update the comment colors in nord theme
 Open ~/.vscode/extensions/arcticicestudio.nord-visual-studio-code-0.19.0/themes/nord-color-theme.json
