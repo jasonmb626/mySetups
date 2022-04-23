@@ -240,6 +240,8 @@ Exec=/home/dev/.local/share/applications/alacritty.sh
 
 ### Install and Configure Powerline 10k
 
+#### First get your custom zsh stolen from Manjaro Linux
+
 From your host
 ```sh
 tar xvfJ ~/host/mySetups/LinuxDev/zsh.tar.xz -C ~/.local/share
@@ -251,6 +253,8 @@ Steal some of the zsh powerlevel10k stuff from Manjaro
 Download the tarball hosting on GitHub [here](https://github.com/jasonmb626/LinuxDev/raw/main/zsh.tar.xz)
 
 Unzip it to ~/.local/share
+
+#### Now get Powerline 10k
 
 ```sh
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
@@ -292,6 +296,10 @@ git clone https://github.com/lukechilds/zsh-nvm.git ~/.zsh-nvm
 ```
 
 ### Edit your .zshrc
+
+```sh
+vim ~/.zshrc
+```
 
 ```
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
@@ -343,7 +351,7 @@ nvm i --lts
 npm i -g nodemon
 ```
 
-### Download and install the JetBrains Mono font (If not already done)
+### Download and install the JetBrains Mono font (You probably already did this when you copied over fonts above)
 
 Available on their [website](https://www.jetbrains.com/lp/mono/)
 
@@ -363,7 +371,7 @@ snap install intellij-idea-community --classic
 sudo snap install code --classic
 ```
 
-Follow instructions [here](https://github.com/jasonmb626/VSCode Setup.md) to set up your VS Code environment.
+Follow instructions [here](https://github.com/jasonmb626/VSCode_Setup.md) to set up your VS Code environment.
 
 ### Postgres
 
