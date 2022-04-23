@@ -12,12 +12,14 @@ These instruction copied from [official docker website](https://docs.docker.com/
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt-get update
-sudo apt-get install docker-ce docker-ce-cli containerd.io
+sudo apt-get install docker-ce docker-ce-cli containerd.io libpq-devel python3-dev
 
 sudo usermod -aG docker dev
 sudo systemctl start docker
 sudo systemctl enable docker
 ```
+
+libpq-devel &  python3-dev only installed because otherwise the python module psycopg2 will fail to install later.
 
 ### Install Docker Compose
 
@@ -56,6 +58,26 @@ services:
     ports:
       - 8080:80
 ```
+### Set your environment variables
+
+#### Linux
+
+```sh
+vim ~/.pam_environment
+```
+
+Add the following
+
+```
+PGUSER=app
+PGPASSWORD=654321
+PGHOST=localhost
+PGPORT=5432
+PGDATABASE=project_name
+DATABASE_URL=postgres://${PGUSER}@${PGHOST}:${PGPORT}/${PGDATABASE}
+```
+
+Reboot the system or your user won't have group permission for Docker & environment variables won't yet be loaded.
 
 Start the containers (--build makes sure it rebuilds the containers if anything changed)
 
@@ -98,6 +120,8 @@ sudo apt install postgresql postgresql-contrib python3-dev libpq-dev
 sudo systemctl start postgresql.service
 sudo systemctl enable postgresql.service
 ```
+
+PGAdmin4 installation failed on Jammy. Isn't officially supported yet.
 
 switch to psql user and run psql
 ```sh
@@ -153,27 +177,6 @@ CREATE TABLE test (
 INSERT INTO test VALUES(default, 'Hi', 'There');
 ```
 
-### Set your environment variables
-
-#### Linux
-
-```sh
-vim ~/.pam_environment
-```
-
-Add the following
-
-```
-PGUSER=app
-PGPASSWORD=654321
-PGHOST=localhost
-PGPORT=5432
-PGDATABASE=project_name
-DATABASE_URL=postgres://${PGUSER}@${PGHOST}:${PGPORT}/${PGDATABASE}
-```
-
-Log out and log back in
-
 ## Create quick test app
 
 ### Test programmatically
@@ -184,7 +187,7 @@ Log out and log back in
 Create project folder with app.js
 
 ```sh
-npm init
+npm init -y
 npm i pg
 ```
 
@@ -231,6 +234,7 @@ set your virtual environment
 ```sh
 python3 -m venv app
 source app/bin/activate
+pip3 install psycopg2
 ```
 
 Create your python file
