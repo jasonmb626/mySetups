@@ -5,33 +5,60 @@
 TODO: Do we need Prettier extension if ESLint is configured to use prettier?
 
 Current:
-- Bracket Pair Colorizer 2 (CoenraadS)
-- ESLint (Dirk Baemuer)
+- ESLint (Microsoft)
 - Prettier (Prettier)
-- Nord Deep (Marlos Irapuan)
+- Nord (arcticicestudio)
 - vscode-icons (VSCode Icons Team)
-- advanced-new-file (patbenatar)
 - File Utils (Steffen Leistner)
-- Thunder Client (Ranga Vadhineni)
+- advanced-new-file (patbenatar) ? Is this necessary with File Utils? Check this.
+- REST Client (Huachao Mao)
 - Jest Runner (firsttris)
-- Python
-- Pylance
+- Python (Microsoft)
+- Pylance (Microsoft) (Should install automically with above Python)
 
-If using:
-- Deno
+### Update the comment colors in nord theme
+Open ~/.vscode/extensions/arcticicestudio.nord-visual-studio-code-0.19.0/themes/nord-color-theme.json
+
+Find two entries "name": "Comment" & "Punctuation Definition Comment"
+Update their "foreground": entry to "#B48EAD"
 
 #### Configure settings.json
 ```json
 {
   "workbench.iconTheme": "vscode-icons",
-  "workbench.colorTheme": "Nord Deep",
+  "workbench.colorTheme": "Nord",
   "editor.fontFamily": "'JetBrains Mono', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
   "terminal.integrated.fontFamily": "Courier, 'MesloLGS NF'",
   "editor.formatOnSave": true,
   "editor.tabSize": 2,
   "editor.insertSpaces": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.bracketPairColorization.enabled": true
 }
+```
+
+#### Configure keybindings.json (Probably only necessary on Linux. Linux defaults are weird. Make them better match Windows.)
+```json
+  {
+    "key": "shift+alt+down",
+    "command": "editor.action.copyLinesDownAction",
+    "when": "editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "shift+alt+up",
+    "command": "editor.action.copyLinesUpAction",
+    "when": "editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "shift+alt+down",
+    "command": "-editor.action.insertCursorBelow",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "shift+alt+up",
+    "command": "-editor.action.insertCursorAbove",
+    "when": "editorTextFocus"
+  }
 ```
 
 #### Configure user snippets
@@ -45,6 +72,8 @@ File -> Preferences -> User Snippets -> JavaScript
 		"description": "Destructured Require"
 	}
 ```
+
+Go ahead and restart VSCode before continuting
 
 <details>
   <summary>For NodeJS projects</summary>
