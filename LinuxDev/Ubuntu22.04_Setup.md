@@ -4,18 +4,36 @@ From a fresh Ubuntu 22.04 installation, updated, username dev
 
 ## If Virtual Machine, have it mount shared folders
 
+<details>
+  <summary>If Using VirtualBox</summary>
+
 ```sh
-mkdir /home/dev/host
+sudo apt install build-essential
+```
+
+Choose Devices -> Insert Guest Additions CD image...
+
+Run the Guest additions installer
+```sh
+/media/dev/VBox_GAs_<version>/autorun.sh
+```
+
+Add your user to the vboxsf group and create mount point
+
+```sh
+sudo usermod -aG vboxsf dev
+mkdir /home/dev/host/mySetups
 sudo vi /etc/fstab
 ```
 
-Add the following line
+Add your fstab entry
 
-<details>
-  <summary>If Using VirtualBox</summary>
 ```
-mySetups    /home/dev/host    vboxsf    defaults,uid=(1000),gid=(1000),umask=0022    0    0
+mySetups    /home/dev/host/mySetups    vboxsf    defaults,uid=1000,gid=1000,umask=0022    0    0
 ```
+
+Reboot.
+
 </details>
 
 <details>
