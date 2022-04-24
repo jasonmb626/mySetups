@@ -41,13 +41,14 @@ Reboot.
 ```
 vmhgfs-fuse    /home/dev/host    fuse    defaults,allow_other    0    0
 ```
-</details>
-
 Shared folders will mount on startup, but mount them now.
 
 ```sh
 sudo mount -a
 ```
+
+</details>
+
 
 The rest of the doc assumes you've shared you mySetups folder and so it'll be at ~/host/mySetups
 
@@ -206,6 +207,7 @@ Also set background opacity and font
 ```
 window:
   opacity: 0.8
+  decorations: None
 font:
   normal:
     family: "MesloLGS NF"
@@ -225,46 +227,6 @@ OR
 Install the 4 meslo fonts recommended for Powerline 10k
 Links [here](https://github.com/romkatv/powerlevel10k#meslo-nerd-font-patched-for-powerlevel10k)
 or in this base repo in fonts/ttf folder (might as well install JetBrains fonts at the smae time :) )
-
-#### Create custom launcher for Alacritty so border theme is applied
-
-```sh
-touch ~/.local/share/applications/alacritty.sh
-chmod +x ~/.local/share/applications/alacritty.sh
-vim ~/.local/share/applications/alacritty.sh
-```
-
-Make it read:
-```bash
-#!/bin/bash
-env WINIT_UNIX_BACKEND=x11 alacritty
-```
-
-Create the .desktop entry
-```sh
-vim ~/.local/share/applications/alacritty.desktop
-```
-
-Make it read:
-```
-[Desktop Entry]
-Type=Application
-TryExec=/home/dev/.local/share/applications/alacritty.sh
-Exec=/home/dev/.local/share/applications/alacritty.sh
-Icon=com.alacritty.Alacritty
-Terminal=false
-Categories=System;TerminalEmulator;
-
-Name=Alacritty (Theme)
-GenericName=Terminal
-Comment=A fast, cross-platform, OpenGL terminal emulator
-StartupWMClass=Alacritty
-Actions=New;
-
-[Desktop Action New]
-Name=New Terminal
-Exec=/home/dev/.local/share/applications/alacritty.sh
-```
 
 ### Install and Configure Powerline 10k
 
