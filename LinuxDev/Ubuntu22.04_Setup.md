@@ -2,7 +2,7 @@
 
 From a fresh Ubuntu 22.04 installation, updated, username dev
 
-## If using VMWare, have it mount shared folders
+## If Virtual Machine, have it mount shared folders
 
 ```sh
 mkdir /home/dev/host
@@ -11,9 +11,19 @@ sudo vi /etc/fstab
 
 Add the following line
 
+<details>
+  <summary>If Using VirtualBox</summary>
+```
+mySetups    /home/dev/host    vboxsf    defaults,uid=(1000),gid=(1000),umask=0022    0    0
+```
+</details>
+
+<details>
+  <summary>If Using VMWare</summary>
 ```
 vmhgfs-fuse    /home/dev/host    fuse    defaults,allow_other    0    0
 ```
+</details>
 
 Shared folders will mount on startup, but mount them now.
 
@@ -42,7 +52,7 @@ You should now have these files and permissions in that folder.
 -rw-r--r-- 1 dev dev  749 xxxx-xx-xx 06-02 07:14 id_rsa.pub
 ```
 
-## Install non-snap browser (otherwise VPN plugin, Gnome Extensions don't work)
+## Install non-snap browser (otherwise Gnome Extensions don't work)
 
 Just install Google Chrome from [Google's Website](https://www.google.com/chrome)
 
