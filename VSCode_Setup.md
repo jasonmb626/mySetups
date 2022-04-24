@@ -4,18 +4,20 @@
 
 TODO: Do we need Prettier extension if ESLint is configured to use prettier?
 
-Current:
-- ESLint (Microsoft)
-- Prettier (Prettier)
+General:
 - Nord (arcticicestudio)
 - vscode-icons (VSCode Icons Team)
-- File Utils (Steffen Leistner)
-- advanced-new-file (patbenatar) ? Is this necessary with File Utils? Check this.
+- Camel Case Navigation (maptz)
 - REST Client (Huachao Mao)
-- Jest Runner (firsttris)
+- advanced-new-file (patbenatar) ? Is this necessary with File Utils? Check this.
+- File Utils (Steffen Leistner)
+Python:
 - Python (Microsoft)
 - Pylance (Microsoft) (Should install automically with above Python)
-- Camel Case Navigation (maptz)
+Javascript:
+- Prettier (Prettier)
+- ESLint (Microsoft)
+- Jest Runner (firsttris)
 
 ### Update the comment colors in nord theme
 Open ~/.vscode/extensions/arcticicestudio.nord-visual-studio-code-0.19.0/themes/nord-color-theme.json
@@ -24,6 +26,9 @@ Find two entries "name": "Comment" & "Punctuation Definition Comment"
 Update their "foreground": entry to "#B48EAD"
 
 #### Configure settings.json
+
+Feel free to delete the javascript, python entries if you aren't using those languages.
+
 ```json
 {
   "workbench.iconTheme": "vscode-icons",
@@ -33,8 +38,13 @@ Update their "foreground": entry to "#B48EAD"
   "editor.formatOnSave": true,
   "editor.tabSize": 2,
   "editor.insertSpaces": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.bracketPairColorization.enabled": true
+  "editor.bracketPairColorization.enabled": true,
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.vscode-pylance"
+  }
 }
 ```
 
