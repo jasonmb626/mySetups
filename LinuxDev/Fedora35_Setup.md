@@ -290,7 +290,7 @@ Exit terminal and reopen. It'll give a bit of an error but that's okay. It's a o
 python3-devel probably only necessary if installing psycopg2 pip module
 
 ```sh
-sudo dnf install python3-pip python3-virtualenv python3-wheel python3-devel
+sudo dnf install python3-pip python3-virtualenv python3-devel
 ```
 
 ### Install Node LTS

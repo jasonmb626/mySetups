@@ -8,14 +8,14 @@
 
 ```sh
 sudo dnf groupinstall 'Development Tools' 'Development Libraries'
-sudo dnf install moby-engine libpq-devel
+sudo dnf install moby-engine libpq-devel postgresql
  
 sudo usermod -aG docker dev
 sudo systemctl start docker
 sudo systemctl enable docker
 ```
 
-TODO: try with just sudo dnf install
+TODO: try with just sudo dnf install python3-devel instead of groupinstall development stuff
 groupinstall 'Development Tools' installs things like gcc,'Development Libraries' for Python.h etc
 libpq-devel is postgres devel headers etc 
 The above needed for psycopg2 to successfully install later
@@ -62,7 +62,7 @@ services:
 #### Linux
 
 ```sh
-vim /etc/environment
+sudo vim /etc/environment
 ```
 
 Add the following
@@ -108,6 +108,16 @@ Or if you just need psql
 docker exec -it <container name> /usr/bin/psql -U postgres
 ```
 
+Create a role for our dev user
+
+```sql
+  CREATE DATABASE dev;
+  CREATE ROLE dev WITH SUPERUSER CREATEROLE CREATEDB LOGIN PASSWORD '123456';
+  exit
+```
+
+From here you should not need to login to psql via docker anymore. Use native psql on host.
+
 </details>
 
 #### Without Docker
@@ -128,6 +138,12 @@ sudo -i -u postgres
 psql
 ```
 
+Exit back to dev shell
+
+```sh
+exit
+```
+
 Create a role for our dev user
 
 ```sql
@@ -136,19 +152,30 @@ Create a role for our dev user
   exit
 ```
 
-Exit back to dev shell
-
-```sh
-exit
-```
+From here you should not need to switch to psql user to login to psql. user dev has all privileges needed.
 
 </details>
+
+### Connect to Database instance
+
+```sh
+psql
+```
 
 ### Create and connect to database
 
 ```sql
   CREATE DATABASE project_name;
   \c project_name;
+```
+### create a test table
+
+```sql
+CREATE TABLE test (
+  id SERIAL,
+  val1 VARCHAR(20),
+  val2 VARCHAR(20)
+);
 ```
 
 Create a role for our app
@@ -160,15 +187,6 @@ Create a role for our app
   GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO app;
 ```
 
-### create a test table
-
-```sql
-CREATE TABLE test (
-  id SERIAL,
-  val1 VARCHAR(20),
-  val2 VARCHAR(20)
-);
-```
 
 ### Insert some dummy data for testing
 
@@ -233,6 +251,7 @@ set your virtual environment
 ```sh
 python3 -m venv app
 source app/bin/activate
+pip3 install wheel
 pip3 install psycopg2
 ```
 
