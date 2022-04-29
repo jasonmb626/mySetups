@@ -50,7 +50,7 @@ sudo mount -a
 </details>
 
 
-The rest of the doc assumes you've shared you mySetups folder and so it'll be at ~/host/mySetups
+The rest of the doc assumes you've shared you mySetups folder and so it'll be at /media/sf_mySetups
 
 ## Install your ssh keys
 
@@ -58,7 +58,7 @@ Copy your github-ssh_keys.zip to ~/.ssh
 
 ```sh
 mkdir ~/.ssh
-unzip ~/host/mySetups/resources/github-ssh_keys.zip -d ~/.ssh
+unzip /media/sf_mySetups/resources/github-ssh_keys.zip -d ~/.ssh
 ls -l ~/.ssh
 ```
 
@@ -98,7 +98,7 @@ Number of Workspaces: 6
 
 ```sh
 mkdir ~/.local/share/wallpapers
-cp ~/host/mySetups/resources/Wallpapers/3908317.jpg ~/.local/share/wallpapers/
+cp /media/sf_mySetups/resources/Wallpapers/3908317.jpg ~/.local/share/wallpapers/
 ```
 
 OR
@@ -136,9 +136,9 @@ Download [Nordic-bluish-accent.tar.xz](https://github.com/jasonmb626/LinuxDev/ra
 
 ```
 mkdir ~/.themes
-tar xvfJ ~/host/mySetups/LinuxDev/Nordic-bluish-accent.tar.xz -C ~/.themes
+tar xvfJ /media/sf_mySetups/LinuxDev/Nordic-bluish-accent.tar.xz -C ~/.themes
 mkdir ~/.icons
-tar xvfJ ~/host/mySetups/LinuxDev/Nordic-Folders.tar.xz -C ~/.icons
+tar xvfJ /media/sf_mySetups/LinuxDev/Nordic-Folders.tar.xz -C ~/.icons
 ```
 
 OR
@@ -187,7 +187,25 @@ chsh
 ```
 set to /usr/bin/zsh
 
-### Setup Alacritty
+### Setup Terminal
+
+#### Install fonts ####
+
+Install from your host
+
+```sh
+mkdir ~/.local/share/fonts
+cp /media/sf_mySetups/resources/fonts/ttf/* ~/.local/share/fonts
+```
+
+OR
+
+Install the 4 meslo fonts recommended for Powerline 10k
+Links [here](https://github.com/romkatv/powerlevel10k#meslo-nerd-font-patched-for-powerlevel10k)
+or in this base repo in fonts/ttf folder (might as well install JetBrains fonts at the smae time :) )
+
+<details>
+  <summary>Alacritty</summary>
 
 #### Install Theme
 
@@ -213,20 +231,32 @@ font:
     family: "MesloLGS NF"
 ```
 
-#### Install fonts ####
+</details>
 
-Install from your host
+<details>
+  <summary>Gnome Terminal</summary>
+
+### Install Node theme
+
+Follow instructions from their [github](https://github.com/arcticicestudio/nord-gnome-terminal)
 
 ```sh
-mkdir ~/.local/share/fonts
-cp ~/host/mySetups/resources/fonts/ttf/* ~/.local/share/fonts
+git clone https://github.com/arcticicestudio/nord-gnome-terminal.git
+cd nord-gnome-terminal/src
+./nord.sh
+cd ..
+rm -fr nord-gnome-terminal
 ```
 
-OR
+Open Gnome Terminal. Hamburger menu => Preferences
 
-Install the 4 meslo fonts recommended for Powerline 10k
-Links [here](https://github.com/romkatv/powerlevel10k#meslo-nerd-font-patched-for-powerlevel10k)
-or in this base repo in fonts/ttf folder (might as well install JetBrains fonts at the smae time :) )
+Under profiles Choose Nord
+Check custom font, set to MesloLGS NF 12
+Using down delta next to Nord choose set as default.
+
+Optional - under colors, set transparent background.
+
+</details>
 
 ### Install and Configure Powerline 10k
 
@@ -234,7 +264,7 @@ or in this base repo in fonts/ttf folder (might as well install JetBrains fonts 
 
 From your host
 ```sh
-tar xvfJ ~/host/mySetups/LinuxDev/zsh.tar.xz -C ~/.local/share
+tar xvfJ /media/sf_mySetups/LinuxDev/zsh.tar.xz -C ~/.local/share
 ```
 
 OR
@@ -319,6 +349,13 @@ source ~/powerlevel10k/powerlevel10k.zsh-theme
 
 #zsh-nvm
 [[ ! -f ~/.zsh-nvm/zsh-nvm.plugin.zsh ]] || source ~/.zsh-nvm/zsh-nvm.plugin.zsh
+
+#tab-completion menu
+autoload -Uz compinit
+compinit
+zstyle ':completion:*' menu select
+
+alias ls="ls --color=auto"
 ```
 
 Exit terminal and reopen. It'll give a bit of an error but that's okay. It's a one-time error.
