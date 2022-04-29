@@ -58,7 +58,7 @@ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flat
 flatpak remote-add --if-not-exists fedora oci+https://registry.fedoraproject.org
 ```
 
-## (Optional) Install [RPM Fusion](https://rpmfusion.org/)
+## (Optional) Install [RPM Fusion](https://rpmfusion.org/) and general multimedia stuff
 
 ```sh
 sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
@@ -325,3 +325,9 @@ sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.m
 sudo dnf check-update
 sudo dnf install code
 ```
+
+Follow instructions [here](https://github.com/jasonmb626/mySetups/blob/main/VSCode_Setup.md ) to set up your VS Code environment.
+
+### Postgres
+
+Follow instructions [here](https://github.com/jasonmb626/mySetups/blob/main/LinuxDev/Fedora_35_postgres-devel.md).
