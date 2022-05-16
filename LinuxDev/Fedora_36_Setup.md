@@ -89,6 +89,13 @@ Download your [wallpaper](https://wallpaperaccess.com/download/blue-lagoon-39083
 
 Right click desktop, select Change Background. Add Picture and set it as your desktop wallpaper
 
+### Set your workspaces
+
+Settings -> Multitasking
+
+Workspaces
+- Fixed, 6
+
 ### Install dependencies for extending Gnome functionality
 
 ```sh
@@ -129,10 +136,6 @@ tar xvfJ /media/sf_mySetups/LinuxDev/Nordic-Folders.tar.xz -C ~/.icons
 Open tweaks -> Appearance -> set applications, shell to Nordic-bluish-accent, set icons to Nordic
 -> Window Titlebars -> Placement = Left
 
-### Set the workspaces
-
-Set 6 static workspaces
-
 ### Install zsh, vim, and tool to provide chsh
 
 util-linux-user provides chsh command
@@ -163,7 +166,7 @@ or in this base repo in fonts/ttf folder (might as well install JetBrains fonts 
 
 Install the JetBrains mono font Available on their [website](https://www.jetbrains.com/lp/mono/)
 
-### Install Node theme
+### Install Nord theme for Gnome Terminal
 
 Follow instructions from their [github](https://github.com/arcticicestudio/nord-gnome-terminal)
 
@@ -290,7 +293,7 @@ Exit terminal and reopen. It'll give a bit of an error but that's okay. It's a o
 python3-devel probably only necessary if installing psycopg2 pip module
 
 ```sh
-sudo dnf install python3-pip python3-virtualenv python3-devel
+sudo dnf install python3-pip python3-virtualenv python3-devel python3-wheel
 ```
 
 ### Install Node LTS
@@ -330,4 +333,4 @@ Follow instructions [here](https://github.com/jasonmb626/mySetups/blob/main/VSCo
 
 ### Postgres
 
-Follow instructions [here](https://github.com/jasonmb626/mySetups/blob/main/LinuxDev/Fedora_35_postgres-devel.md).
+Follow instructions [here](https://github.com/jasonmb626/mySetups/blob/main/LinuxDev/Fedora_36_postgres-devel.md).
