@@ -68,7 +68,7 @@ sudo dnf group upgrade --with-optional Multimedia
 
 sudo dnf group upgrade --with-optional Multimedia after installing RPM fusion seems to help some streaming video playback. Reboot may be required.
 the groupupdate of sound-and-video may not do anything? Doesn't seem to hurt. Previously noted missing software options in Gnome Software that was audio-related.
-sudo dnf install ffmpeg-libs installs slightly less stuff than the above and also seems to work, but again, REBOOT required.
+sudo dnf install ffmpeg-libs installs slightly less stuff than the above and also seems to work, but again, REBOOT required. (We'll be rebooting in a few steps so no need to rush a reboot.)
 
 ## Desktop Appearance
 
@@ -87,11 +87,15 @@ Download your [wallpaper](https://wallpaperaccess.com/download/blue-lagoon-39083
 
 (Recommend placing it in ~/.local/share/wallpapers)
 
+Set the background
+
+(Or wait until we import dconf settings later. It'll do the same thing.)
+
 Right click desktop, select Change Background. Add Picture and set it as your desktop wallpaper
 
-### (Optional) Set your workspaces
+### Set your workspaces
 
-This will happen automatically when loading dconf settings later in doc
+(Or wait until we import dconf settings later. It'll do the same thing.)
 
 Settings -> Multitasking
 
@@ -125,7 +129,7 @@ You'll need to install the browser plugin (it'll prompt you) and then refresh th
 
 ## Download your preferred theme
 
-Download [Nordic-bluish-accent.tar.xz](https://github.com/jasonmb626/LinuxDev/raw/main/Nordic-bluish-accent.tar.xz) and [Nordic-Folders.tar.xz](https://github.com/jasonmb626/LinuxDev/raw/main/Nordic-bluish-accent.tar.xz) from your GitHub or copy from you host share
+Download [Nordic-bluish-accent.tar.xz](https://github.com/jasonmb626/LinuxDev/raw/main/Nordic-bluish-accent.tar.xz) and [Nordic-Folders.tar.xz](https://github.com/jasonmb626/LinuxDev/raw/main/Nordic-bluish-accent.tar.xz) from your GitHub or copy from you host share or from (gnome-look)[https://www.gnome-look.org/p/1267246]
 
 ```
 mkdir ~/.themes
@@ -136,7 +140,14 @@ tar xvfJ /media/sf_mySetups/LinuxDev/Nordic-Folders.tar.xz -C ~/.icons
 
 ### Set the themes
 
-Open tweaks -> Appearance -> set applications, shell to Nordic-bluish-accent, set icons to Nordic
+(Or wait until we import dconf settings later. It'll do the same thing.)
+
+Open tweaks 
+-> Appearance
+- Icons: Nordic
+- Shell: Nordic-bluish-accent-v40
+- Legacy Applications: Nordic-bluish-accent
+
 -> Window Titlebars -> Placement = Left
 
 ### Install zsh, vim, and tool to provide chsh
@@ -189,7 +200,7 @@ Under profiles Choose Nord
 Check custom font, set to MesloLGS NF 12
 Using down delta next to Nord choose set as default.
 
-Optional - under colors, set transparent background.
+Optional - under colors, set transparent background. (This was working in previous versions but not working now????)
 
 ### Install and Configure Powerline 10k
 
@@ -337,11 +348,68 @@ dconf load / < /media/sf_mySetups/LinuxDev/user.conf
 
 This loads the following configuration:
 ```
+[org/gnome/desktop/background]
+color-shading-type='solid'
+picture-options='zoom'
+picture-uri='file:///home/dev/.local/share/backgrounds/2022-05-16-07-54-47-3908317.jpg'
+picture-uri-dark='file:///home/dev/.local/share/backgrounds/2022-05-16-07-54-47-3908317.jpg'
+primary-color='#000000000000'
+secondary-color='#000000000000'
+
+[org/gnome/desktop/interface]
+color-scheme='prefer-dark'
+font-antialiasing='grayscale'
+font-hinting='slight'
+gtk-theme='Nordic-bluish-accent'
+icon-theme='Nordic'
+
+[org/gnome/desktop/peripherals/keyboard]
+numlock-state=true
+
+[org/gnome/desktop/wm/preferences]
+button-layout='close,minimize,maximize:appmenu'
+
+[org/gnome/desktop/screensaver]
+color-shading-type='solid'
+picture-options='zoom'
+picture-uri='file:///home/dev/.local/share/backgrounds/2022-05-16-07-54-47-3908317.jpg'
+primary-color='#000000000000'
+secondary-color='#000000000000'
+
 [org/gnome/desktop/wm/preferences]
 num-workspaces=6
 
 [org/gnome/mutter]
 dynamic-workspaces=false
+
+[org/gnome/shell/extensions/user-theme]
+name='Nordic-bluish-accent-v40'
+
+[org/gnome/terminal/legacy/profiles:/:ecf2cc85-2400-456d-aaa3-fdcdc01dbea4]
+background-color='#2E3440'
+background-transparency-percent=4
+bold-color='#D8DEE9'
+bold-color-same-as-fg=true
+cursor-background-color='rgb(216,222,233)'
+cursor-colors-set=true
+cursor-foreground-color='rgb(59,66,82)'
+font='MesloLGS NF 12'
+foreground-color='#D8DEE9'
+highlight-background-color='rgb(136,192,208)'
+highlight-colors-set=true
+highlight-foreground-color='rgb(46,52,64)'
+nord-gnome-terminal-version='0.1.0'
+palette=['#3B4252', '#BF616A', '#A3BE8C', '#EBCB8B', '#81A1C1', '#B48EAD', '#88C0D0', '#E5E9F0', '#4C566A', '#BF616A', '#A3BE8C', '#EBCB8B', '#81A1C1', '#B48EAD', '#8FBCBB', '#ECEFF4']
+use-system-font=false
+use-theme-background=false
+use-theme-colors=false
+use-theme-transparency=false
+use-transparent-background=false
+visible-name='Nord'
+
+[org/gnome/shell/keybindings]
+open-application-menu=['<Super>F9']
+toggle-message-tray=@as []
 
 [org/gnome/desktop/wm/keybindings]
 show-desktop=['<Super>d']
@@ -351,6 +419,9 @@ switch-to-workspace-3=['<Super>o']
 switch-to-workspace-4=['<Shift><Super>u']
 switch-to-workspace-5=['<Shift><Super>i']
 switch-to-workspace-6=['<Shift><Super>o']
+
+[org/gnome/settings-daemon/plugins/media-keys]
+custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/']
 
 [org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0]
 binding='<Super>Return'
