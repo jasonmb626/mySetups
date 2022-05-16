@@ -376,6 +376,8 @@ flatpak install flathub com.jetbrains.IntelliJ-IDEA-Community
 
 #### If using VSCode/VSCodium/Code - OSS
 
+Only VSCode has full access to working extensions in the marketplace. It's hard to hack some of those to work in OSS versions.
+
 <details>
   <summary>VSCode</summary>
     <details>
@@ -424,7 +426,7 @@ flatpak install flathub com.vscodium.codium
   <summary>Code OSS</summary>
 
 ```sh
-flatpak install https://flathub.org/repo/appstream/com.visualstudio.code.flatpakref
+flatpak install flathub com.visualstudio.code-oss
 ```
 
 </details>
