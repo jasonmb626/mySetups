@@ -8,7 +8,7 @@
 
 ```sh
 sudo dnf groupinstall 'Development Tools' 'Development Libraries'
-sudo dnf install moby-engine libpq-devel postgresql
+sudo dnf install moby-engine libpq-devel postgresql docker-compose
  
 sudo usermod -aG docker dev
 sudo systemctl start docker
@@ -19,15 +19,6 @@ TODO: try with just sudo dnf install python3-devel instead of groupinstall devel
 groupinstall 'Development Tools' installs things like gcc,'Development Libraries' for Python.h etc
 libpq-devel is postgres devel headers etc 
 The above needed for psycopg2 to successfully install later
-
-### Install Docker Compose
-
-```sh
-sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
-```
-
-From this (link)[https://docs.docker.com/compose/install/]
 
 ### Postgres via docker
 
@@ -158,8 +149,10 @@ From here you should not need to switch to psql user to login to psql. user dev 
 
 ### Connect to Database instance
 
+The environment variables are set to connect as app to a database that doesn't exist yet. You must be explicit about how to connect via the new superuser.
+
 ```sh
-psql
+psql -U dev -W -d postgres
 ```
 
 ### Create and connect to database
@@ -187,6 +180,7 @@ Create a role for our app
   GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO app;
 ```
 
+You'll need to go back through these grants each time a new relation is created.
 
 ### Insert some dummy data for testing
 
