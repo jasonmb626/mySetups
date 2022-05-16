@@ -15,8 +15,8 @@ sudo systemctl start docker
 sudo systemctl enable docker
 ```
 
-TODO: try with just sudo dnf install python3-devel instead of groupinstall development stuff
-groupinstall 'Development Tools' installs things like gcc,'Development Libraries' for Python.h etc
+Note: sudo dnf install python3-devel instead of groupinstall development stuff will work for Python.h etc (needed for psycopg2 build later)
+groupinstall 'Development Tools' installs things like gcc,'Development Libraries' too, and is my recommendation.
 libpq-devel is postgres devel headers etc 
 The above needed for psycopg2 to successfully install later
 
@@ -102,7 +102,6 @@ docker exec -it <container name> /usr/bin/psql -U postgres
 Create a role for our dev user
 
 ```sql
-  CREATE DATABASE dev;
   CREATE ROLE dev WITH SUPERUSER CREATEROLE CREATEDB LOGIN PASSWORD '123456';
   exit
 ```
