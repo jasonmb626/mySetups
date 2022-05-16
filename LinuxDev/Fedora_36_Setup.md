@@ -129,13 +129,14 @@ You'll need to install the browser plugin (it'll prompt you) and then refresh th
 
 ## Download your preferred theme
 
-Download [Nordic-bluish-accent.tar.xz](https://github.com/jasonmb626/LinuxDev/raw/main/Nordic-bluish-accent.tar.xz) and [Nordic-Folders.tar.xz](https://github.com/jasonmb626/LinuxDev/raw/main/Nordic-bluish-accent.tar.xz) from your GitHub or copy from you host share or from (gnome-look)[https://www.gnome-look.org/p/1267246]
+Download [Nordic-bluish-accent.tar.xz](https://github.com/jasonmb626/LinuxDev/raw/main/Nordic-bluish-accent.tar.xz) and [Nordic-Folders.tar.xz](https://github.com/jasonmb626/LinuxDev/raw/main/Nordic-bluish-accent.tar.xz) from your GitHub or copy from you host share or from gnome-look (theme, icons)[https://www.gnome-look.org/p/1267246] and (cursors)[https://www.gnome-look.org/p/1571937]
 
 ```
 mkdir ~/.themes
 tar xvfJ /media/sf_mySetups/LinuxDev/Nordic-bluish-accent.tar.xz -C ~/.themes
 mkdir ~/.icons
 tar xvfJ /media/sf_mySetups/LinuxDev/Nordic-Folders.tar.xz -C ~/.icons
+tar xvfz /media/sf_mySetups/LinuxDev/Nordzy-cursors.tar.gz -C ~/.icons
 ```
 
 ### Set the themes
@@ -358,6 +359,7 @@ secondary-color='#000000000000'
 
 [org/gnome/desktop/interface]
 color-scheme='prefer-dark'
+cursor-theme='Nordzy-cursors'
 font-antialiasing='grayscale'
 font-hinting='slight'
 gtk-theme='Nordic-bluish-accent'
