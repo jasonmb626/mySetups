@@ -1,4 +1,4 @@
-# Setting up my Fedora 36 development machine (WIP)
+# Setting up my Fedora 36 development machine
 
 From a fresh Fedora 36 installation, updated, username dev
 
