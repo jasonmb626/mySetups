@@ -351,8 +351,8 @@ This loads the following configuration:
 [org/gnome/desktop/background]
 color-shading-type='solid'
 picture-options='zoom'
-picture-uri='file:///home/dev/.local/share/backgrounds/2022-05-16-07-54-47-3908317.jpg'
-picture-uri-dark='file:///home/dev/.local/share/backgrounds/2022-05-16-07-54-47-3908317.jpg'
+picture-uri='file:///home/dev/.local/share/wallpapers/3908317.jpg'
+picture-uri-dark='file:///home/dev/.local/share/wallpapers/3908317.jpg'
 primary-color='#000000000000'
 secondary-color='#000000000000'
 
@@ -372,7 +372,7 @@ button-layout='close,minimize,maximize:appmenu'
 [org/gnome/desktop/screensaver]
 color-shading-type='solid'
 picture-options='zoom'
-picture-uri='file:///home/dev/.local/share/backgrounds/2022-05-16-07-54-47-3908317.jpg'
+picture-uri='file:///home/dev/.local/share/wallpapers/3908317.jpg'
 primary-color='#000000000000'
 secondary-color='#000000000000'
 
