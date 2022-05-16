@@ -112,11 +112,12 @@ If flatpak Gnome Extension requires you to choose from multiple matches, choose 
 Install from the [User Themes](https://extensions.gnome.org/extension/19/user-themes/) extension page
 You'll need to install the browser plugin (it'll prompt you) and then refresh the page
 
+### Enable [Dash to Dock for COSMIC](https://extensions.gnome.org/extension/5004/dash-to-dock-for-cosmic/)
+(Check back in on https://extensions.gnome.org/extension/307/dash-to-dock/. Seems less maintained and above doesn't seem to clash even if not using COSMIC)
+
 #### Enable [Clipboard Indicator](https://extensions.gnome.org/extension/779/clipboard-indicator/)
 
 #### Enable [Workspaces Bar](https://extensions.gnome.org/extension/3851/workspaces-bar/)
-
-#### Enable [Workspace Switch Wraparound](https://extensions.gnome.org/extension/1116/workspace-switch-wraparound/)
 
 #### Enable [Compiz alike magic lamp effect](https://extensions.gnome.org/extension/3740/compiz-alike-magic-lamp-effect/)
 
@@ -308,6 +309,42 @@ nvm i --lts
 npm i -g nodemon
 ```
 
+### Set additional Gnome Keyboard Shortcuts
+
+<details>
+  <summary>Manually</summary>
+  Settings -> Keyboard -> Keyboard Shortcuts
+  View and Customize Shortcuts
+
+  Navigation
+
+  Set "Hide all normal windows" to Super+D
+  Set your "Switch to workspace #" to your keys
+
+</details>
+
+OR
+<details>
+  <summary>Import via dconf</summary>
+
+```sh
+dconf load / < /media/sf_mySetups/LinuxDev/user.conf
+```
+
+This loads the following configuration:
+```
+[org/gnome/desktop/wm/keybindings]
+show-desktop=['<Super>d']
+switch-to-workspace-1=['<Super>u']
+switch-to-workspace-2=['<Super>i']
+switch-to-workspace-3=['<Super>o']
+switch-to-workspace-4=['<Shift><Super>u']
+switch-to-workspace-5=['<Shift><Super>i']
+switch-to-workspace-6=['<Shift><Super>o']
+```
+</details>
+(via dconf allows setting keys to switch to more workspaces)
+
 ### IDEs/Code Editors
 
 #### If using Intellij IDEA
@@ -328,6 +365,7 @@ sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.m
 sudo dnf check-update
 sudo dnf install code
 ```
+
 
 Follow instructions [here](https://github.com/jasonmb626/mySetups/blob/main/VSCode_Setup.md ) to set up your VS Code environment.
 
