@@ -89,7 +89,9 @@ Download your [wallpaper](https://wallpaperaccess.com/download/blue-lagoon-39083
 
 Right click desktop, select Change Background. Add Picture and set it as your desktop wallpaper
 
-### Set your workspaces
+### (Optional) Set your workspaces
+
+This will happen automatically when loading dconf settings later in doc
 
 Settings -> Multitasking
 
@@ -112,7 +114,7 @@ If flatpak Gnome Extension requires you to choose from multiple matches, choose 
 Install from the [User Themes](https://extensions.gnome.org/extension/19/user-themes/) extension page
 You'll need to install the browser plugin (it'll prompt you) and then refresh the page
 
-### Enable [Dash to Dock for COSMIC](https://extensions.gnome.org/extension/5004/dash-to-dock-for-cosmic/)
+#### Enable [Dash to Dock for COSMIC](https://extensions.gnome.org/extension/5004/dash-to-dock-for-cosmic/)
 (Check back in on https://extensions.gnome.org/extension/307/dash-to-dock/. Seems less maintained and above doesn't seem to clash even if not using COSMIC)
 
 #### Enable [Clipboard Indicator](https://extensions.gnome.org/extension/779/clipboard-indicator/)
@@ -166,6 +168,8 @@ Links [here](https://github.com/romkatv/powerlevel10k#meslo-nerd-font-patched-fo
 or in this base repo in fonts/ttf folder (might as well install JetBrains fonts at the same time :) )
 
 Install the JetBrains mono font Available on their [website](https://www.jetbrains.com/lp/mono/)
+
+Restart Gnome Terminal so fonts can be found.
 
 ### Install Nord theme for Gnome Terminal
 
@@ -287,7 +291,7 @@ zstyle ':completion:*' menu select
 alias ls="ls --color=auto"
 ```
 
-Exit terminal and reopen. It'll give a bit of an error but that's okay. It's a one-time error.
+Exit terminal and reopen. After a few seconds it'll give a bit of an error/weird output from zsh-nvm but that's okay. It's a one-time thing.
 
 ### Install Extra python stuff, pip, venv, wheel, development libraries
 
@@ -333,6 +337,12 @@ dconf load / < /media/sf_mySetups/LinuxDev/user.conf
 
 This loads the following configuration:
 ```
+[org/gnome/desktop/wm/preferences]
+num-workspaces=6
+
+[org/gnome/mutter]
+dynamic-workspaces=false
+
 [org/gnome/desktop/wm/keybindings]
 show-desktop=['<Super>d']
 switch-to-workspace-1=['<Super>u']
@@ -341,6 +351,17 @@ switch-to-workspace-3=['<Super>o']
 switch-to-workspace-4=['<Shift><Super>u']
 switch-to-workspace-5=['<Shift><Super>i']
 switch-to-workspace-6=['<Shift><Super>o']
+
+[org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0]
+binding='<Super>Return'
+command='/usr/bin/gnome-terminal'
+name='gnome-terminal'
+
+[org/gnome/shell/extensions/clipboard-indicator]
+clear-history=['<Super>F10']
+next-entry=['<Super>F12']
+prev-entry=['<Super>F11']
+toggle-menu=['<Super>v']
 ```
 </details>
 (via dconf allows setting keys to switch to more workspaces)
@@ -353,11 +374,13 @@ switch-to-workspace-6=['<Shift><Super>o']
 flatpak install flathub com.jetbrains.IntelliJ-IDEA-Community
 ```
 
-#### If using VSCode
+#### If using VSCode/VSCodium/Code - OSS
 
+<details>
+  <summary>VSCode</summary>
+    <details>
+       <summary>dnf</summary>
 Install [VS Code](https://code.visualstudio.com/docs/setup/linux#_rhel-fedora-and-centos-based-distributions)
-
-(Todo - VSCodium? Code-OSS)
 
 ```sh
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
@@ -366,6 +389,45 @@ sudo dnf check-update
 sudo dnf install code
 ```
 
+  </details>
+  <details>
+    <summary>Flatpak</summary>
+
+```sh
+flatpak install https://flathub.org/repo/appstream/com.visualstudio.code.flatpakref
+```
+
+  </details>
+</details>
+<details>
+  <summary>VSCodium</summary>
+  <details>
+     <summary>dnf</summary>
+
+```sh
+sudo rpmkeys --import https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/-/raw/master/pub.gpg
+printf "[gitlab.com_paulcarroty_vscodium_repo]\nname=download.vscodium.com\nbaseurl=https://download.vscodium.com/rpms/\nenabled=1\ngpgcheck=1\nrepo_gpgcheck=1\ngpgkey=https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/-/raw/master/pub.gpg\nmetadata_expire=1h" | sudo tee -a /etc/yum.repos.d/vscodium.repo
+sudo dnf install codium
+```
+
+  </details>
+  <details>
+    <summary>Flatpak</summary>
+
+```sh
+flatpak install flathub com.vscodium.codium
+```
+
+  </details>
+</details>
+<details>
+  <summary>Code OSS</summary>
+
+```sh
+flatpak install https://flathub.org/repo/appstream/com.visualstudio.code.flatpakref
+```
+
+</details>
 
 Follow instructions [here](https://github.com/jasonmb626/mySetups/blob/main/VSCode_Setup.md ) to set up your VS Code environment.
 
