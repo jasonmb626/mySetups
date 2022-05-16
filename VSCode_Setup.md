@@ -9,8 +9,6 @@ General:
 - vscode-icons (VSCode Icons Team)
 - Camel Case Navigation (maptz)
 - REST Client (Huachao Mao)
-- advanced-new-file (patbenatar) ? Is this necessary with File Utils? Check this.
-- File Utils (Steffen Leistner)
 Python:
 - Python (Microsoft)
 - Pylance (Microsoft) (Should install automically with above Python)
@@ -18,6 +16,40 @@ Javascript:
 - Prettier (Prettier)
 - ESLint (Microsoft)
 - Jest Runner (firsttris)
+
+Here are the install commands for ctrl+p
+
+```
+ext install arcticicestudio.nord-visual-studio-code
+```
+
+```
+ext install vscode-icons-team.vscode-icons
+```
+
+```
+ext install maptz.camelcasenavigation
+```
+
+```
+ext install humao.rest-client
+```
+
+```
+ext install ms-python.python
+```
+
+```
+ext install esbenp.prettier-vscode
+```
+
+```
+ext install dbaeumer.vscode-eslint
+```
+
+```
+ext install firsttris.vscode-jest-runner
+```
 
 ### Update the comment colors in nord theme
 Open ~/.vscode/extensions/arcticicestudio.nord-visual-studio-code-0.19.0/themes/nord-color-theme.json
