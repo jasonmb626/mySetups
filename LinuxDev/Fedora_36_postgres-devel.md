@@ -138,7 +138,6 @@ exit
 Create a role for our dev user
 
 ```sql
-  CREATE DATABASE dev;
   CREATE ROLE dev WITH SUPERUSER CREATEROLE CREATEDB LOGIN PASSWORD '123456';
   exit
 ```
@@ -154,6 +153,8 @@ The environment variables are set to connect as app to a database that doesn't e
 ```sh
 psql -U dev -W -d postgres
 ```
+
+After creating the database mentioned in the environment variables, you can leave off -d postgres for all future connection attempts.
 
 ### Create and connect to database
 
@@ -174,7 +175,6 @@ CREATE TABLE test (
 Create a role for our app
 
 ```sql
-  CREATE DATABASE app;
   CREATE ROLE app WITH LOGIN PASSWORD '654321';
   GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO app;
   GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO app;
