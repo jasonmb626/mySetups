@@ -2,6 +2,14 @@
 
 From a fresh Fedora 36 installation, updated, username dev
 
+If using VirtualBox, the following will be needed for many of the commands in this document to work \(references to mySetups share\)
+
+```sh
+sudo usermod -aG vboxsf dev
+```
+
+Then _reboot_ or changes won't take effect.
+
 ## (Optional) Change SELinux to permissive
 
 This step tends to help with certain issues like Udemy video playback and never figured out how to get docker to work properly when passing in volumes while SE Linux is enforcing.
@@ -182,7 +190,10 @@ or in this base repo in fonts/ttf folder (might as well install JetBrains fonts 
 
 Install the JetBrains mono font Available on their [website](https://www.jetbrains.com/lp/mono/)
 
-#### Install Theme
+#### Install Alacritty Theme
+
+<details>
+  <summary>Manually</summary>
 
 Follow directions on their [GitHub page](https://github.com/arcticicestudio/nord-alacritty)
 
@@ -191,15 +202,6 @@ Using their src.yml in raw form, write it to your alacritty.yml file
 ```sh
 mkdir ~/.config/alacritty
 vim ~/.config/alacritty/alacritty.yml
-```
-
-or 
-
-```sh
-mkdir -p ~/.config/alacritty
-git clone https://github.com/arcticicestudio/nord-alacritty.git
-cp nord-alacritty/src/nord.yml ~/.config/alacritty/alacritty.yml
-rm -fr nord-alacritty
 ```
 
 Also set background opacity and font
@@ -215,11 +217,27 @@ font:
     family: "MesloLGS NF"
 ```
 
-or
+</details>
+
+<details>
+  <summary>Via Command prompt copy/paste</summary>
+
+```sh
+mkdir -p ~/.config/alacritty
+git clone https://github.com/arcticicestudio/nord-alacritty.git
+cp nord-alacritty/src/nord.yml ~/.config/alacritty/alacritty.yml
+rm -fr nord-alacritty
+```
+
+Also set background opacity and font
+
+(This option was recently changed from background_opacity: 0.8 to the below)
 
 ```sh
 echo "window:\n    opacity: 0.8\n    decorations: None\nfont:\n    normal:\n        family: \"MesloLGS NF\"" >> ~/.config/alacritty/alacritty.yml
 ```
+
+</details>
 
 ### Install and Configure Powerline 10k
 
@@ -278,7 +296,7 @@ My options:
 git clone https://github.com/lukechilds/zsh-nvm.git ~/.zsh-nvm
 ```
 
-### Set you .zshrc
+### Set your .zshrc
 
 <details>
   <summary>Manually</summary>
@@ -358,7 +376,7 @@ nvm i --lts
 npm i -g nodemon
 ```
 
-### Set additional Gnome Keyboard Shortcuts
+### Set additional Gnome Keyboard Shortcuts/load any Gnome Settings not already set manually
 
 <details>
   <summary>Manually</summary>
@@ -440,6 +458,9 @@ custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybin
 binding='<Super>t'
 command='/usr/bin/alacritty'
 name='Alacritty Terminal'
+
+[org/gnome/shell]
+enabled-extensions=['background-logo@fedorahosted.org', 'pop-shell@system76.com']
 
 [org/gnome/shell/extensions/clipboard-indicator]
 clear-history=['<Super>F10']
