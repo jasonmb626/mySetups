@@ -68,7 +68,7 @@ sudo dnf group upgrade --with-optional Multimedia
 
 sudo dnf group upgrade --with-optional Multimedia after installing RPM fusion seems to help some streaming video playback. Reboot may be required.
 the groupupdate of sound-and-video may not do anything? Doesn't seem to hurt. Previously noted missing software options in Gnome Software that was audio-related.
-sudo dnf install ffmpeg-libs installs slightly less stuff than the above and also seems to work, but again, REBOOT required. (We'll be rebooting in a few steps so no need to rush a reboot.)
+sudo dnf install ffmpeg-libs installs slightly less stuff than the above and also seems to work, but again, REBOOT required. \(We'll be rebooting in a few steps so no need to rush a reboot.\)
 
 ## Desktop Appearance
 
@@ -260,6 +260,10 @@ My options:
 git clone https://github.com/lukechilds/zsh-nvm.git ~/.zsh-nvm
 ```
 
+### Set you .zshrc
+
+<details>
+  <summary>Manually</summary>
 ### Edit your .zshrc
 
 ```sh
@@ -302,6 +306,17 @@ zstyle ':completion:*' menu select
 
 alias ls="ls --color=auto"
 ```
+
+</details>
+
+<details>
+  <summary>Copy from your share</summary>
+
+```sh
+cp /media/sf_mySetups/LinuxDev/.zshrc ~
+```
+
+</details>
 
 Exit terminal and reopen. After a few seconds it'll give a bit of an error/weird output from zsh-nvm but that's okay. It's a one-time thing.
 
