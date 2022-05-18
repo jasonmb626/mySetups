@@ -129,7 +129,7 @@ You'll need to install the browser plugin (it'll prompt you) and then refresh th
 
 ## Download your preferred theme
 
-Download [Nordic-bluish-accent.tar.xz](https://github.com/jasonmb626/LinuxDev/raw/main/Nordic-bluish-accent.tar.xz) and [Nordic-Folders.tar.xz](https://github.com/jasonmb626/LinuxDev/raw/main/Nordic-bluish-accent.tar.xz) from your GitHub or copy from you host share or from gnome-look (theme, icons)[https://www.gnome-look.org/p/1267246] and (cursors)[https://www.gnome-look.org/p/1571937]
+Download [Nordic-bluish-accent.tar.xz](https://github.com/jasonmb626/LinuxDev/raw/main/Nordic-bluish-accent.tar.xz), [Nordic-Folders.tar.xz](https://github.com/jasonmb626/LinuxDev/raw/main/Nordic-bluish-accent.tar.xz), and [Nordzy-cursors.tar.gz](https://github.com/jasonmb626/LinuxDev/raw/main/Nordzy-cursors.tar.gz) from your GitHub or copy from you host share or from gnome-look (theme, icons)[https://www.gnome-look.org/p/1267246] and (cursors)[https://www.gnome-look.org/p/1571937]
 
 ```
 mkdir ~/.themes
@@ -191,7 +191,7 @@ Follow instructions from their [github](https://github.com/arcticicestudio/nord-
 git clone https://github.com/arcticicestudio/nord-gnome-terminal.git
 cd nord-gnome-terminal/src
 ./nord.sh
-cd ..
+cd ../..
 rm -fr nord-gnome-terminal
 ```
 
@@ -402,28 +402,6 @@ dynamic-workspaces=false
 [org/gnome/shell/extensions/user-theme]
 name='Nordic-bluish-accent-v40'
 
-[org/gnome/terminal/legacy/profiles:/:ecf2cc85-2400-456d-aaa3-fdcdc01dbea4]
-background-color='#2E3440'
-background-transparency-percent=4
-bold-color='#D8DEE9'
-bold-color-same-as-fg=true
-cursor-background-color='rgb(216,222,233)'
-cursor-colors-set=true
-cursor-foreground-color='rgb(59,66,82)'
-font='MesloLGS NF 12'
-foreground-color='#D8DEE9'
-highlight-background-color='rgb(136,192,208)'
-highlight-colors-set=true
-highlight-foreground-color='rgb(46,52,64)'
-nord-gnome-terminal-version='0.1.0'
-palette=['#3B4252', '#BF616A', '#A3BE8C', '#EBCB8B', '#81A1C1', '#B48EAD', '#88C0D0', '#E5E9F0', '#4C566A', '#BF616A', '#A3BE8C', '#EBCB8B', '#81A1C1', '#B48EAD', '#8FBCBB', '#ECEFF4']
-use-system-font=false
-use-theme-background=false
-use-theme-colors=false
-use-theme-transparency=false
-use-transparent-background=false
-visible-name='Nord'
-
 [org/gnome/shell/keybindings]
 open-application-menu=['<Super>F9']
 toggle-message-tray=@as []
@@ -441,7 +419,7 @@ switch-to-workspace-6=['<Shift><Super>o']
 custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/']
 
 [org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0]
-binding='<Super>Return'
+binding='<Super>t'
 command='/usr/bin/gnome-terminal'
 name='gnome-terminal'
 
