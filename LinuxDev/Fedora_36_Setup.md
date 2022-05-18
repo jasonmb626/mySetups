@@ -210,11 +210,14 @@ Also set background opacity and font
 
 ```
 window:
-  opacity: 0.8
-  decorations: None
+    opacity: 0.8
+    padding:
+        x: 10
+        y: 10
+    decorations: None
 font:
-  normal:
-    family: "MesloLGS NF"
+    normal:
+        family: "MesloLGS NF"
 ```
 
 </details>
@@ -234,7 +237,7 @@ Also set background opacity and font
 (This option was recently changed from background_opacity: 0.8 to the below)
 
 ```sh
-echo "window:\n    opacity: 0.8\n    decorations: None\nfont:\n    normal:\n        family: \"MesloLGS NF\"" >> ~/.config/alacritty/alacritty.yml
+echo -e "window:\n    opacity: 0.8\n    padding:\n        x: 10\n        y: 10\n    decorations: None\nfont:\n    normal:\n        family: \"MesloLGS NF\"" >> ~/.config/alacritty/alacritty.yml
 ```
 
 </details>
@@ -460,7 +463,7 @@ command='/usr/bin/alacritty'
 name='Alacritty Terminal'
 
 [org/gnome/shell]
-enabled-extensions=['background-logo@fedorahosted.org', 'pop-shell@system76.com']
+enabled-extensions=['background-logo@fedorahosted.org', 'pop-shell@system76.com', 'clipboard-indicator@tudmotu.com', 'compiz-alike-magic-lamp-effect@hermes83.github.com', 'dash-to-dock-cosmic-@halfmexicanhalfamazing@gmail.com', 'user-theme@gnome-shell-extensions.gcampax.github.com', 'workspaces-bar@fthx']
 
 [org/gnome/shell/extensions/clipboard-indicator]
 clear-history=['<Super>F10']
