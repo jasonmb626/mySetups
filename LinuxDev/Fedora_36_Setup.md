@@ -151,18 +151,19 @@ Open tweaks
 
 -> Window Titlebars -> Placement = Left
 
-### Install zsh, vim, and tool to provide chsh
+### Install zsh, vim, alacritty, gnome-shell-extension-pop-shell, xprop and tool to provide chsh
 
 util-linux-user provides chsh command
+xprop needed by gnome-shell-extension-pop-shell, which we'll use since we'll be running alacritty windowless and it'll provide keyboard sizing abilities
 
 ```sh
-sudo dnf install zsh util-linux-user vim
+sudo dnf install zsh util-linux-user vim alacritty gnome-shell-extension-pop-shell xprop
 chsh
 ```
 
 set to /usr/bin/zsh
 
-### Gnome Terminal
+### Terminal
 
 #### Install fonts ####
 
@@ -181,27 +182,44 @@ or in this base repo in fonts/ttf folder (might as well install JetBrains fonts 
 
 Install the JetBrains mono font Available on their [website](https://www.jetbrains.com/lp/mono/)
 
-Restart Gnome Terminal so fonts can be found.
+#### Install Theme
 
-### Install Nord theme for Gnome Terminal
+Follow directions on their [GitHub page](https://github.com/arcticicestudio/nord-alacritty)
 
-Follow instructions from their [github](https://github.com/arcticicestudio/nord-gnome-terminal)
+Using their src.yml in raw form, write it to your alacritty.yml file
 
 ```sh
-git clone https://github.com/arcticicestudio/nord-gnome-terminal.git
-cd nord-gnome-terminal/src
-./nord.sh
-cd ../..
-rm -fr nord-gnome-terminal
+mkdir ~/.config/alacritty
+vim ~/.config/alacritty/alacritty.yml
 ```
 
-Open Gnome Terminal. Hamburger menu => Preferences
+or 
 
-Under profiles Choose Nord
-Check custom font, set to MesloLGS NF 12
-Using down delta next to Nord choose set as default.
+```sh
+mkdir -p ~/.config/alacritty
+git clone https://github.com/arcticicestudio/nord-alacritty.git
+cp nord-alacritty/src/nord.yml ~/.config/alacritty/alacritty.yml
+rm -fr nord-alacritty
+```
 
-Optional - under colors, set transparent background. (This was working in previous versions but not working now????)
+Also set background opacity and font
+
+(This option was recently changed from background_opacity: 0.8 to the below)
+
+```
+window:
+  opacity: 0.8
+  decorations: None
+font:
+  normal:
+    family: "MesloLGS NF"
+```
+
+or
+
+```sh
+echo "window:\n    opacity: 0.8\n    decorations: None\nfont:\n    normal:\n        family: \"MesloLGS NF\"" >> ~/.config/alacritty/alacritty.yml
+```
 
 ### Install and Configure Powerline 10k
 
@@ -230,7 +248,7 @@ echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
 
 This is a good time to reboot so all the changes get sourced properly.
 
-Restart terminal and Powerlevel10k will prompt you for options.
+Start terminal and Powerlevel10k will prompt you for options.
 
 My options:
 * Diamond -> y
@@ -420,8 +438,8 @@ custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybin
 
 [org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0]
 binding='<Super>t'
-command='/usr/bin/gnome-terminal'
-name='gnome-terminal'
+command='/usr/bin/alacritty'
+name='Alacritty Terminal'
 
 [org/gnome/shell/extensions/clipboard-indicator]
 clear-history=['<Super>F10']
