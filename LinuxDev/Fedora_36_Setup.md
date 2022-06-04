@@ -209,8 +209,9 @@ Also set background opacity and font
 (This option was recently changed from background_opacity: 0.8 to the below)
 
 ```
+startup_mode: Maximized
 window:
-    opacity: 0.8
+    opacity: 0.9
     padding:
         x: 10
         y: 10
@@ -237,7 +238,7 @@ Also set background opacity and font
 (This option was recently changed from background_opacity: 0.8 to the below)
 
 ```sh
-echo -e "window:\n    opacity: 0.8\n    padding:\n        x: 10\n        y: 10\n    decorations: None\nfont:\n    normal:\n        family: \"MesloLGS NF\"" >> ~/.config/alacritty/alacritty.yml
+echo -e "startup_mode: Maximized\nwindow:\n    opacity: 0.9\n    padding:\n        x: 10\n        y: 10\n    decorations: None\nfont:\n    normal:\n        family: \"MesloLGS NF\"" >> ~/.config/alacritty/alacritty.yml
 ```
 
 </details>
