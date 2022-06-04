@@ -9,6 +9,7 @@ General:
 - vscode-icons (VSCode Icons Team)
 - Camel Case Navigation (maptz)
 - REST Client (Huachao Mao)
+- Docker (Microsoft)
 Python:
 - Python (Microsoft)
 - Pylance (Microsoft) (Should install automically with above Python)
@@ -33,6 +34,10 @@ ext install maptz.camelcasenavigation
 
 ```
 ext install humao.rest-client
+```
+
+```
+ext install ms-azuretools.vscode-docker
 ```
 
 ```
