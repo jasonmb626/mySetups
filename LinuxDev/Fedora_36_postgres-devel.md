@@ -177,21 +177,10 @@ Create a role for our app
   CREATE ROLE app WITH LOGIN PASSWORD '654321';
   GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO app;
   GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO app;
+  CREATE SCHEMA test;
+  ALTER DEFAULT PRIVILEGES IN SCHEMA test GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO app;
 ```
 You'll need to go back through these grants each time a new relation is created.
-
-Now create a test database, with more default freedoms for user app
-
-```sql
-  CREATE DATABASE test_project_name;
-  ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO app;
-```
-
-Connect to one of the databases
-
-```
-\c test_project_name;
-```
 
 ### Insert some dummy data for testing
 
