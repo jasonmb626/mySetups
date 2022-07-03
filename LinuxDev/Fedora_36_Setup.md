@@ -475,6 +475,16 @@ toggle-menu=['<Super>v']
 </details>
 (via dconf allows setting keys to switch to more workspaces)
 
+### Key Logging 
+
+Build logkeys from their [GitHub](https://github.com/kernc/logkeys)
+
+Run with the following command: \(my_lang.keymap is in your LinuxDev\)
+
+```sh
+sudo logkeys --start --keymap my_lang.keymap --output test.log
+```
+
 ### IDEs/Code Editors
 
 #### If using Intellij IDEA
