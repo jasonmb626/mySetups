@@ -2,6 +2,8 @@
 
 Having a dedicated machine in the home running Windows has its conveniences, so these steps are for getting Emby running in Windows, allowing a remote connection in, and finally having a Fedora Server instance autostart in VirtualBox for hosting the GitLab server.
 
+In case you forget, your current home server is hosted at 10.0.0.115
+
 ## Create an additional user
 
 Have trouble remoting in with "Microsoft Account" so create a new regular User w/o a Microsof Account
