@@ -65,7 +65,7 @@ sudo semanage port -m -t ssh_port_t -p tcp 8022
 Confirm changes
 
 ```sh
-semanage port -l | grep ssh
+sudo semanage port -l | grep ssh
 ```
 
 ### Allow 8022 on Firewalld, remove ssh service
@@ -101,9 +101,9 @@ docker run --detach \
   --publish 443:443 --publish 80:80 --publish 22:22 \
   --name gitlab \
   --restart always \
-  --volume ./gitlab_config:/etc/gitlab:Z \
-  --volume ./gitlab_logs:/var/log/gitlab:Z \
-  --volume ./gitlab_data:/var/opt/gitlab:Z \
+  --volume /home/jason/gitlab-test/gitlab_config:/etc/gitlab:Z \
+  --volume /home/jason/gitlab-test/gitlab_logs:/var/log/gitlab:Z \
+  --volume /home/jason/gitlab-test/gitlab_data:/var/opt/gitlab:Z \
   --shm-size 256m \
   gitlab/gitlab-ce:latest
 ```
