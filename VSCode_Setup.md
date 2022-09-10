@@ -363,6 +363,16 @@ If using vscode-vim, put in some keybindings to make it work better
     {
         "key": "ctrl+l",
         "command": "workbench.action.navigateRight"
+    },
+    {
+      "key": "shift+l",
+      "command": "workbench.action.nextEditor",
+      "when": "vim.mode == 'Normal'"
+    },
+    {
+      "key": "shift+h",
+      "command": "workbench.action.previousEditor",
+      "when": "vim.mode == 'Normal'"
     }
 ```
 
