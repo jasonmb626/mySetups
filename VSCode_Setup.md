@@ -1,5 +1,16 @@
-### Configure VS Code
+# Configure VS Code/VSCodium/VS Code OOS
 
+## Enable extensions gallery \(VSCodium/VS Code OOS\) Only
+
+For the Open Source packaged distrubutions of VSCode \(VSCodium/VS Code OOS\), by default only extensions available on open-vsx.org are shown.
+
+If you want all of the extensions available in vanilla VS Code then you will need to edit product.json and add the following:
+```json
+"extensionsGallery": {
+    "serviceUrl": "https://marketplace.visualstudio.com/_apis/public/gallery",
+    "itemUrl": "https://marketplace.visualstudio.com/items"
+}
+```
 #### Install VS Code extensions
 
 TODO: Do we need Prettier extension if ESLint is configured to use prettier?
@@ -7,7 +18,6 @@ TODO: Do we need Prettier extension if ESLint is configured to use prettier?
 General:
 - Nord (arcticicestudio)
 - vscode-icons (VSCode Icons Team)
-- Camel Case Navigation (maptz)
 - REST Client (Huachao Mao)
 - Docker (Microsoft)
 Python:
@@ -26,10 +36,6 @@ ext install arcticicestudio.nord-visual-studio-code
 
 ```
 ext install vscode-icons-team.vscode-icons
-```
-
-```
-ext install maptz.camelcasenavigation
 ```
 
 ```
@@ -71,7 +77,13 @@ Feel free to delete the javascript, python entries if you aren't using those lan
   "workbench.iconTheme": "vscode-icons",
   "workbench.colorTheme": "Nord",
   "editor.fontFamily": "'JetBrains Mono', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
-  "terminal.integrated.fontFamily": "Courier, 'MesloLGS NF'",
+  "terminal.integrated.fontFamily": "Courier, PowerlineSymbols",
+  "vim.camelCaseMotion.enable": true,
+  "vim.leader": "<space>",
+  "vim.replaceWithRegister": true,
+  "vim.useSystemClipboard": true,
+  "vim.useCtrlKeys": true,
+  "editor.lineNumbers": "relative",
   "editor.formatOnSave": true,
   "editor.tabSize": 2,
   "editor.insertSpaces": true,
@@ -81,7 +93,178 @@ Feel free to delete the javascript, python entries if you aren't using those lan
   },
   "[python]": {
     "editor.defaultFormatter": "ms-python.vscode-pylance"
-  }
+  },
+    "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": ["<leader>", "e"],
+      "commands": ["workbench.action.toggleSidebarVisibility"]
+    },
+    {
+      "before": ["<leader>", "z"],
+      "commands": ["workbench.action.focusSideBar"]
+    },
+    {
+      "before": ["<leader>", "f"],
+      "commands": [ "revealInExplorer" ],
+    },
+    {
+      "before": ["<leader>", "d", "b"],
+      "commands": [ "editor.debug.action.toggleBreakpoint" ]
+    },
+    {
+      "before": ["<leader>", "d", "B"],
+      "commands": [ "editor.debug.action.conditionalBreakpoint" ]
+    },
+    {
+      "before": ["<leader>", "d", "C"],
+      "commands": [ "editor.debug.action.runToCursor" ]
+    },
+    {
+      "before": ["<leader>", "<space>"],
+      "commands": [ "workbench.action.debug.continue" ]
+    },
+    {
+      "before": ["<leader>", "d", "j"],
+      "commands": [ "workbench.action.debug.stepOver" ]
+    },
+    {
+      "before": ["<leader>", "d", "l"],
+      "commands": [ "workbench.action.debug.stepInto" ]
+    },
+    {
+      "before": ["<leader>", "d", "h"],
+      "commands": [ "workbench.action.debug.stepOut" ]
+    },
+    {
+      "before": ["<leader>", "d", "p"],
+      "commands": [ "workbench.action.debug.pause" ]
+    },
+    {
+      "before": ["<leader>", "d", "r"],
+      "commands": [ "workbench.action.debug.restart" ]
+    },
+    {
+      "before": ["<leader>", "d", "s"],
+      "commands": [ "workbench.action.debug.stop" ]
+    },
+    {
+      "before": ["<leader>", "d", "c"],
+      "commands": [ "workbench.panel.repl.view.focus" ]
+    },
+    {
+      "before": ["<leader>", "d", "t"],
+      "commands": [ "terminal.focus" ]
+    },
+    {
+      "before": ["<leader>", "d", "o"],
+      "commands": [ "workbench.panel.output.focus" ]
+    },
+    {
+      "before": ["<leader>", "m"],
+      "commands": [ "workbench.action.closePanel" ]
+    },
+    {
+      "before": [ "d", "i", "l" ],
+      "after": [ "^", "d", "g", "_" ]
+    },
+    {
+      "before": [ "y", "i", "l" ],
+      "after": [ "^", "y", "g", "_" ]
+    },
+    {
+      "before": [ "d", "a", "l" ],
+      "after": [ "-1", "d", "$" ]
+    },
+    {
+      "before": [ "y", "a", "l" ],
+      "after": [ "-1", "y", "$" ]
+    },
+    {
+      "before": ["K"],
+       "commands": "editor.action.showHover",
+       "when": "editorTextFocus"
+    },
+    {
+      "before": ["K"],
+      "commands": "editor.debug.action.showDebugHover",
+      "when": "editorTextFocus && inDebugMode"
+    }
+  ],
+  "vim.visualModeKeyBindingsNonRecursive": [
+    {
+      "before": [">"],
+      "after": [">", "g", "v"]
+    },
+    {
+      "before": ["<"],
+      "after": ["<", "g" ,"v"]
+    },
+    {
+        "key": "alt+k",
+        "command": "editor.action.moveLinesUpAction",
+        "when": "editorTextFocus && !editorReadonly && vim.mode == 'Visual'"
+    },
+    {
+        "key": "alt+k",
+        "command": "editor.action.moveLinesUpAction",
+        "when": "editorTextFocus && !editorReadonly && vim.mode == 'VisualLine'"
+    },
+    {
+        "key": "alt+k",
+        "command": "editor.action.moveLinesUpAction",
+        "when": "editorTextFocus && !editorReadonly && vim.mode == 'VisualBlock'"
+    },
+    {
+        "key": "alt+j",
+        "command": "editor.action.moveLinesDownAction",
+        "when": "editorTextFocus && !editorReadonly && vim.mode == 'Visual'"
+    },
+    {
+        "key": "alt+j",
+        "command": "editor.action.moveLinesDownAction",
+        "when": "editorTextFocus && !editorReadonly && vim.mode == 'VisualLine'"
+    },
+    {
+        "key": "alt+j",
+        "command": "editor.action.moveLinesDownAction",
+        "when": "editorTextFocus && !editorReadonly && vim.mode == 'VisualBlock'"
+    },
+    {
+        "key": "shift+win+i",
+        "command": "workbench.action.inspectContextKeys"
+    }
+    {
+      "before": ["ctrl+r", "m"],
+      "commands": [ {
+        "command": "editor.action.codeAction",
+        "args": {
+          "kind": "refactor.extract.function"
+        },
+      }]
+    },
+    {
+      "before": ["ctrl+r", "c"],
+      "commands": [ {
+        "command": "editor.action.codeAction",
+        "args": {
+          "kind": "refactor.extract.constant",
+          "preferred": true,
+          "apply": "ifsingle"
+        },
+      }]
+    },
+    {
+      "before": ["ctrl+r", "g"],
+      "commands": [ {
+        "command": "editor.action.codeAction",
+        "args": {
+          "kind": "refactor.extract.constant",
+          "preferred": false,
+          "apply": "ifsingle"
+        },
+      }]
+    },
+  ],
 }
 ```
 
@@ -107,6 +290,66 @@ Feel free to delete the javascript, python entries if you aren't using those lan
     "command": "-editor.action.insertCursorAbove",
     "when": "editorTextFocus"
   }
+```
+
+If using vscode-vim, put in some keybindings to make it work better
+```json
+   {
+        "key": "r",
+        "command": "renameFile",
+        "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+    },
+    {
+        "key": "x",
+        "command": "renameFile",
+        "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+    },
+    {
+        "key": "c",
+        "command": "renameFile",
+        "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+    },
+    {
+        "key": "p",
+        "command": "renameFile",
+        "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+    },
+    {
+        "key": "a",
+        "command": "workbench.files.action.createFileFromExplorer",
+        "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+    },
+    {
+        "key": "shift+a",
+        "command": "workbench.files.action.createFolderFromExplorer",
+        "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+    },
+    {
+        "key": "shift+y",
+        "command": "copyFilePath",
+        "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+    },
+    {
+        "key": "ctrl+y",
+        "command": "copyRelativeFilePath",
+        "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+    },
+        {
+        "key": "ctrl+k",
+        "command": "workbench.action.navigateUp"
+    },
+    {
+        "key": "ctrl+j",
+        "command": "workbench.action.navigateDown"
+    },
+    {
+        "key": "ctrl+h",
+        "command": "workbench.action.navigateLeft"
+    },
+    {
+        "key": "ctrl+l",
+        "command": "workbench.action.navigateRight"
+    }
 ```
 
 #### Configure user snippets
