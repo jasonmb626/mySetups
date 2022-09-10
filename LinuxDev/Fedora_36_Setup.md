@@ -365,7 +365,7 @@ Exit terminal and reopen. After a few seconds it'll give a bit of an error/weird
 python3-devel probably only necessary if installing psycopg2 pip module
 
 ```sh
-sudo dnf install python3-pip python3-virtualenv python3-devel python3-wheel
+sudo dnf install python3-pip python3-virtualenv python3-devel python3-wheel python3-black
 ```
 
 ### Install Node LTS
@@ -374,10 +374,10 @@ sudo dnf install python3-pip python3-virtualenv python3-devel python3-wheel
 nvm i --lts
 ```
 
-### Install nodemon globaly
+### Install nodemon, prettier, language servers globaly
 
 ```sh
-npm i -g nodemon
+npm i -g nodemon prettier dockerfile-language-server-nodejs
 ```
 
 ### Set additional Gnome Keyboard Shortcuts/load any Gnome Settings not already set manually
@@ -454,6 +454,12 @@ switch-to-workspace-3=['<Super>o']
 switch-to-workspace-4=['<Shift><Super>u']
 switch-to-workspace-5=['<Shift><Super>i']
 switch-to-workspace-6=['<Shift><Super>o']
+move-to-workspace-1=['<Control><Super>u']
+move-to-workspace-2=['<Control><Super>i']
+move-to-workspace-3=['<Control><Super>o']
+move-to-workspace-4=['<Shift><Control><Super>u']
+move-to-workspace-5=['<Shift><Control><Super>i']
+move-to-workspace-6=['<Shift><Control><Super>o']
 
 [org/gnome/settings-daemon/plugins/media-keys]
 custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/']
@@ -497,6 +503,24 @@ sudo logkeys --start --keymap my_lang.keymap --output test.log
 
 ```sh
 flatpak install flathub com.jetbrains.IntelliJ-IDEA-Community
+```
+
+#### If using Neovim
+
+## Install Neovim & other dependencies dependencies
+```sh
+sudo dnf install neovim gcc-c++ libstdc++-static xsel 
+```
+gcc-c++ libstdc++-static are needed for treesitter - at least for some languages
+
+xsel allows neovim to use system clipboard
+
+## Start With a Stable config
+
+(My Config based on LunarVim's Config)[https://github.com/jasonmb626/nvim-basic-ide] is a good starting point
+
+```sh
+git clone https://github.com/jasonmb626/nvim-basic-ide.git ~/.config/nvim
 ```
 
 #### If using VSCode/VSCodium/Code - OSS
