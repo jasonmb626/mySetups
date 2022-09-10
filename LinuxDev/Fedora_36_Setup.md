@@ -471,7 +471,13 @@ clear-history=['<Super>F10']
 next-entry=['<Super>F12']
 prev-entry=['<Super>F11']
 toggle-menu=['<Super>v']
+
+[org/gnome/shell/extensions/pop-shell]
+focus-up=@as []
+tile-by-default=false
+tile-orientation=['<Shift><Super>o']
 ```
+
 </details>
 (via dconf allows setting keys to switch to more workspaces)
 
