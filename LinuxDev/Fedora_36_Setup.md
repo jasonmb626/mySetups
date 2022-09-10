@@ -480,7 +480,7 @@ toggle-menu=['<Super>v']
 
 [org/gnome/shell/extensions/pop-shell]
 focus-up=@as []
-tile-by-default=false
+tile-by-default=true
 tile-orientation=['<Shift><Super>0']
 ```
 
