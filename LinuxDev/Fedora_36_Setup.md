@@ -413,6 +413,7 @@ primary-color='#000000000000'
 secondary-color='#000000000000'
 
 [org/gnome/desktop/interface]
+clock-format='12h'
 color-scheme='prefer-dark'
 cursor-theme='Nordzy-cursors'
 font-antialiasing='grayscale'
