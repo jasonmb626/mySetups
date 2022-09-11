@@ -30,11 +30,12 @@ version: "3.8"
 services:
   db:
     image: postgres
+    container_name: db
     restart: always
     environment:
       POSTGRES_PASSWORD: secret
     volumes:
-      - ../db:/var/lib/postgresql/data
+      - ./db:/var/lib/postgresql/data:Z
     stdin_open: true
     tty: true
     ports:
@@ -75,28 +76,14 @@ Start the containers (--build makes sure it rebuilds the containers if anything 
 docker-compose up -d --build
 ```
 
-(Optional) Find out the name of running containers, as this will also be teh server name if connecting from PGAdmin
 ```sh
-docker ps
-```
-Example output:
-
-CONTAINER ID   IMAGE            COMMAND                  CREATED          STATUS          PORTS                                            NAMES
-49b409b9ed93   postgres         "docker-entrypoint.s…"   21 minutes ago   Up 45 seconds   0.0.0.0:5432->5432/tcp, :::5432->5432/tcp        test_docker_db_1
-fdf43e55a21b   dpage/pgadmin4   "/entrypoint.sh"         21 minutes ago   Up 45 seconds   443/tcp, 0.0.0.0:8080->80/tcp, :::8080->80/tcp   test_docker_pgadmin_1
-
-In this case, the server name for the postgres server would be test_docker_db_1
-
-if you need to access the db container
-
-```sh
-docker exec -it <container name> /bin/bash
+docker exec -it db /bin/bash
 ```
 
 Or if you just need psql
 
 ```sh
-docker exec -it <container name> /usr/bin/psql -U postgres
+docker exec -it db /usr/bin/psql -U postgres
 ```
 
 Create a role for our dev user
