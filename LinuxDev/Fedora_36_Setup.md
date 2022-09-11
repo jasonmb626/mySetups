@@ -367,7 +367,7 @@ Exit terminal and reopen. After a few seconds it'll give a bit of an error/weird
 python3-devel probably only necessary if installing psycopg2 pip module
 
 ```sh
-sudo dnf install python3-pip python3-virtualenv python3-devel python3-wheel python3-black
+sudo dnf install python3-pip python3-virtualenv python3-devel python3-wheel python3-black python3-flake8
 ```
 
 ### Install Node LTS
@@ -379,7 +379,7 @@ nvm i --lts
 ### Install nodemon, prettier, language servers globaly
 
 ```sh
-npm i -g nodemon prettier dockerfile-language-server-nodejs
+npm i -g nodemon prettier dockerfile-language-server-nodejs yaml-language-server pyright
 ```
 
 ### Set additional Gnome Keyboard Shortcuts/load any Gnome Settings not already set manually
