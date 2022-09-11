@@ -454,15 +454,15 @@ show-desktop=['<Super>d']
 switch-to-workspace-1=['<Super>u']
 switch-to-workspace-2=['<Super>i']
 switch-to-workspace-3=['<Super>o']
-switch-to-workspace-4=['<Shift><Super>u']
-switch-to-workspace-5=['<Shift><Super>i']
-switch-to-workspace-6=['<Shift><Super>o']
-move-to-workspace-1=['<Control><Super>u']
-move-to-workspace-2=['<Control><Super>i']
-move-to-workspace-3=['<Control><Super>o']
-move-to-workspace-4=['<Shift><Control><Super>u']
-move-to-workspace-5=['<Shift><Control><Super>i']
-move-to-workspace-6=['<Shift><Control><Super>o']
+switch-to-workspace-4=['<Alt><Super>u']
+switch-to-workspace-5=['<Alt><Super>i']
+switch-to-workspace-6=['<Alt><Super>o']
+move-to-workspace-1=['<Shift><Super>u']
+move-to-workspace-2=['<Shift><Super>i']
+move-to-workspace-3=['<Shift><Super>o']
+move-to-workspace-4=['<Shift><Alt><Super>u']
+move-to-workspace-5=['<Shift><Alt><Super>i']
+move-to-workspace-6=['<Shift><Alt><Super>o']
 
 [org/gnome/settings-daemon/plugins/media-keys]
 custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/']
@@ -512,7 +512,8 @@ flatpak install flathub com.jetbrains.IntelliJ-IDEA-Community
 
 ## Install Neovim & other dependencies dependencies
 ```sh
-sudo dnf install neovim gcc-c++ libstdc++-static xsel 
+sudo dnf copr enable atim/lazygit -y
+sudo dnf install neovim gcc-c++ libstdc++-static xsel lazygit
 ```
 gcc-c++ libstdc++-static are needed for treesitter - at least for some languages
 
