@@ -35,7 +35,7 @@ services:
     environment:
       POSTGRES_PASSWORD: secret
     volumes:
-      - ./db:/var/lib/postgresql/data:Z
+      - ./data/db:/var/lib/postgresql/data:Z
     stdin_open: true
     tty: true
     ports:
@@ -49,27 +49,6 @@ services:
     ports:
       - 8080:80
 ```
-### Set your environment variables
-
-#### Linux
-
-```sh
-sudo vim /etc/environment
-```
-
-Add the following
-
-```
-export PGUSER=app
-export PGPASSWORD=654321
-export PGHOST=localhost
-export PGPORT=5432
-export PGDATABASE=project_name
-export DATABASE_URL=postgres://${PGUSER}@${PGHOST}:${PGPORT}/${PGDATABASE}
-```
-
-Reboot the system or your user won't have group permission for Docker & environment variables won't yet be loaded.
-
 Start the containers (--build makes sure it rebuilds the containers if anything changed)
 
 ```sh
@@ -228,21 +207,41 @@ Does it work? Success!
 <details>
   <summary>With python</summary>
 
-TODO: Dockerize the Python
+Add a Dockerfile
+```
+FROM python:latest #docker pull python:3.10.7 last verified
 
-Try this: https://stackoverflow.com/questions/62715570/failing-to-install-psycopg2-binary-on-new-docker-container
-
-Create project folder with app.py
-
-set your virtual environment
-```sh
-python3 -m venv app
-source app/bin/activate
-pip3 install wheel
-pip3 install psycopg2
+RUN apt-get update \
+    && apt-get -y install libpq-dev gcc \
+    && pip install psycopg2
 ```
 
-Create your python file
+build your image
+
+```sh
+docker build -t pyapp .
+```
+
+add your app to your docker-compose.yml
+```yaml
+  app:
+    image: pyapp
+    container_name: app
+    restart: always
+    volumes:
+      - ./data/app:/app:Z
+    stdin_open: true
+    tty: true
+    environment:
+      PGUSER: app
+      PGPASSWORD: 654321
+      PGHOST: db
+      PGPORT: 5432
+      PGDATABASE: project_name
+      DATABASE_URL: postgres://${PGUSER}@${PGHOST}:${PGPORT}/${PGDATABASE}
+```
+
+Create your python file -- ./data/app/app.py
 
 ```python
 import psycopg2
@@ -280,5 +279,16 @@ finally:
 
 ```
 
+Restart everything
+```sh
+docker-compose down
+docker-compose up -d --build
+```
+
+try running your app
+```sh
+docker exec -it pyapp /bin/bash
+python /app/app.py
+```
 Does it work? Success!
 </details>
