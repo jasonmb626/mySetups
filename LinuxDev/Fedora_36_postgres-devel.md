@@ -228,6 +228,10 @@ Does it work? Success!
 <details>
   <summary>With python</summary>
 
+TODO: Dockerize the Python
+
+Try this: https://stackoverflow.com/questions/62715570/failing-to-install-psycopg2-binary-on-new-docker-container
+
 Create project folder with app.py
 
 set your virtual environment
