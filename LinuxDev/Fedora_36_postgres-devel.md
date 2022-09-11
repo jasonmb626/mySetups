@@ -219,6 +219,10 @@ Does it work? Success!
 <details>
   <summary>With python</summary>
 
+TODO: Try watchmedo 
+
+https://stackoverflow.com/questions/49355010/how-do-i-watch-python-source-code-files-and-restart-when-i-save
+
 Add a Dockerfile
 ```
 FROM python:latest #docker pull python:3.10.7 last verified
