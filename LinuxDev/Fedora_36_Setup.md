@@ -78,6 +78,16 @@ sudo dnf group upgrade --with-optional Multimedia after installing RPM fusion se
 the groupupdate of sound-and-video may not do anything? Doesn't seem to hurt. Previously noted missing software options in Gnome Software that was audio-related.
 sudo dnf install ffmpeg-libs installs slightly less stuff than the above and also seems to work, but again, REBOOT required. \(We'll be rebooting in a few steps so no need to rush a reboot.\)
 
+## Install Docker
+
+```sh
+sudo dnf install moby-engine docker-compose
+ 
+sudo usermod -aG docker dev
+sudo systemctl start docker
+sudo systemctl enable docker
+```
+
 ## Desktop Appearance
 
 Change the look and feel to your prefrences.

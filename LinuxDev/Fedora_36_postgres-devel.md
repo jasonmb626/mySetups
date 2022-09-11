@@ -4,13 +4,10 @@
 
 ```sh
 sudo dnf groupinstall 'Development Tools' 'Development Libraries'
-sudo dnf install moby-engine postgresql docker-compose
- 
-sudo usermod -aG docker dev
-sudo systemctl start docker
-sudo systemctl enable docker
+sudo dnf install postgresql
 ```
 
+Do we need the Development tools etc anymore?
 groupinstall 'Development Tools' installs things like gcc,'Development Libraries' too, and is my recommendation.
 
 Create a project directory and put the below in its docker-compose.yml file.
