@@ -200,6 +200,30 @@ or in this base repo in fonts/ttf folder (might as well install JetBrains fonts 
 
 Install the JetBrains mono font Available on their [website](https://www.jetbrains.com/lp/mono/)
 
+### Install Nord theme for Gnome Terminal
+
+Follow instructions from their [github](https://github.com/arcticicestudio/nord-gnome-terminal)
+
+```sh
+git clone https://github.com/arcticicestudio/nord-gnome-terminal.git
+cd nord-gnome-terminal/src
+./nord.sh
+cd ../..
+rm -fr nord-gnome-terminal
+```
+
+#### Set the Gnome Terminal Settings
+
+\(This will also happen via dconf import later\)
+
+Open Gnome Terminal. Hamburger menu => Preferences
+
+Under profiles Choose Nord
+Check custom font, set to MesloLGS NF 12
+Using down delta next to Nord choose set as default.
+
+Optional - under colors, set transparent background. (This was working in previous versions but not working now????)
+
 #### Install Alacritty Theme
 
 <details>
@@ -389,7 +413,7 @@ nvm i --lts
 ### Install nodemon, prettier, language servers globaly
 
 ```sh
-npm i -g nodemon prettier dockerfile-language-server-nodejs yaml-language-server pyright
+npm i -g nodemon prettier dockerfile-language-server-nodejs yaml-language-server bash-language-server
 ```
 
 ### Set additional Gnome Keyboard Shortcuts/load any Gnome Settings not already set manually
@@ -411,7 +435,10 @@ OR
   <summary>Import via dconf</summary>
 
 ```sh
-dconf load / < /media/sf_mySetups/LinuxDev/user.conf
+tr -d '\015' </media/sf_mySetups/LinuxDev/getNordProfileID.sh >~/getNordProfileID.sh
+export defhash=$(bash ~/getNordProfileID.sh)
+dconf load / <<< sed "s/%DEFHASH$/$defhash/" /media/sf_mySetups/LinuxDev/user.conf
+rm ~/getNordProfileID.sh
 ```
 
 This loads the following configuration:
@@ -477,10 +504,20 @@ move-to-workspace-6=['<Shift><Alt><Super>o']
 [org/gnome/settings-daemon/plugins/media-keys]
 custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/']
 
+[org/gnome/terminal/legacy/profiles:]
+default='%DEFHASH%'
+
+[org/gnome/terminal/legacy/profiles:/:%DEFHASH%]
+background-transparency-percent=15
+font='MesloLGS NF 12'
+use-system-font=false
+use-theme-transparency=false
+use-transparent-background=true
+
 [org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0]
 binding='<Super>t'
-command='/usr/bin/alacritty'
-name='Alacritty Terminal'
+command='/usr/bin/gnome-terminal'
+name='Gnome Terminal'
 
 [org/gnome/shell]
 enabled-extensions=['background-logo@fedorahosted.org', 'pop-shell@system76.com', 'clipboard-indicator@tudmotu.com', 'compiz-alike-magic-lamp-effect@hermes83.github.com', 'dash-to-dock-cosmic-@halfmexicanhalfamazing@gmail.com', 'user-theme@gnome-shell-extensions.gcampax.github.com', 'workspaces-bar@fthx']
