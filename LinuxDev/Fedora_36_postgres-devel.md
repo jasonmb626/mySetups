@@ -1,26 +1,17 @@
 ### Install and run postgres
 
-#### Via Docker
-<details>
-  <summary>Via Docker</summary>
-
 ### Install Fedora's Docker implementation
 
 ```sh
 sudo dnf groupinstall 'Development Tools' 'Development Libraries'
-sudo dnf install moby-engine libpq-devel postgresql docker-compose
+sudo dnf install moby-engine postgresql docker-compose
  
 sudo usermod -aG docker dev
 sudo systemctl start docker
 sudo systemctl enable docker
 ```
 
-Note: sudo dnf install python3-devel instead of groupinstall development stuff will work for Python.h etc (needed for psycopg2 build later)
 groupinstall 'Development Tools' installs things like gcc,'Development Libraries' too, and is my recommendation.
-libpq-devel is postgres devel headers etc 
-The above needed for psycopg2 to successfully install later
-
-### Postgres via docker
 
 Create a project directory and put the below in its docker-compose.yml file.
 
@@ -35,7 +26,7 @@ services:
     environment:
       POSTGRES_PASSWORD: secret
     volumes:
-      - ./data/db:/var/lib/postgresql/data:Z
+      - appdb:/var/lib/postgresql/data:Z
     stdin_open: true
     tty: true
     ports:
@@ -48,6 +39,8 @@ services:
       PGADMIN_DEFAULT_PASSWORD: example
     ports:
       - 8080:80
+volumes:
+  appdb:
 ```
 Start the containers (--build makes sure it rebuilds the containers if anything changed)
 
@@ -74,52 +67,11 @@ Create a role for our dev user
 
 From here you should not need to login to psql via docker anymore. Use native psql on host.
 
-</details>
-
-#### Without Docker
-<details>
-  <summary>Without Docker</summary>
-
-```sh
-sudo apt install postgresql postgresql-contrib python3-dev libpq-dev
-sudo systemctl start postgresql.service
-sudo systemctl enable postgresql.service
-```
-
-PGAdmin4 installation failed on Jammy. Isn't officially supported yet.
-
-switch to psql user and run psql
-```sh
-sudo -i -u postgres
-psql
-```
-
-Exit back to dev shell
-
-```sh
-exit
-```
-
-Create a role for our dev user
-
-```sql
-  CREATE ROLE dev WITH SUPERUSER CREATEROLE CREATEDB LOGIN PASSWORD '123456';
-  exit
-```
-
-From here you should not need to switch to psql user to login to psql. user dev has all privileges needed.
-
-</details>
-
 ### Connect to Database instance
-
-The environment variables are set to connect as app to a database that doesn't exist yet. You must be explicit about how to connect via the new superuser.
 
 ```sh
 psql -U dev -W -d postgres
 ```
-
-After creating the database mentioned in the environment variables, you can leave off -d postgres for all future connection attempts.
 
 ### Create and connect to database
 
@@ -161,11 +113,64 @@ INSERT INTO test VALUES(default, 'Hi', 'There');
 <details>
   <summary>With node</summary>
 
-Create project folder with app.js
+Add a Dockerfile
+```
+FROM node:latest #docker pull node:18.9.0 latest successful test
+
+WORKDIR /app
+
+COPY ./app/package.json .
+
+RUN npm i
+```
+
+build your image
 
 ```sh
-npm init -y
-npm i pg
+docker build -t pyapp .
+```
+
+add your app to your docker-compose.yml in the services section
+```yaml
+  app:
+    image: nodeapp
+    container_name: app
+    restart: always
+    volumes:
+      - ./app:/app:Z
+      - ./app/node_modules
+    stdin_open: true
+    tty: true
+    environment:
+      PGUSER: app
+      PGPASSWORD: 654321
+      PGHOST: db
+      PGPORT: 5432
+      PGDATABASE: project_name
+      DATABASE_URL: postgres://${PGUSER}@${PGHOST}:${PGPORT}/${PGDATABASE}
+```
+
+This line:
+- ./app/node_modules
+Ensures that the above volume does not override node_modules folder which is not passed as a volume but is instead actually installed in the image
+
+Copy your package.json
+```json
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "pg": "^8.8.0"
+  }
+}
 ```
 
 Create your javascript file
@@ -199,7 +204,17 @@ const pool = new Pool({
 })().finally(() => pool.end());
 ```
 
-Add database to connect method if using a different db than what's in environment variable.
+Restart everything
+```sh
+docker-compose down
+docker-compose up -d --build
+```
+
+try running your app
+```sh
+docker exec -it nodeapp /bin/bash
+node app.js
+```
 
 Does it work? Success!
 </details>
@@ -222,14 +237,14 @@ build your image
 docker build -t pyapp .
 ```
 
-add your app to your docker-compose.yml
+add your app to your docker-compose.yml in the services section
 ```yaml
   app:
     image: pyapp
     container_name: app
     restart: always
     volumes:
-      - ./data/app:/app:Z
+      - ./app:/app:Z
     stdin_open: true
     tty: true
     environment:
@@ -288,7 +303,7 @@ docker-compose up -d --build
 try running your app
 ```sh
 docker exec -it pyapp /bin/bash
-python /app/app.py
+python app.py
 ```
 Does it work? Success!
 </details>
