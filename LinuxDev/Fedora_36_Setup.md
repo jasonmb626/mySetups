@@ -351,10 +351,12 @@ alias ls="ls --color=auto"
 
 <details>
   <summary>Copy from your share</summary>
-
+Change to Unix Line Endings if not already.
 ```sh
-cp /media/sf_mySetups/LinuxDev/.zshrc ~
+tr -d '\015' </media/sf_mySetups/LinuxDev/.zshrc >~.zshrc
 ```
+Alternate option:
+dos2unix </media/sf_mySetups/LinuxDev/.zshrc >~.zshrc
 
 </details>
 
