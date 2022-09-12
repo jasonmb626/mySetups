@@ -490,14 +490,7 @@ npm i -g nodemon
 
 ### IDEs/Code Editors
 
-#### If using Intellij IDEA
-
-```sh
-flatpak install flathub com.jetbrains.IntelliJ-IDEA-Community
-```
-
 #### If using VSCode/VSCodium
-
 
 Install VSCodium Via Flatpak
 
@@ -535,11 +528,17 @@ flatpak install https://flathub.org/repo/appstream/com.visualstudio.code.flatpak
 
 </details>
 
-Follow instructions [here](https://github.com/jasonmb626/mySetups/blob/main/Neovim_Setup.md ) to set up your Neovim
+Follow instructions [here](https://github.com/jasonmb626/mySetups/blob/main/VSCode_Setup.md ) to set up your VS Code environment.
+
+#### If using Intellij IDEA
+
+```sh
+flatpak install flathub com.jetbrains.IntelliJ-IDEA-Community
+```
 
 #### If Using Neovim
 
-Follow instructions [here](https://github.com/jasonmb626/mySetups/blob/main/VSCode_Setup.md ) to set up your VS Code environment.
+Follow instructions [here](https://github.com/jasonmb626/mySetups/blob/main/Neovim_Setup.md ) to set up your Neovim
 
 ### Postgres
 
