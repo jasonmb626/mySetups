@@ -175,7 +175,7 @@ util-linux-user provides chsh command
 xprop needed by gnome-shell-extension-pop-shell, which we'll use since we'll be running alacritty windowless and it'll provide keyboard sizing abilities
 
 ```sh
-sudo dnf install zsh util-linux-user vim alacritty gnome-shell-extension-pop-shell xprop
+sudo dnf install zsh util-linux-user vim gnome-shell-extension-pop-shell xprop
 chsh
 ```
 
@@ -214,7 +214,7 @@ rm -fr nord-gnome-terminal
 
 #### Set the Gnome Terminal Settings
 
-\(This will also happen via dconf import later\)
+\(This will also happen via dconf import later so you can skip this if you want\)
 
 Open Gnome Terminal. Hamburger menu => Preferences
 
@@ -222,60 +222,7 @@ Under profiles Choose Nord
 Check custom font, set to MesloLGS NF 12
 Using down delta next to Nord choose set as default.
 
-Optional - under colors, set transparent background. (This was working in previous versions but not working now????)
-
-#### Install Alacritty Theme
-
-<details>
-  <summary>Manually</summary>
-
-Follow directions on their [GitHub page](https://github.com/arcticicestudio/nord-alacritty)
-
-Using their src.yml in raw form, write it to your alacritty.yml file
-
-```sh
-mkdir ~/.config/alacritty
-vim ~/.config/alacritty/alacritty.yml
-```
-
-Also set background opacity and font
-
-(This option was recently changed from background_opacity: 0.8 to the below)
-
-```
-startup_mode: Maximized
-window:
-    opacity: 0.9
-    padding:
-        x: 10
-        y: 10
-    decorations: None
-font:
-    normal:
-        family: "MesloLGS NF"
-```
-
-</details>
-
-<details>
-  <summary>Via Command prompt copy/paste</summary>
-
-```sh
-mkdir -p ~/.config/alacritty
-git clone https://github.com/arcticicestudio/nord-alacritty.git
-cp nord-alacritty/src/nord.yml ~/.config/alacritty/alacritty.yml
-rm -fr nord-alacritty
-```
-
-Also set background opacity and font
-
-(This option was recently changed from background_opacity: 0.8 to the below)
-
-```sh
-echo -e "startup_mode: Maximized\nwindow:\n    opacity: 0.9\n    padding:\n        x: 10\n        y: 10\n    decorations: None\nfont:\n    normal:\n        family: \"MesloLGS NF\"" >> ~/.config/alacritty/alacritty.yml
-```
-
-</details>
+Optional - under colors, set transparent background.
 
 ### Install and Configure Powerline 10k
 
@@ -300,122 +247,6 @@ git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
 echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
 ```
 
-#### Reboot
-
-This is a good time to reboot so all the changes get sourced properly.
-
-Start terminal and Powerlevel10k will prompt you for options.
-
-My options:
-* Diamond -> y
-* Lock -> y
-* Debian -> y
-* Do they fit -> y
-* Prompt Style -> 3 (Rainbow)
-* Character Set -> 1 (Unicode)
-* Show current time? -> 3 (12-hour format.)
-* Prompt Separators -> 1 (Angled)
-* Prompt Heads -> 1 (Sharp)
-* Prompt Tails -> 1 (Flat)
-* Prompt Height -> 2 (Two lines)
-* Prompt Connection -> 3 (Solid)
-* Prompt Frame -> 4 (Full)
-* Connection & Frame Color -> 1 (Lightest)
-* Prompt Spacing -> 2 (Sparse)
-* Icons -> 2 (Many icons)
-* Prompt Flow -> 2 (Fluent)
-* Enable Transient Prompt? -> y (Yes)
-* Instant Prompt Mode -> 1 (Verbose)
-* Apply changes to ~/.zshrc? -> y (Yes)
-
-### Install [zsh-nvm](https://github.com/lukechilds/zsh-nvm)
-
-```sh
-git clone https://github.com/lukechilds/zsh-nvm.git ~/.zsh-nvm
-```
-
-### Set your .zshrc
-
-<details>
-  <summary>Manually</summary>
-### Edit your .zshrc
-
-```sh
-vim ~/.zshrc
-```
-
-```
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-# Use powerline
-USE_POWERLINE="true"
-
-# Source manjaro-zsh-configuration
-if [[ -e ~/.local/share/zsh/manjaro-zsh-config ]]; then
-  source ~/.local/share/zsh/manjaro-zsh-config
-fi
-# Use manjaro zsh prompt
-if [[ -e ~/.local/share/zsh/manjaro-zsh-prompt ]]; then
-  source ~/.local/share/zsh/manjaro-zsh-prompt
-fi
-
-# Created by newuser for 5.8
-source ~/powerlevel10k/powerlevel10k.zsh-theme
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-#zsh-nvm
-[[ ! -f ~/.zsh-nvm/zsh-nvm.plugin.zsh ]] || source ~/.zsh-nvm/zsh-nvm.plugin.zsh
-
-#tab-completion menu
-autoload -Uz compinit
-compinit
-zstyle ':completion:*' menu select
-
-alias ls="ls --color=auto"
-```
-
-</details>
-
-<details>
-  <summary>Copy from your share</summary>
-Change to Unix Line Endings if not already.
-```sh
-tr -d '\015' </media/sf_mySetups/LinuxDev/.zshrc >~.zshrc
-```
-Alternate option:
-dos2unix </media/sf_mySetups/LinuxDev/.zshrc >~.zshrc
-
-</details>
-
-Exit terminal and reopen. After a few seconds it'll give a bit of an error/weird output from zsh-nvm but that's okay. It's a one-time thing.
-
-### Install Extra python stuff, pip, venv, wheel, development libraries
-
-python3-devel probably only necessary if installing psycopg2 pip module
-
-```sh
-sudo dnf install python3-pip python3-virtualenv python3-devel python3-wheel python3-black python3-flake8
-```
-
-### Install Node LTS
-
-```sh
-nvm i --lts
-```
-
-### Install nodemon, prettier, language servers globaly
-
-```sh
-npm i -g nodemon prettier dockerfile-language-server-nodejs yaml-language-server bash-language-server
-```
-
 ### Set additional Gnome Keyboard Shortcuts/load any Gnome Settings not already set manually
 
 <details>
@@ -436,8 +267,7 @@ OR
 
 ```sh
 tr -d '\015' </media/sf_mySetups/LinuxDev/getNordProfileID.sh >~/getNordProfileID.sh
-export defhash=$(bash ~/getNordProfileID.sh)
-dconf load / <<< sed "s/%DEFHASH$/$defhash/" /media/sf_mySetups/LinuxDev/user.conf
+dconf load / <<< sed "s/%DEFHASH$/$(bash ~/getNordProfileID.sh)/" /media/sf_mySetups/LinuxDev/user.conf
 rm ~/getNordProfileID.sh
 ```
 
@@ -537,6 +367,124 @@ tile-orientation=['<Shift><Super>0']
 </details>
 (via dconf allows setting keys to switch to more workspaces)
 
+#### Reboot
+
+This is a good time to reboot so all the changes get sourced properly.
+
+#### Finish setting up PowerLevel10k
+
+Start terminal and Powerlevel10k will prompt you for options.
+
+My options:
+* Diamond -> y
+* Lock -> y
+* Debian -> y
+* Do they fit -> y
+* Prompt Style -> 3 (Rainbow)
+* Character Set -> 1 (Unicode)
+* Show current time? -> 3 (12-hour format.)
+* Prompt Separators -> 1 (Angled)
+* Prompt Heads -> 1 (Sharp)
+* Prompt Tails -> 1 (Flat)
+* Prompt Height -> 2 (Two lines)
+* Prompt Connection -> 3 (Solid)
+* Prompt Frame -> 4 (Full)
+* Connection & Frame Color -> 1 (Lightest)
+* Prompt Spacing -> 2 (Sparse)
+* Icons -> 2 (Many icons)
+* Prompt Flow -> 2 (Fluent)
+* Enable Transient Prompt? -> y (Yes)
+* Instant Prompt Mode -> 1 (Verbose)
+* Apply changes to ~/.zshrc? -> y (Yes)
+
+### Install [zsh-nvm](https://github.com/lukechilds/zsh-nvm)
+
+```sh
+git clone https://github.com/lukechilds/zsh-nvm.git ~/.zsh-nvm
+```
+
+### Set your .zshrc
+
+<details>
+  <summary>Manually</summary>
+### Edit your .zshrc
+
+```sh
+vim ~/.zshrc
+```
+
+```
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# Use powerline
+USE_POWERLINE="true"
+
+# Source manjaro-zsh-configuration
+if [[ -e ~/.local/share/zsh/manjaro-zsh-config ]]; then
+  source ~/.local/share/zsh/manjaro-zsh-config
+fi
+# Use manjaro zsh prompt
+if [[ -e ~/.local/share/zsh/manjaro-zsh-prompt ]]; then
+  source ~/.local/share/zsh/manjaro-zsh-prompt
+fi
+
+# Created by newuser for 5.8
+source ~/powerlevel10k/powerlevel10k.zsh-theme
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+#zsh-nvm
+[[ ! -f ~/.zsh-nvm/zsh-nvm.plugin.zsh ]] || source ~/.zsh-nvm/zsh-nvm.plugin.zsh
+
+#tab-completion menu
+autoload -Uz compinit
+compinit
+zstyle ':completion:*' menu select
+
+alias ls="ls --color=auto"
+```
+
+</details>
+
+<details>
+  <summary>Copy from your share</summary>
+Change to Unix Line Endings if not already.
+```sh
+tr -d '\015' </media/sf_mySetups/LinuxDev/.zshrc >~.zshrc
+```
+Alternate option:
+dos2unix </media/sf_mySetups/LinuxDev/.zshrc >~.zshrc
+
+</details>
+
+Exit terminal and reopen. After a few seconds it'll give a bit of an error/weird output from zsh-nvm but that's okay. It's a one-time thing.
+
+### Install Extra python stuff, pip
+
+might need python3-wheel
+
+```sh
+sudo dnf install python3-pip
+```
+
+### Install Node LTS
+
+```sh
+nvm i --lts
+```
+
+### Install nodemon globaly
+
+```sh
+npm i -g nodemon
+```
+
 ### Key Logging 
 
 Build logkeys from their [GitHub](https://github.com/kernc/logkeys)
@@ -555,35 +503,30 @@ sudo logkeys --start --keymap my_lang.keymap --output test.log
 flatpak install flathub com.jetbrains.IntelliJ-IDEA-Community
 ```
 
-#### If using Neovim
+#### If using VSCode/VSCodium
 
-## Install Neovim & other dependencies dependencies
-```sh
-sudo dnf copr enable atim/lazygit -y
-sudo dnf install neovim gcc-c++ libstdc++-static xsel lazygit
-```
-gcc-c++ libstdc++-static are needed for treesitter - at least for some languages
 
-xsel allows neovim to use system clipboard
-
-## Start With a Stable config
-
-(My Config based on LunarVim's Config)[https://github.com/jasonmb626/nvim-basic-ide] is a good starting point
+Install VSCodium Via Flatpak
 
 ```sh
-git clone https://github.com/jasonmb626/nvim-basic-ide.git ~/.config/nvim
+flatpak install flathub com.vscodium.codium
 ```
-
-#### If using VSCode/VSCodium/Code - OSS
-
-Only VSCode has full access to working extensions in the marketplace. It's hard to hack some of those to work in OSS versions.
 
 <details>
-  <summary>VSCode</summary>
-    <details>
-       <summary>dnf</summary>
-Install [VS Code](https://code.visualstudio.com/docs/setup/linux#_rhel-fedora-and-centos-based-distributions)
+  <summary>or via dnf</summary>     
 
+```sh
+sudo rpmkeys --import https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/-/raw/master/pub.gpg
+printf "[gitlab.com_paulcarroty_vscodium_repo]\nname=download.vscodium.com\nbaseurl=https://download.vscodium.com/rpms/\nenabled=1\ngpgcheck=1\nrepo_gpgcheck=1\ngpgkey=https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/-/raw/master/pub.gpg\nmetadata_expire=1h" | sudo tee -a /etc/yum.repos.d/vscodium.repo
+sudo dnf install codium
+```
+
+</details>
+
+<details>
+  <summary>or VSCode</summary>
+
+Install [VS Code](https://code.visualstudio.com/docs/setup/linux#_rhel-fedora-and-centos-based-distributions)
 ```sh
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
 sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
@@ -591,45 +534,17 @@ sudo dnf check-update
 sudo dnf install code
 ```
 
-  </details>
-  <details>
-    <summary>Flatpak</summary>
+Alternatively
 
 ```sh
 flatpak install https://flathub.org/repo/appstream/com.visualstudio.code.flatpakref
 ```
 
-  </details>
 </details>
-<details>
-  <summary>VSCodium</summary>
-  <details>
-     <summary>dnf</summary>
-     
-```sh
-sudo rpmkeys --import https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/-/raw/master/pub.gpg
-printf "[gitlab.com_paulcarroty_vscodium_repo]\nname=download.vscodium.com\nbaseurl=https://download.vscodium.com/rpms/\nenabled=1\ngpgcheck=1\nrepo_gpgcheck=1\ngpgkey=https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/-/raw/master/pub.gpg\nmetadata_expire=1h" | sudo tee -a /etc/yum.repos.d/vscodium.repo
-sudo dnf install codium
-```
 
-  </details>
-  <details>
-    <summary>Flatpak</summary>
+Follow instructions [here](https://github.com/jasonmb626/mySetups/blob/main/Neovim_Setup.md ) to set up your Neovim
 
-```sh
-flatpak install flathub com.vscodium.codium
-```
-
-  </details>
-</details>
-<details>
-  <summary>Code OSS</summary>
-
-```sh
-flatpak install flathub com.visualstudio.code-oss
-```
-
-</details>
+#### If Using Neovim
 
 Follow instructions [here](https://github.com/jasonmb626/mySetups/blob/main/VSCode_Setup.md ) to set up your VS Code environment.
 
