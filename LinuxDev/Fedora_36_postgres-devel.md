@@ -224,12 +224,35 @@ TODO: Try watchmedo
 https://stackoverflow.com/questions/49355010/how-do-i-watch-python-source-code-files-and-restart-when-i-save
 
 Add a Dockerfile
+
+TODO: Add remote developer content like from (here)[https://dev.to/alvarocavalcanti/setting-up-a-python-remote-interpreter-using-docker-1i24]
+
 ```
 FROM python:latest #docker pull python:3.10.7 last verified
+ENV PYTHONUNBUFFERED 1
 
+WORKDIR /code
+
+# Copying the requirements, this is needed because at this point the volume isn't mounted yet
+COPY requirements.txt /code/
+
+# Installing requirements, if you don't use this, you should.
+# More info: https://pip.pypa.io/en/stable/user_guide/
+RUN pip install -r requirements.txt
+
+# Similar to the above, but with just the development-specific requirements
+COPY requirements-dev.txt /code/
+RUN pip install -r requirements-dev.txt
+
+# Setup SSH with secure root login
 RUN apt-get update \
-    && apt-get -y install libpq-dev gcc \
-    && pip install psycopg2
+ && apt-get install -y openssh-server netcat \
+ && mkdir /var/run/sshd \
+ && echo 'root:password' | chpasswd \
+ && sed -i 's/\#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+
+EXPOSE 22
+CMD ["/usr/sbin/sshd", "-D"]
 ```
 
 build your image
@@ -240,14 +263,20 @@ docker build -t pyapp .
 
 add your app to your docker-compose.yml in the services section
 ```yaml
-  app:
-    image: pyapp
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
     container_name: app
     restart: always
-    volumes:
-      - ./app:/app:Z
     stdin_open: true
     tty: true
+    ports:
+      - 127.0.0.1:9922:22
+    volumes:
+      - .:/code/:Z
+    environment:
+      DEV: 'True'
     environment:
       PGUSER: app
       PGPASSWORD: 654321
