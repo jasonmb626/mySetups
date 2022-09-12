@@ -408,8 +408,19 @@ git clone https://github.com/lukechilds/zsh-nvm.git ~/.zsh-nvm
 
 ### Set your .zshrc
 
+####  Copy from your share
+
+Change to Unix Line Endings if not already.
+```sh
+tr -d '\015' </media/sf_mySetups/LinuxDev/.zshrc >~.zshrc
+```
+Alternate option:
+dos2unix </media/sf_mySetups/LinuxDev/.zshrc >~.zshrc
+
+OR
+
 <details>
-  <summary>Manually</summary>
+  <summary>Set it Manually</summary>
 ### Edit your .zshrc
 
 ```sh
@@ -455,17 +466,6 @@ alias ls="ls --color=auto"
 
 </details>
 
-<details>
-  <summary>Copy from your share</summary>
-Change to Unix Line Endings if not already.
-```sh
-tr -d '\015' </media/sf_mySetups/LinuxDev/.zshrc >~.zshrc
-```
-Alternate option:
-dos2unix </media/sf_mySetups/LinuxDev/.zshrc >~.zshrc
-
-</details>
-
 Exit terminal and reopen. After a few seconds it'll give a bit of an error/weird output from zsh-nvm but that's okay. It's a one-time thing.
 
 ### Install Extra python stuff, pip
@@ -486,16 +486,6 @@ nvm i --lts
 
 ```sh
 npm i -g nodemon
-```
-
-### Key Logging 
-
-Build logkeys from their [GitHub](https://github.com/kernc/logkeys)
-
-Run with the following command: \(my_lang.keymap is in your LinuxDev\)
-
-```sh
-sudo logkeys --start --keymap my_lang.keymap --output test.log
 ```
 
 ### IDEs/Code Editors
@@ -554,3 +544,13 @@ Follow instructions [here](https://github.com/jasonmb626/mySetups/blob/main/VSCo
 ### Postgres
 
 Follow instructions [here](https://github.com/jasonmb626/mySetups/blob/main/LinuxDev/Fedora_36_postgres-devel.md).
+
+### Key Logging 
+
+Build logkeys from their [GitHub](https://github.com/kernc/logkeys)
+
+Run with the following command: \(my_lang.keymap is in your LinuxDev\)
+
+```sh
+sudo logkeys --start --keymap my_lang.keymap --output test.log
+```
