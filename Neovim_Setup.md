@@ -16,3 +16,10 @@ xsel allows neovim to use system clipboard
 ```sh
 git clone https://github.com/jasonmb626/nvim-basic-ide.git ~/.config/nvim
 ```
+
+### Install language servers
+
+```sh
+npm i -g prettier dockerfile-language-server-nodejs yaml-language-server bash-language-server
+sudo dnf install python3-black python3-flake8
+```
