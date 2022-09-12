@@ -340,6 +340,9 @@ name='Gnome Terminal'
 [org/gnome/shell]
 enabled-extensions=['background-logo@fedorahosted.org', 'pop-shell@system76.com', 'clipboard-indicator@tudmotu.com', 'compiz-alike-magic-lamp-effect@hermes83.github.com', 'dash-to-dock-cosmic-@halfmexicanhalfamazing@gmail.com', 'user-theme@gnome-shell-extensions.gcampax.github.com', 'workspaces-bar@fthx']
 
+[org/gnome/shell/app-switcher]
+current-workspace-only=true
+
 [org/gnome/shell/extensions/clipboard-indicator]
 clear-history=['<Super>F10']
 next-entry=['<Super>F12']
