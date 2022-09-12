@@ -175,7 +175,7 @@ Feel free to delete the javascript, python entries if you aren't using those lan
     },
     {
       "before": ["<leader>", "m"],
-      "commands": [ "workbench.action.closePanel" ]
+      "commands": [ "workbench.action.togglePanel" ]
     },
     {
       "before": [ "d", "i", "l" ],
@@ -187,11 +187,11 @@ Feel free to delete the javascript, python entries if you aren't using those lan
     },
     {
       "before": [ "d", "a", "l" ],
-      "after": [ "-1", "d", "$" ]
+      "after": [ "0", "d", "$" ]
     },
     {
       "before": [ "y", "a", "l" ],
-      "after": [ "-1", "y", "$" ]
+      "after": [ "0", "y", "$" ]
     },
     {
       "before": ["K"],
@@ -212,40 +212,6 @@ Feel free to delete the javascript, python entries if you aren't using those lan
     {
       "before": ["<"],
       "after": ["<", "g" ,"v"]
-    },
-    {
-        "key": "alt+k",
-        "command": "editor.action.moveLinesUpAction",
-        "when": "editorTextFocus && !editorReadonly && vim.mode == 'Visual'"
-    },
-    {
-        "key": "alt+k",
-        "command": "editor.action.moveLinesUpAction",
-        "when": "editorTextFocus && !editorReadonly && vim.mode == 'VisualLine'"
-    },
-    {
-        "key": "alt+k",
-        "command": "editor.action.moveLinesUpAction",
-        "when": "editorTextFocus && !editorReadonly && vim.mode == 'VisualBlock'"
-    },
-    {
-        "key": "alt+j",
-        "command": "editor.action.moveLinesDownAction",
-        "when": "editorTextFocus && !editorReadonly && vim.mode == 'Visual'"
-    },
-    {
-        "key": "alt+j",
-        "command": "editor.action.moveLinesDownAction",
-        "when": "editorTextFocus && !editorReadonly && vim.mode == 'VisualLine'"
-    },
-    {
-        "key": "alt+j",
-        "command": "editor.action.moveLinesDownAction",
-        "when": "editorTextFocus && !editorReadonly && vim.mode == 'VisualBlock'"
-    },
-    {
-        "key": "shift+win+i",
-        "command": "workbench.action.inspectContextKeys"
     },
     {
       "before": ["ctrl+r", "m"],
@@ -314,18 +280,18 @@ If using vscode-vim, put in some keybindings to make it work better
         "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
     },
     {
-        "key": "x",
-        "command": "renameFile",
+        "key": "d",
+        "command": "deleteFile",
         "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
     },
     {
         "key": "c",
-        "command": "renameFile",
+        "command": "filesExplorer.copy",
         "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
     },
     {
         "key": "p",
-        "command": "renameFile",
+        "command": "filesExplorer.paste",
         "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
     },
     {
@@ -348,7 +314,12 @@ If using vscode-vim, put in some keybindings to make it work better
         "command": "copyRelativeFilePath",
         "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
     },
-        {
+    {
+      "key": "shift+w",
+      "command": "workbench.files.action.collapseExplorerFolders",
+      "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+    },
+    {
         "key": "ctrl+k",
         "command": "workbench.action.navigateUp"
     },
@@ -373,7 +344,41 @@ If using vscode-vim, put in some keybindings to make it work better
       "key": "shift+h",
       "command": "workbench.action.previousEditor",
       "when": "vim.mode == 'Normal'"
-    }
+    },
+    {
+        "key": "alt+k",
+        "command": "editor.action.moveLinesUpAction",
+        "when": "editorTextFocus && !editorReadonly && vim.mode == 'Visual'"
+    },
+    {
+        "key": "alt+k",
+        "command": "editor.action.moveLinesUpAction",
+        "when": "editorTextFocus && !editorReadonly && vim.mode == 'VisualLine'"
+    },
+    {
+        "key": "alt+k",
+        "command": "editor.action.moveLinesUpAction",
+        "when": "editorTextFocus && !editorReadonly && vim.mode == 'VisualBlock'"
+    },
+    {
+        "key": "alt+j",
+        "command": "editor.action.moveLinesDownAction",
+        "when": "editorTextFocus && !editorReadonly && vim.mode == 'Visual'"
+    },
+    {
+        "key": "alt+j",
+        "command": "editor.action.moveLinesDownAction",
+        "when": "editorTextFocus && !editorReadonly && vim.mode == 'VisualLine'"
+    },
+    {
+        "key": "alt+j",
+        "command": "editor.action.moveLinesDownAction",
+        "when": "editorTextFocus && !editorReadonly && vim.mode == 'VisualBlock'"
+    },
+    {
+        "key": "shift+win+i",
+        "command": "workbench.action.inspectContextKeys"
+    },
 ```
 
 #### Configure user snippets
