@@ -169,7 +169,7 @@ Open tweaks
 
 -> Window Titlebars -> Placement = Left
 
-### Install zsh, vim, alacritty, gnome-shell-extension-pop-shell, xprop and tool to provide chsh
+### Install zsh, vim, gnome-shell-extension-pop-shell, xprop and tool to provide chsh
 
 util-linux-user provides chsh command
 xprop needed by gnome-shell-extension-pop-shell, which we'll use since we'll be running alacritty windowless and it'll provide keyboard sizing abilities
@@ -249,21 +249,7 @@ echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
 
 ### Set additional Gnome Keyboard Shortcuts/load any Gnome Settings not already set manually
 
-<details>
-  <summary>Manually</summary>
-  Settings -> Keyboard -> Keyboard Shortcuts
-  View and Customize Shortcuts
-
-  Navigation
-
-  Set "Hide all normal windows" to Super+D
-  Set your "Switch to workspace #" to your keys
-
-</details>
-
-OR
-<details>
-  <summary>Import via dconf</summary>
+####  Import via dconf
 
 ```sh
 tr -d '\015' </media/sf_mySetups/LinuxDev/getNordProfileID.sh >~/getNordProfileID.sh
@@ -271,7 +257,9 @@ dconf load / <<< sed "s/%DEFHASH$/$(bash ~/getNordProfileID.sh)/" /media/sf_mySe
 rm ~/getNordProfileID.sh
 ```
 
-This loads the following configuration:
+<details>
+  <summary>This loads the following configuration:</summary>
+  
 ```
 [org/gnome/desktop/background]
 color-shading-type='solid'
@@ -365,6 +353,21 @@ tile-orientation=['<Shift><Super>0']
 ```
 
 </details>
+
+OR
+
+<details>
+  <summary>Set them Manually</summary>
+  Settings -> Keyboard -> Keyboard Shortcuts
+  View and Customize Shortcuts
+
+  Navigation
+
+  Set "Hide all normal windows" to Super+D
+  Set your "Switch to workspace #" to your keys
+
+</details>
+
 (via dconf allows setting keys to switch to more workspaces)
 
 #### Reboot
