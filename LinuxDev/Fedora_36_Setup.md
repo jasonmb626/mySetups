@@ -2,7 +2,7 @@
 
 From a fresh Fedora 36 installation, updated, username dev
 
-If using VirtualBox, the following will be needed for many of the commands in this document to work \(references to mySetups share\)
+## \(Optional\) add user to vboxsf group so you can share folders inside VirtualBox
 
 ```sh
 sudo usermod -aG vboxsf dev
@@ -10,41 +10,13 @@ sudo usermod -aG vboxsf dev
 
 Then _reboot_ or changes won't take effect.
 
-## (Optional) Change SELinux to permissive
-
-This step tends to help with certain issues like Udemy video playback and never figured out how to get docker to work properly when passing in volumes while SE Linux is enforcing.
-
-```sh
-sudo vi /etc/selinux/config
-```
-
-Change this line:
-
-```
-SELINUX=enforcing
-```
-
-to
-
-```
-SELINUX=permissive
-```
-
-Changes will not take place until a reboot, but a reboot is upcoming anyway.
-
-If you wish to enforce immediately
-
-```sh
-sudo setenforce 0
-```
-
 ## Install your ssh keys
 
 Copy your github-ssh_keys.zip to ~/.ssh
 
 ```sh
 mkdir ~/.ssh
-unzip /media/sf_mySetups/resources/github-ssh_keys.zip -d ~/.ssh
+unzip ~/git/mySetups/resources/github-ssh_keys.zip -d ~/.ssh
 ls -l ~/.ssh
 ```
 
@@ -55,6 +27,13 @@ You should now have these files and permissions in that folder.
 ```
 -rw------- 1 dev dev 3.4K xxxx-xx-xx 07:14 id_rsa
 -rw-r--r-- 1 dev dev  749 xxxx-xx-xx 06-02 07:14 id_rsa.pub
+```
+
+## Clone your Setups repository
+
+```sh
+mkdir ~/git
+git clone git@github.com:jasonmb626/mySetups.git ~/git
 ```
 
 ## Enable Flathub
@@ -96,7 +75,7 @@ Change the look and feel to your prefrences.
 
 ```sh
 mkdir ~/.local/share/wallpapers
-cp /media/sf_mySetups/resources/Wallpapers/3908317.jpg ~/.local/share/wallpapers/
+cp ~/git/mySetups/resources/Wallpapers/3908317.jpg ~/.local/share/wallpapers/
 ```
 
 OR
@@ -151,9 +130,9 @@ Download [Nordic-bluish-accent.tar.xz](https://github.com/jasonmb626/LinuxDev/ra
 
 ```
 mkdir ~/.themes
-cp -a /media/sf_mySetups/LinuxDev/Nordic-bluish-accent* ~/.themes/
+cp -a ~/git/mySetups/LinuxDev/Nordic-bluish-accent* ~/.themes/
 mkdir ~/.icons
-cp -a /media/sf_mySetups/LinuxDev/Nordic/ /media/sf_mySetups/LinuxDev/Nordzy-cursors/ ~/.icons/
+cp -a ~/git/mySetups/LinuxDev/Nordic/ ~/git/mySetups/LinuxDev/Nordzy-cursors/ ~/.icons/
 ```
 
 ### Set the themes
@@ -188,7 +167,7 @@ Install from your host
 
 ```sh
 mkdir ~/.local/share/fonts
-cp /media/sf_mySetups/resources/fonts/ttf/* ~/.local/share/fonts
+cp ~/git/mySetups/resources/fonts/ttf/* ~/.local/share/fonts
 ```
 
 OR
@@ -229,7 +208,7 @@ Optional - under colors, set transparent background.
 
 From your host
 ```sh
-cp -a /media/sf_mySetups/LinuxDev/zsh/ ~/.local/share/
+cp -a ~/git/mySetups/LinuxDev/zsh/ ~/.local/share/
 ```
 
 OR
@@ -251,8 +230,8 @@ echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
 ####  Import via dconf
 
 ```sh
-tr -d '\015' </media/sf_mySetups/LinuxDev/getNordProfileID.sh >~/getNordProfileID.sh
-sed "s/%DEFHASH%/$(bash ~/getNordProfileID.sh)/" /media/sf_mySetups/LinuxDev/user.conf | dconf load /
+tr -d '\015' <~/git/mySetups/LinuxDev/getNordProfileID.sh >~/getNordProfileID.sh
+sed "s/%DEFHASH%/$(bash ~/getNordProfileID.sh)/" ~/git/mySetups/LinuxDev/user.conf | dconf load /
 rm ~/getNordProfileID.sh
 ```
 
@@ -414,10 +393,10 @@ git clone https://github.com/lukechilds/zsh-nvm.git ~/.zsh-nvm
 
 Change to Unix Line Endings if not already.
 ```sh
-tr -d '\015' </media/sf_mySetups/LinuxDev/.zshrc >~.zshrc
+tr -d '\015' <~/git/mySetups/LinuxDev/.zshrc >~.zshrc
 ```
 Alternate option:
-dos2unix </media/sf_mySetups/LinuxDev/.zshrc >~.zshrc
+dos2unix <~/git/mySetups/LinuxDev/.zshrc >~.zshrc
 
 OR
 
