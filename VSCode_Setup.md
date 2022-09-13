@@ -94,7 +94,7 @@ Feel free to delete the javascript, python entries if you aren't using those lan
   "workbench.iconTheme": "vscode-icons",
   "workbench.colorTheme": "Nord",
   "editor.fontFamily": "'JetBrains Mono', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
-  "terminal.integrated.fontFamily": "Courier, PowerlineSymbols",
+  "terminal.integrated.fontFamily": "Courier, MesloLGS NF",
   "vim.camelCaseMotion.enable": true,
   "vim.leader": "<space>",
   "vim.replaceWithRegister": true,
@@ -249,6 +249,18 @@ Feel free to delete the javascript, python entries if you aren't using those lan
     },
   ],
 }
+```
+
+If using Flatpak and zsh you'll need to change terminal settings or zsh won't work
+
+```json
+    "terminal.integrated.defaultProfile.linux": "bash",
+    "terminal.integrated.profiles.linux": {
+      "bash": {
+        "path": "/usr/bin/flatpak-spawn",
+        "args": ["--host", "--env=TERM=xterm-256color", "zsh"]
+      }
+    },
 ```
 
 #### Configure keybindings.json (Probably only necessary on Linux. Linux defaults are weird. Make them better match Windows.)
