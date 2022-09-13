@@ -151,10 +151,9 @@ Download [Nordic-bluish-accent.tar.xz](https://github.com/jasonmb626/LinuxDev/ra
 
 ```
 mkdir ~/.themes
-tar xvfJ /media/sf_mySetups/LinuxDev/Nordic-bluish-accent.tar.xz -C ~/.themes
+cp -a /media/sf_mySetups/LinuxDev/Nordic-bluish-accent* ~/.themes/
 mkdir ~/.icons
-tar xvfJ /media/sf_mySetups/LinuxDev/Nordic-Folders.tar.xz -C ~/.icons
-tar xvfz /media/sf_mySetups/LinuxDev/Nordzy-cursors.tar.gz -C ~/.icons
+cp -a /media/sf_mySetups/LinuxDev/Nordic/ /media/sf_mySetups/LinuxDev/Nordzy-cursors/ ~/.icons/
 ```
 
 ### Set the themes
@@ -230,7 +229,7 @@ Optional - under colors, set transparent background.
 
 From your host
 ```sh
-tar xvfJ /media/sf_mySetups/LinuxDev/zsh.tar.xz -C ~/.local/share
+cp -a /media/sf_mySetups/LinuxDev/zsh/ ~/.local/share/
 ```
 
 OR
@@ -253,7 +252,7 @@ echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
 
 ```sh
 tr -d '\015' </media/sf_mySetups/LinuxDev/getNordProfileID.sh >~/getNordProfileID.sh
-dconf load / <<< sed "s/%DEFHASH$/$(bash ~/getNordProfileID.sh)/" /media/sf_mySetups/LinuxDev/user.conf
+sed "s/%DEFHASH%/$(bash ~/getNordProfileID.sh)/" /media/sf_mySetups/LinuxDev/user.conf | dconf load /
 rm ~/getNordProfileID.sh
 ```
 
@@ -338,7 +337,7 @@ command='/usr/bin/gnome-terminal'
 name='Gnome Terminal'
 
 [org/gnome/shell]
-enabled-extensions=['background-logo@fedorahosted.org', 'pop-shell@system76.com', 'clipboard-indicator@tudmotu.com', 'compiz-alike-magic-lamp-effect@hermes83.github.com', 'dash-to-dock-cosmic-@halfmexicanhalfamazing@gmail.com', 'user-theme@gnome-shell-extensions.gcampax.github.com', 'workspaces-bar@fthx']
+enabled-extensions=['background-logo@fedorahosted.org', 'pop-shell@system76.com', 'clipboard-indicator@tudmotu.com', 'compiz-alike-magic-lamp-effect@hermes83.github.com', 'dash-to-dock@micxgx.gmail.com', 'user-theme@gnome-shell-extensions.gcampax.github.com', 'workspaces-bar@fthx']
 
 [org/gnome/shell/app-switcher]
 current-workspace-only=true
