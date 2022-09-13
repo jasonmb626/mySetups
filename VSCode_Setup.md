@@ -249,6 +249,13 @@ Feel free to delete the javascript, python entries if you aren't using those lan
 ```
 
 #### Configure keybindings.json (Probably only necessary on Linux. Linux defaults are weird. Make them better match Windows.)
+
+Because vim has taken over normal Cut/Copy/Pase use these if you need non-vim cut/copy/paste. This is especially useful \(but not as usueful as Ctrl+C/V/X would have been\) if you are using one hand for the mouse and need to use quickly use one hand for cut/copy/paste
+
+Ctrl+Insert instaed of Ctrl+C
+Shift+Insert instead of Ctrl+V
+Shift+Delete instead of Ctrl+X
+
 ```json
   {
     "key": "shift+alt+down",
