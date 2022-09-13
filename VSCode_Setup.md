@@ -30,13 +30,16 @@ Linux \(Flatpak\): $XDG_CONFIG_HOME/.var/app/com.vscodium.codium/config/VSCodium
 TODO: Do we need Prettier extension if ESLint is configured to use prettier?
 
 General:
+- Vim (vscodevim)
 - Nord (arcticicestudio)
 - vscode-icons (VSCode Icons Team)
 - REST Client (Huachao Mao)
 - Docker (Microsoft)
+
 Python:
 - Python (Microsoft)
 - Pylance (Microsoft) (Should install automically with above Python)
+
 Javascript:
 - Prettier (Prettier)
 - ESLint (Microsoft)
