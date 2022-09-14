@@ -141,6 +141,8 @@ If flatpak Gnome Extension requires you to choose from multiple matches, choose 
 <details>
   <summary>Copy/Paste - Command Prompt entries</summary>
 
+ Wallpaper 
+ 
 ```sh
 mkdir ~/.local/share/wallpapers
 cp ~/git/mySetups/resources/Wallpapers/3908317.jpg ~/.local/share/wallpapers/
