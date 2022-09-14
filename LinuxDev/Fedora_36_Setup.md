@@ -10,6 +10,13 @@ sudo usermod -aG vboxsf dev
 
 Then _reboot_ or changes won't take effect.
 
+## Clone your Setups repository
+
+```sh
+mkdir ~/git
+git clone https://github.com/jasonmb626/mySetups.git ~/git
+```
+
 ## Install your ssh keys
 
 Copy your github-ssh_keys.zip to ~/.ssh
@@ -29,11 +36,11 @@ You should now have these files and permissions in that folder.
 -rw-r--r-- 1 dev dev  749 xxxx-xx-xx 06-02 07:14 id_rsa.pub
 ```
 
-## Clone your Setups repository
+Now you can change the remote URL to ssh-based authentication
 
 ```sh
-mkdir ~/git
-git clone git@github.com:jasonmb626/mySetups.git ~/git
+cd ~/git/mySetups
+git remote set-url origin git@github.com:jasonmb626/mySetups.git 
 ```
 
 ## Enable Flathub
@@ -211,12 +218,6 @@ From your host
 cp -a ~/git/mySetups/LinuxDev/zsh/ ~/.local/share/
 ```
 
-OR
-
-Steal some of the zsh powerlevel10k stuff from Manjaro
-Download the tarball hosting on GitHub [here](https://github.com/jasonmb626/LinuxDev/raw/main/zsh.tar.xz)
-
-Unzip it to ~/.local/share
 
 #### Now get Powerline 10k
 
@@ -230,8 +231,7 @@ echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
 ####  Import via dconf
 
 ```sh
-tr -d '\015' <~/git/mySetups/LinuxDev/getNordProfileID.sh >~/getNordProfileID.sh
-sed "s/%DEFHASH%/$(bash ~/getNordProfileID.sh)/" ~/git/mySetups/LinuxDev/user.conf | dconf load /
+sed "s/%DEFHASH%/$(~/git/mySetups/LinuxDev/getNordProfileID.sh)/" ~/git/mySetups/LinuxDev/user.conf | dconf load /
 rm ~/getNordProfileID.sh
 ```
 
@@ -381,22 +381,14 @@ My options:
 * Instant Prompt Mode -> 1 (Verbose)
 * Apply changes to ~/.zshrc? -> y (Yes)
 
-### Install [zsh-nvm](https://github.com/lukechilds/zsh-nvm)
-
-```sh
-git clone https://github.com/lukechilds/zsh-nvm.git ~/.zsh-nvm
-```
-
 ### Set your .zshrc
 
 ####  Copy from your share
 
 Change to Unix Line Endings if not already.
 ```sh
-tr -d '\015' <~/git/mySetups/LinuxDev/.zshrc >~.zshrc
+cp ~/git/mySetups/LinuxDev/.zshrc ~.zshrc
 ```
-Alternate option:
-dos2unix <~/git/mySetups/LinuxDev/.zshrc >~.zshrc
 
 OR
 
@@ -434,9 +426,6 @@ source ~/powerlevel10k/powerlevel10k.zsh-theme
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-#zsh-nvm
-[[ ! -f ~/.zsh-nvm/zsh-nvm.plugin.zsh ]] || source ~/.zsh-nvm/zsh-nvm.plugin.zsh
-
 #tab-completion menu
 autoload -Uz compinit
 compinit
@@ -448,26 +437,6 @@ alias ls="ls --color=auto"
 </details>
 
 Exit terminal and reopen. After a few seconds it'll give a bit of an error/weird output from zsh-nvm but that's okay. It's a one-time thing.
-
-### Install Extra python stuff, pip
-
-might need python3-wheel
-
-```sh
-sudo dnf install python3-pip
-```
-
-### Install Node LTS
-
-```sh
-nvm i --lts
-```
-
-### Install nodemon globaly
-
-```sh
-npm i -g nodemon
-```
 
 ### IDEs/Code Editors
 
@@ -510,20 +479,6 @@ flatpak install https://flathub.org/repo/appstream/com.visualstudio.code.flatpak
 </details>
 
 Follow instructions [here](https://github.com/jasonmb626/mySetups/blob/main/VSCode_Setup.md ) to set up your VS Code environment.
-
-#### If using Intellij IDEA
-
-```sh
-flatpak install flathub com.jetbrains.IntelliJ-IDEA-Community
-```
-
-#### If Using Neovim
-
-Follow instructions [here](https://github.com/jasonmb626/mySetups/blob/main/Neovim_Setup.md ) to set up your Neovim
-
-### Postgres
-
-Follow instructions [here](https://github.com/jasonmb626/mySetups/blob/main/LinuxDev/Fedora_36_postgres-devel.md).
 
 ### Key Logging 
 
