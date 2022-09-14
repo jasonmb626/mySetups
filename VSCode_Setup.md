@@ -265,12 +265,6 @@ If using Flatpak and zsh you'll need to change terminal settings or zsh won't wo
 
 #### Configure keybindings.json (Probably only necessary on Linux. Linux defaults are weird. Make them better match Windows.)
 
-Because vim has taken over normal Cut/Copy/Pase use these if you need non-vim cut/copy/paste. This is especially useful \(but not as usueful as Ctrl+C/V/X would have been\) if you are using one hand for the mouse and need to use quickly use one hand for cut/copy/paste
-
-Ctrl+Insert instaed of Ctrl+C
-Shift+Insert instead of Ctrl+V
-Shift+Delete instead of Ctrl+X
-
 ```json
   {
     "key": "shift+alt+down",
@@ -292,115 +286,6 @@ Shift+Delete instead of Ctrl+X
     "command": "-editor.action.insertCursorAbove",
     "when": "editorTextFocus"
   }
-```
-
-If using vscode-vim, put in some keybindings to make it work better
-```json
-   {
-        "key": "r",
-        "command": "renameFile",
-        "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
-    },
-    {
-        "key": "d",
-        "command": "deleteFile",
-        "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
-    },
-    {
-        "key": "c",
-        "command": "filesExplorer.copy",
-        "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
-    },
-    {
-        "key": "p",
-        "command": "filesExplorer.paste",
-        "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
-    },
-    {
-        "key": "a",
-        "command": "workbench.files.action.createFileFromExplorer",
-        "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
-    },
-    {
-        "key": "shift+a",
-        "command": "workbench.files.action.createFolderFromExplorer",
-        "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
-    },
-    {
-        "key": "shift+y",
-        "command": "copyFilePath",
-        "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
-    },
-    {
-        "key": "ctrl+y",
-        "command": "copyRelativeFilePath",
-        "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
-    },
-    {
-      "key": "shift+w",
-      "command": "workbench.files.action.collapseExplorerFolders",
-      "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
-    },
-    {
-        "key": "ctrl+k",
-        "command": "workbench.action.navigateUp"
-    },
-    {
-        "key": "ctrl+j",
-        "command": "workbench.action.navigateDown"
-    },
-    {
-        "key": "ctrl+h",
-        "command": "workbench.action.navigateLeft"
-    },
-    {
-        "key": "ctrl+l",
-        "command": "workbench.action.navigateRight"
-    },
-    {
-      "key": "shift+l",
-      "command": "workbench.action.nextEditor",
-      "when": "vim.mode == 'Normal'"
-    },
-    {
-      "key": "shift+h",
-      "command": "workbench.action.previousEditor",
-      "when": "vim.mode == 'Normal'"
-    },
-    {
-        "key": "alt+k",
-        "command": "editor.action.moveLinesUpAction",
-        "when": "editorTextFocus && !editorReadonly && vim.mode == 'Visual'"
-    },
-    {
-        "key": "alt+k",
-        "command": "editor.action.moveLinesUpAction",
-        "when": "editorTextFocus && !editorReadonly && vim.mode == 'VisualLine'"
-    },
-    {
-        "key": "alt+k",
-        "command": "editor.action.moveLinesUpAction",
-        "when": "editorTextFocus && !editorReadonly && vim.mode == 'VisualBlock'"
-    },
-    {
-        "key": "alt+j",
-        "command": "editor.action.moveLinesDownAction",
-        "when": "editorTextFocus && !editorReadonly && vim.mode == 'Visual'"
-    },
-    {
-        "key": "alt+j",
-        "command": "editor.action.moveLinesDownAction",
-        "when": "editorTextFocus && !editorReadonly && vim.mode == 'VisualLine'"
-    },
-    {
-        "key": "alt+j",
-        "command": "editor.action.moveLinesDownAction",
-        "when": "editorTextFocus && !editorReadonly && vim.mode == 'VisualBlock'"
-    },
-    {
-        "key": "shift+win+i",
-        "command": "workbench.action.inspectContextKeys"
-    },
 ```
 
 #### Configure user snippets
