@@ -14,7 +14,7 @@ Then _reboot_ or changes won't take effect.
 
 ```sh
 mkdir ~/git
-git clone https://github.com/jasonmb626/mySetups.git ~/git/mySetups.git
+git clone https://github.com/jasonmb626/mySetups.git ~/git/mySetups
 ```
 
 ## Install your ssh keys
