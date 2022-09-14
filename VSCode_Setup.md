@@ -29,10 +29,10 @@ Linux \(Flatpak\): $XDG_CONFIG_HOME/.var/app/com.vscodium.codium/config/VSCodium
 
 TODO: Do we need Prettier extension if ESLint is configured to use prettier?
 
-General:
 - Nord (arcticicestudio)
 - vscode-icons (VSCode Icons Team)
 - Docker (Microsoft)
+- Remote - Containers (Microsoft)
 
 Here are the install commands for ctrl+p
 
@@ -46,6 +46,10 @@ ext install vscode-icons-team.vscode-icons
 
 ```
 ext install ms-azuretools.vscode-docker
+```
+
+```
+ext ms-vscode-remote.remote-containers
 ```
 
 ### Update the comment colors in nord theme
