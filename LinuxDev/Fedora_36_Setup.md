@@ -139,7 +139,7 @@ flatpak install org.gnome.Extensions
 If flatpak Gnome Extension requires you to choose from multiple matches, choose 'fedora'
 
 <details>
-  <summary>Copy/Paste - Command Prompt entries<summary>
+  <summary>Copy/Paste - Command Prompt entries</summary>
 
 ```sh
 mkdir ~/.local/share/wallpapers
@@ -203,7 +203,7 @@ cp ~/git/mySetups/LinuxDev/.zshrc ~/.zshrc
 </details>
 
 <details>
-  <summary>Manually<summary>
+  <summary>Manually</summary>
 
 Change the look and feel to your prefrences.
 
