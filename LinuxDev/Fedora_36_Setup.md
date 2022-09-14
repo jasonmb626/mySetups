@@ -14,7 +14,7 @@ Then _reboot_ or changes won't take effect.
 
 ```sh
 mkdir ~/git
-git clone https://github.com/jasonmb626/mySetups.git ~/git
+git clone https://github.com/jasonmb626/mySetups.git ~/git/mySetups.git
 ```
 
 ## Install your ssh keys
@@ -41,6 +41,12 @@ Now you can change the remote URL to ssh-based authentication
 ```sh
 cd ~/git/mySetups
 git remote set-url origin git@github.com:jasonmb626/mySetups.git 
+```
+
+Set you git configurations
+```sh
+git config --global user.email "jason@jasonbrunelle.com"
+git config --global user.name "Jason Brunelle"
 ```
 
 ## Enable Flathub
@@ -74,90 +80,10 @@ sudo systemctl start docker
 sudo systemctl enable docker
 ```
 
-## Desktop Appearance
-
-Change the look and feel to your prefrences.
-
-### Get your wallpaper
-
-```sh
-mkdir ~/.local/share/wallpapers
-cp ~/git/mySetups/resources/Wallpapers/3908317.jpg ~/.local/share/wallpapers/
-```
-
-OR
-
-Download your [wallpaper](https://wallpaperaccess.com/download/blue-lagoon-3908317).
-
-(Recommend placing it in ~/.local/share/wallpapers)
-
-Set the background
-
-(Or wait until we import dconf settings later. It'll do the same thing.)
-
-Right click desktop, select Change Background. Add Picture and set it as your desktop wallpaper
-
-### Set your workspaces
-
-(Or wait until we import dconf settings later. It'll do the same thing.)
-
-Settings -> Multitasking
-
-Workspaces
-- Fixed, 6
-
-### Install dependencies for extending Gnome functionality
-
-```sh
-sudo dnf install gnome-tweaks
-flatpak install org.gnome.Extensions
-```
-
-If flatpak Gnome Extension requires you to choose from multiple matches, choose 'fedora'
-
-### Enable Gnome Extensions
-
-#### Enable User Themes
-
-Install from the [User Themes](https://extensions.gnome.org/extension/19/user-themes/) extension page
-You'll need to install the browser plugin (it'll prompt you) and then refresh the page
-
-#### Enable [Dash to Dock for COSMIC](https://extensions.gnome.org/extension/5004/dash-to-dock-for-cosmic/)
-(Check back in on https://extensions.gnome.org/extension/307/dash-to-dock/. Seems less maintained and above doesn't seem to clash even if not using COSMIC)
-
-#### Enable [Clipboard Indicator](https://extensions.gnome.org/extension/779/clipboard-indicator/)
-
-#### Enable [Workspaces Bar](https://extensions.gnome.org/extension/3851/workspaces-bar/)
-
-#### Enable [Compiz alike magic lamp effect](https://extensions.gnome.org/extension/3740/compiz-alike-magic-lamp-effect/)
-
-## Download your preferred theme
-
-Download [Nordic-bluish-accent.tar.xz](https://github.com/jasonmb626/LinuxDev/raw/main/Nordic-bluish-accent.tar.xz), [Nordic-Folders.tar.xz](https://github.com/jasonmb626/LinuxDev/raw/main/Nordic-bluish-accent.tar.xz), and [Nordzy-cursors.tar.gz](https://github.com/jasonmb626/LinuxDev/raw/main/Nordzy-cursors.tar.gz) from your GitHub or copy from you host share or from gnome-look (theme, icons)[https://www.gnome-look.org/p/1267246] and (cursors)[https://www.gnome-look.org/p/1571937]
-
-```
-mkdir ~/.themes
-cp -a ~/git/mySetups/LinuxDev/Nordic-bluish-accent* ~/.themes/
-mkdir ~/.icons
-cp -a ~/git/mySetups/LinuxDev/Nordic/ ~/git/mySetups/LinuxDev/Nordzy-cursors/ ~/.icons/
-```
-
-### Set the themes
-
-(Or wait until we import dconf settings later. It'll do the same thing.)
-
-Open tweaks 
--> Appearance
-- Icons: Nordic
-- Shell: Nordic-bluish-accent-v40
-- Legacy Applications: Nordic-bluish-accent
-
--> Window Titlebars -> Placement = Left
-
 ### Install zsh, vim, gnome-shell-extension-pop-shell, xprop and tool to provide chsh
 
 util-linux-user provides chsh command
-xprop needed by gnome-shell-extension-pop-shell, which we'll use since we'll be running alacritty windowless and it'll provide keyboard sizing abilities
+xprop needed by gnome-shell-extension-pop-shell which provides tiling window manager functionality
 
 ```sh
 sudo dnf install zsh util-linux-user vim gnome-shell-extension-pop-shell xprop
@@ -166,26 +92,7 @@ chsh
 
 set to /usr/bin/zsh
 
-### Terminal
-
-#### Install fonts ####
-
-Install from your host
-
-```sh
-mkdir ~/.local/share/fonts
-cp ~/git/mySetups/resources/fonts/ttf/* ~/.local/share/fonts
-```
-
-OR
-
-Install the 4 meslo fonts recommended for Powerline 10k
-Links [here](https://github.com/romkatv/powerlevel10k#meslo-nerd-font-patched-for-powerlevel10k)
-or in this base repo in fonts/ttf folder (might as well install JetBrains fonts at the same time :) )
-
-Install the JetBrains mono font Available on their [website](https://www.jetbrains.com/lp/mono/)
-
-### Install Nord theme for Gnome Terminal
+### Install Nord theme for Gnome Terminal (This doesn't set the theme, just installs it)
 
 Follow instructions from their [github](https://github.com/arcticicestudio/nord-gnome-terminal)
 
@@ -196,149 +103,180 @@ cd nord-gnome-terminal/src
 cd ../..
 rm -fr nord-gnome-terminal
 ```
-
-#### Set the Gnome Terminal Settings
-
-\(This will also happen via dconf import later so you can skip this if you want\)
-
-Open Gnome Terminal. Hamburger menu => Preferences
-
-Under profiles Choose Nord
-Check custom font, set to MesloLGS NF 12
-Using down delta next to Nord choose set as default.
-
-Optional - under colors, set transparent background.
-
-### Install and Configure Powerline 10k
-
-#### First get your custom zsh stolen from Manjaro Linux
-
-From your host
-```sh
-cp -a ~/git/mySetups/LinuxDev/zsh/ ~/.local/share/
-```
-
-
-#### Now get Powerline 10k
+#### Get Powerline 10k
 
 ```sh
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
 echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
 ```
 
-### Set additional Gnome Keyboard Shortcuts/load any Gnome Settings not already set manually
+#### Get your custom zsh stolen from Manjaro Linux
 
-####  Import via dconf
+From your host
+```sh
+cp -a ~/git/mySetups/LinuxDev/zsh/ ~/.local/share/
+```
+
+### (Optional) Key Logging 
+
+Build logkeys from their [GitHub](https://github.com/kernc/logkeys)
+
+Run with the following command: \(my_lang.keymap is in your LinuxDev\)
+
+```sh
+sudo logkeys --start --keymap my_lang.keymap --output test.log
+```
+
+## Desktop Appearance
+
+### Install dependencies for extending Gnome functionality
+
+```sh
+sudo dnf install gnome-tweaks
+flatpak install org.gnome.Extensions
+```
+
+If flatpak Gnome Extension requires you to choose from multiple matches, choose 'fedora'
+
+<details>
+  <summary>Copy/Paste - Command Prompt entries<summary>
+
+```sh
+mkdir ~/.local/share/wallpapers
+cp ~/git/mySetups/resources/Wallpapers/3908317.jpg ~/.local/share/wallpapers/
+```
+
+Download extensions installer
+
+```sh
+wget -O gnome-shell-extension-installer "https://github.com/brunelli/gnome-shell-extension-installer/raw/master/gnome-shell-extension-installer"
+chmod +x gnome-shell-extension-installer
+sudo mv gnome-shell-extension-installer /usr/bin/
+```
+
+Now Install the Extensions
+
+```sh
+gnome-shell-extension-installer 19 #User Themes
+gnome-shell-extension-installer 307 #Dash to Dock
+gnome-shell-extension-installer 779 #Clipboard Indicator
+gnome-shell-extension-installer 3740 #Compiz alike magic lamp effect
+gnome-shell-extension-installer 3851 #Workspaces Bar
+```
+
+Icon/Cursor/Theme
+
+```
+mkdir ~/.themes
+cp -a ~/git/mySetups/LinuxDev/Nordic-bluish-accent* ~/.themes/
+mkdir ~/.icons
+cp -a ~/git/mySetups/LinuxDev/Nordic/ ~/git/mySetups/LinuxDev/Nordzy-cursors/ ~/.icons/
+```
+
+Fonts
+
+```sh
+mkdir ~/.local/share/fonts
+cp ~/git/mySetups/resources/fonts/ttf/* ~/.local/share/fonts
+```
+
+Copy your custome .p10k.zsh
+
+```sh
+cp -a ~/git/mySetups/LinuxDev/.p10k.zsh ~
+```
+
+Import Gnome Settings via dconf
 
 ```sh
 sed "s/%DEFHASH%/$(~/git/mySetups/LinuxDev/getNordProfileID.sh)/" ~/git/mySetups/LinuxDev/user.conf | dconf load /
-rm ~/getNordProfileID.sh
 ```
 
-<details>
-  <summary>This loads the following configuration:</summary>
-  
-```
-[org/gnome/desktop/background]
-color-shading-type='solid'
-picture-options='zoom'
-picture-uri='file:///home/dev/.local/share/wallpapers/3908317.jpg'
-picture-uri-dark='file:///home/dev/.local/share/wallpapers/3908317.jpg'
-primary-color='#000000000000'
-secondary-color='#000000000000'
+Reboot so everything takes effect
 
-[org/gnome/desktop/interface]
-clock-format='12h'
-color-scheme='prefer-dark'
-cursor-theme='Nordzy-cursors'
-font-antialiasing='grayscale'
-font-hinting='slight'
-gtk-theme='Nordic-bluish-accent'
-icon-theme='Nordic'
+####  Copy your custom .zshrc from your Setups Directory
 
-[org/gnome/desktop/peripherals/keyboard]
-numlock-state=true
-
-[org/gnome/desktop/wm/preferences]
-button-layout='close,minimize,maximize:appmenu'
-
-[org/gnome/desktop/screensaver]
-color-shading-type='solid'
-picture-options='zoom'
-picture-uri='file:///home/dev/.local/share/wallpapers/3908317.jpg'
-primary-color='#000000000000'
-secondary-color='#000000000000'
-
-[org/gnome/desktop/wm/preferences]
-num-workspaces=6
-
-[org/gnome/mutter]
-dynamic-workspaces=false
-
-[org/gnome/shell/extensions/user-theme]
-name='Nordic-bluish-accent-v40'
-
-[org/gnome/shell/keybindings]
-open-application-menu=['<Super>F9']
-toggle-message-tray=@as []
-
-[org/gnome/desktop/wm/keybindings]
-show-desktop=['<Super>d']
-switch-to-workspace-1=['<Super>u']
-switch-to-workspace-2=['<Super>i']
-switch-to-workspace-3=['<Super>o']
-switch-to-workspace-4=['<Alt><Super>u']
-switch-to-workspace-5=['<Alt><Super>i']
-switch-to-workspace-6=['<Alt><Super>o']
-move-to-workspace-1=['<Shift><Super>u']
-move-to-workspace-2=['<Shift><Super>i']
-move-to-workspace-3=['<Shift><Super>o']
-move-to-workspace-4=['<Shift><Alt><Super>u']
-move-to-workspace-5=['<Shift><Alt><Super>i']
-move-to-workspace-6=['<Shift><Alt><Super>o']
-
-[org/gnome/settings-daemon/plugins/media-keys]
-custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/']
-
-[org/gnome/terminal/legacy/profiles:]
-default='%DEFHASH%'
-
-[org/gnome/terminal/legacy/profiles:/:%DEFHASH%]
-background-transparency-percent=15
-font='MesloLGS NF 12'
-use-system-font=false
-use-theme-transparency=false
-use-transparent-background=true
-
-[org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0]
-binding='<Super>t'
-command='/usr/bin/gnome-terminal'
-name='Gnome Terminal'
-
-[org/gnome/shell]
-enabled-extensions=['background-logo@fedorahosted.org', 'pop-shell@system76.com', 'clipboard-indicator@tudmotu.com', 'compiz-alike-magic-lamp-effect@hermes83.github.com', 'dash-to-dock@micxgx.gmail.com', 'user-theme@gnome-shell-extensions.gcampax.github.com', 'workspaces-bar@fthx']
-
-[org/gnome/shell/app-switcher]
-current-workspace-only=true
-
-[org/gnome/shell/extensions/clipboard-indicator]
-clear-history=['<Super>F10']
-next-entry=['<Super>F12']
-prev-entry=['<Super>F11']
-toggle-menu=['<Super>v']
-
-[org/gnome/shell/extensions/pop-shell]
-focus-up=@as []
-tile-by-default=true
-tile-orientation=['<Shift><Super>0']
+```sh
+cp ~/git/mySetups/LinuxDev/.zshrc ~/.zshrc
 ```
 
 </details>
 
-OR
-
 <details>
-  <summary>Set them Manually</summary>
+  <summary>Manually<summary>
+
+Change the look and feel to your prefrences.
+
+### Get your wallpaper
+
+Download your [wallpaper](https://wallpaperaccess.com/download/blue-lagoon-3908317).
+
+(Recommend placing it in ~/.local/share/wallpapers)
+
+Set the background
+
+Right click desktop, select Change Background. Add Picture and set it as your desktop wallpaper
+
+### Set your workspaces
+
+Settings -> Multitasking
+
+Workspaces
+- Fixed, 6
+
+### Enable Gnome Extensions
+
+#### Enable User Themes
+
+Install from the [User Themes](https://extensions.gnome.org/extension/19/user-themes/) extension page
+You'll need to install the browser plugin (it'll prompt you) and then refresh the page
+
+#### Enable [Dash to Dock](https://extensions.gnome.org/extension/307/dash-to-dock/)
+(Check in on https://extensions.gnome.org/extension/5004/dash-to-dock-for-cosmic/. Seems more maintained and doesn't seem to clash even if not using COSMIC)
+
+#### Enable [Clipboard Indicator](https://extensions.gnome.org/extension/779/clipboard-indicator/)
+
+#### Enable [Workspaces Bar](https://extensions.gnome.org/extension/3851/workspaces-bar/)
+
+#### Enable [Compiz alike magic lamp effect](https://extensions.gnome.org/extension/3740/compiz-alike-magic-lamp-effect/)
+
+## Download your preferred theme
+
+Download Nordic-bluish-accent.tar.xz, Nordic-Folders.tar.xz Nordzy-cursors.tar.gz from gnome-look (theme, icons)[https://www.gnome-look.org/p/1267246] and (cursors)[https://www.gnome-look.org/p/1571937]
+
+### Set the themes
+
+Open tweaks 
+-> Appearance
+- Icons: Nordic
+- Cursor: Nordzy
+- Shell: Nordic-bluish-accent-v40
+- Legacy Applications: Nordic-bluish-accent
+
+-> Window Titlebars -> Placement = Left
+
+### Terminal
+
+#### Install fonts ####
+
+Install the 4 meslo fonts recommended for Powerline 10k
+Links [here](https://github.com/romkatv/powerlevel10k#meslo-nerd-font-patched-for-powerlevel10k)
+or in this base repo in fonts/ttf folder (might as well install JetBrains fonts at the same time :) )
+
+Install the JetBrains mono font Available on their [website](https://www.jetbrains.com/lp/mono/)
+
+#### Set the Gnome Terminal Settings
+
+Open Gnome Terminal. Hamburger menu => Preferences
+
+Under profiles Choose Nord
+Check custom font, set to MesloLGS NF 12
+Using down chevron next to Nord choose set as default.
+
+Optional - under colors, set transparent background.
+
+### Set Gnome Keyboard Shortcuts
+
   Settings -> Keyboard -> Keyboard Shortcuts
   View and Customize Shortcuts
 
@@ -346,10 +284,6 @@ OR
 
   Set "Hide all normal windows" to Super+D
   Set your "Switch to workspace #" to your keys
-
-</details>
-
-(via dconf allows setting keys to switch to more workspaces)
 
 #### Reboot
 
@@ -369,7 +303,7 @@ My options:
 * Show current time? -> 3 (12-hour format.)
 * Prompt Separators -> 1 (Angled)
 * Prompt Heads -> 1 (Sharp)
-* Prompt Tails -> 1 (Flat)
+* Prompt Tails -> 5 (Rounded)
 * Prompt Height -> 2 (Two lines)
 * Prompt Connection -> 3 (Solid)
 * Prompt Frame -> 4 (Full)
@@ -383,66 +317,17 @@ My options:
 
 ### Set your .zshrc
 
-####  Copy from your share
+####  Copy/Paste from your Git Repository
 
-Change to Unix Line Endings if not already.
-```sh
-cp ~/git/mySetups/LinuxDev/.zshrc ~.zshrc
-```
-
-OR
-
-<details>
-  <summary>Set it Manually</summary>
-### Edit your .zshrc
-
-```sh
-vim ~/.zshrc
-```
-
-```
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-# Use powerline
-USE_POWERLINE="true"
-
-# Source manjaro-zsh-configuration
-if [[ -e ~/.local/share/zsh/manjaro-zsh-config ]]; then
-  source ~/.local/share/zsh/manjaro-zsh-config
-fi
-# Use manjaro zsh prompt
-if [[ -e ~/.local/share/zsh/manjaro-zsh-prompt ]]; then
-  source ~/.local/share/zsh/manjaro-zsh-prompt
-fi
-
-# Created by newuser for 5.8
-source ~/powerlevel10k/powerlevel10k.zsh-theme
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-#tab-completion menu
-autoload -Uz compinit
-compinit
-zstyle ':completion:*' menu select
-
-alias ls="ls --color=auto"
-```
+mySetups/LinuxDev/.zshrc
 
 </details>
-
-Exit terminal and reopen. After a few seconds it'll give a bit of an error/weird output from zsh-nvm but that's okay. It's a one-time thing.
 
 ### IDEs/Code Editors
 
 #### If using VSCode/VSCodium
 
-VSCodium
+[VSCodium](https://vscodium.com/)
 
 ```sh
 sudo rpmkeys --import https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/-/raw/master/pub.gpg
@@ -450,7 +335,7 @@ printf "[gitlab.com_paulcarroty_vscodium_repo]\nname=download.vscodium.com\nbase
 sudo dnf install codium
 ```
 
-Or Instructions for [VS Code](https://code.visualstudio.com/docs/setup/linux#_rhel-fedora-and-centos-based-distributions)
+[VS Code](https://code.visualstudio.com/docs/setup/linux#_rhel-fedora-and-centos-based-distributions)
 
 ```sh
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
@@ -460,13 +345,3 @@ sudo dnf install code
 ```
 
 Follow instructions [here](https://github.com/jasonmb626/mySetups/blob/main/VSCode_Setup.md ) to set up your VS Code environment.
-
-### Key Logging 
-
-Build logkeys from their [GitHub](https://github.com/kernc/logkeys)
-
-Run with the following command: \(my_lang.keymap is in your LinuxDev\)
-
-```sh
-sudo logkeys --start --keymap my_lang.keymap --output test.log
-```
