@@ -30,20 +30,9 @@ Linux \(Flatpak\): $XDG_CONFIG_HOME/.var/app/com.vscodium.codium/config/VSCodium
 TODO: Do we need Prettier extension if ESLint is configured to use prettier?
 
 General:
-- Vim (vscodevim)
 - Nord (arcticicestudio)
 - vscode-icons (VSCode Icons Team)
-- REST Client (Huachao Mao)
 - Docker (Microsoft)
-
-Python:
-- Python (Microsoft)
-- Pylance (Microsoft) (Should install automically with above Python)
-
-Javascript:
-- Prettier (Prettier)
-- ESLint (Microsoft)
-- Jest Runner (firsttris)
 
 Here are the install commands for ctrl+p
 
@@ -56,27 +45,7 @@ ext install vscode-icons-team.vscode-icons
 ```
 
 ```
-ext install humao.rest-client
-```
-
-```
 ext install ms-azuretools.vscode-docker
-```
-
-```
-ext install ms-python.python
-```
-
-```
-ext install esbenp.prettier-vscode
-```
-
-```
-ext install dbaeumer.vscode-eslint
-```
-
-```
-ext install firsttris.vscode-jest-runner
 ```
 
 ### Update the comment colors in nord theme
@@ -95,159 +64,11 @@ Feel free to delete the javascript, python entries if you aren't using those lan
   "workbench.colorTheme": "Nord",
   "editor.fontFamily": "'JetBrains Mono', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
   "terminal.integrated.fontFamily": "Courier, MesloLGS NF",
-  "vim.camelCaseMotion.enable": true,
-  "vim.leader": "<space>",
-  "vim.replaceWithRegister": true,
-  "vim.useSystemClipboard": true,
-  "vim.useCtrlKeys": true,
   "editor.lineNumbers": "relative",
   "editor.formatOnSave": true,
   "editor.tabSize": 2,
   "editor.insertSpaces": true,
   "editor.bracketPairColorization.enabled": true,
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[python]": {
-    "editor.defaultFormatter": "ms-python.python"
-  },
-    "vim.normalModeKeyBindingsNonRecursive": [
-    {
-      "before": ["<leader>", "e"],
-      "commands": ["workbench.action.toggleSidebarVisibility"]
-    },
-    {
-      "before": ["<leader>", "z"],
-      "commands": ["workbench.action.focusSideBar"]
-    },
-    {
-      "before": ["<leader>", "f"],
-      "commands": [ "revealInExplorer" ],
-    },
-    {
-      "before": ["<leader>", "d", "b"],
-      "commands": [ "editor.debug.action.toggleBreakpoint" ]
-    },
-    {
-      "before": ["<leader>", "d", "B"],
-      "commands": [ "editor.debug.action.conditionalBreakpoint" ]
-    },
-    {
-      "before": ["<leader>", "d", "C"],
-      "commands": [ "editor.debug.action.runToCursor" ]
-    },
-    {
-      "before": ["<leader>", "<space>"],
-      "commands": [ "workbench.action.debug.continue" ]
-    },
-    {
-      "before": ["<leader>", "d", "j"],
-      "commands": [ "workbench.action.debug.stepOver" ]
-    },
-    {
-      "before": ["<leader>", "d", "l"],
-      "commands": [ "workbench.action.debug.stepInto" ]
-    },
-    {
-      "before": ["<leader>", "d", "h"],
-      "commands": [ "workbench.action.debug.stepOut" ]
-    },
-    {
-      "before": ["<leader>", "d", "p"],
-      "commands": [ "workbench.action.debug.pause" ]
-    },
-    {
-      "before": ["<leader>", "d", "r"],
-      "commands": [ "workbench.action.debug.restart" ]
-    },
-    {
-      "before": ["<leader>", "d", "s"],
-      "commands": [ "workbench.action.debug.stop" ]
-    },
-    {
-      "before": ["<leader>", "d", "c"],
-      "commands": [ "workbench.panel.repl.view.focus" ]
-    },
-    {
-      "before": ["<leader>", "d", "t"],
-      "commands": [ "terminal.focus" ]
-    },
-    {
-      "before": ["<leader>", "d", "o"],
-      "commands": [ "workbench.panel.output.focus" ]
-    },
-    {
-      "before": ["<leader>", "m"],
-      "commands": [ "workbench.action.togglePanel" ]
-    },
-    {
-      "before": [ "d", "i", "l" ],
-      "after": [ "^", "d", "g", "_" ]
-    },
-    {
-      "before": [ "y", "i", "l" ],
-      "after": [ "^", "y", "g", "_" ]
-    },
-    {
-      "before": [ "d", "a", "l" ],
-      "after": [ "0", "d", "$" ]
-    },
-    {
-      "before": [ "y", "a", "l" ],
-      "after": [ "0", "y", "$" ]
-    },
-    {
-      "before": ["K"],
-       "commands": "editor.action.showHover",
-       "when": "editorTextFocus"
-    },
-    {
-      "before": ["K"],
-      "commands": "editor.debug.action.showDebugHover",
-      "when": "editorTextFocus && inDebugMode"
-    }
-  ],
-  "vim.visualModeKeyBindingsNonRecursive": [
-    {
-      "before": [">"],
-      "after": [">", "g", "v"]
-    },
-    {
-      "before": ["<"],
-      "after": ["<", "g" ,"v"]
-    },
-    {
-      "before": ["ctrl+r", "m"],
-      "commands": [ {
-        "command": "editor.action.codeAction",
-        "args": {
-          "kind": "refactor.extract.function"
-        },
-      }]
-    },
-    {
-      "before": ["ctrl+r", "c"],
-      "commands": [ {
-        "command": "editor.action.codeAction",
-        "args": {
-          "kind": "refactor.extract.constant",
-          "preferred": true,
-          "apply": "ifsingle"
-        },
-      }]
-    },
-    {
-      "before": ["ctrl+r", "g"],
-      "commands": [ {
-        "command": "editor.action.codeAction",
-        "args": {
-          "kind": "refactor.extract.constant",
-          "preferred": false,
-          "apply": "ifsingle"
-        },
-      }]
-    },
-  ],
 }
 ```
 
