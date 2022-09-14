@@ -131,6 +131,8 @@ Go ahead and restart VSCode before continuting
   <summary>For NodeJS projects</summary>
 ## For each project
 
+If you want a generic sample click the Remote Status bar icon (lower left) and choose "Try Development Container Sample" and choose Node
+
 TODO: find out if can use npm instead of npx, -D instead of --dev for eslint-config-airbnb
 
 ```sh
