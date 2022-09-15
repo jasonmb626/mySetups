@@ -180,16 +180,6 @@ Feel free to delete the javascript, python entries if you aren't using those lan
       "after": [ "0", "y", "$" ]
     },
     {
-      "before": ["K"],
-       "commands": "editor.action.showHover",
-       "when": "editorTextFocus"
-    },
-    {
-      "before": ["K"],
-      "commands": "editor.debug.action.showDebugHover",
-      "when": "editorTextFocus && inDebugMode"
-    },
-    {
       "before": ["u"],
       "commands": ["undo"]
     },
