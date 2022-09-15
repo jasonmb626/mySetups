@@ -47,6 +47,7 @@ Set you git configurations
 ```sh
 git config --global user.email "jason@jasonbrunelle.com"
 git config --global user.name "Jason Brunelle"
+git config --global init.defaultBranch main
 ```
 
 ## Enable Flathub
