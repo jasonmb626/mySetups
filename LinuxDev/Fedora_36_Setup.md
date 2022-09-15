@@ -188,6 +188,12 @@ Copy your custome .p10k.zsh
 cp -a ~/git/mySetups/LinuxDev/.p10k.zsh ~
 ```
 
+####  Copy your custom .zshrc from your Setups Directory
+
+```sh
+cp ~/git/mySetups/LinuxDev/.zshrc ~/.zshrc
+```
+
 Import Gnome Settings via dconf
 
 ```sh
@@ -195,12 +201,6 @@ sed "s/%DEFHASH%/$(~/git/mySetups/LinuxDev/getNordProfileID.sh)/" ~/git/mySetups
 ```
 
 Reboot so everything takes effect
-
-####  Copy your custom .zshrc from your Setups Directory
-
-```sh
-cp ~/git/mySetups/LinuxDev/.zshrc ~/.zshrc
-```
 
 </details>
 
