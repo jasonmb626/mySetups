@@ -29,12 +29,17 @@ Linux \(Flatpak\): $XDG_CONFIG_HOME/.var/app/com.vscodium.codium/config/VSCodium
 
 TODO: Do we need Prettier extension if ESLint is configured to use prettier?
 
+- vim (vscodevim)
 - Nord (arcticicestudio)
 - vscode-icons (VSCode Icons Team)
 - Docker (Microsoft)
 - Remote - Containers (Microsoft)
 
 Here are the install commands for ctrl+p
+
+```
+ext install vscodevim.vim
+```
 
 ```
 ext install arcticicestudio.nord-visual-studio-code
@@ -68,11 +73,153 @@ Feel free to delete the javascript, python entries if you aren't using those lan
   "workbench.colorTheme": "Nord",
   "editor.fontFamily": "'JetBrains Mono', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
   "terminal.integrated.fontFamily": "Courier, MesloLGS NF",
+  "vim.camelCaseMotion.enable": true,
+  "vim.leader": "<space>",
+  "vim.replaceWithRegister": true,
+  "vim.useSystemClipboard": true,
+  "vim.useCtrlKeys": true,
   "editor.lineNumbers": "relative",
   "editor.formatOnSave": true,
   "editor.tabSize": 2,
   "editor.insertSpaces": true,
   "editor.bracketPairColorization.enabled": true,
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": ["<leader>", "e"],
+      "commands": ["workbench.action.toggleSidebarVisibility"]
+    },
+    {
+      "before": ["<leader>", "z"],
+      "commands": ["workbench.action.focusSideBar"]
+    },
+    {
+      "before": ["<leader>", "f"],
+      "commands": [ "revealInExplorer" ],
+    },
+    {
+      "before": ["<leader>", "d", "b"],
+      "commands": [ "editor.debug.action.toggleBreakpoint" ]
+    },
+    {
+      "before": ["<leader>", "d", "B"],
+      "commands": [ "editor.debug.action.conditionalBreakpoint" ]
+    },
+    {
+      "before": ["<leader>", "d", "C"],
+      "commands": [ "editor.debug.action.runToCursor" ]
+    },
+    {
+      "before": ["<leader>", "<space>"],
+      "commands": [ "workbench.action.debug.continue" ]
+    },
+    {
+      "before": ["<leader>", "d", "j"],
+      "commands": [ "workbench.action.debug.stepOver" ]
+    },
+    {
+      "before": ["<leader>", "d", "l"],
+      "commands": [ "workbench.action.debug.stepInto" ]
+    },
+    {
+      "before": ["<leader>", "d", "h"],
+      "commands": [ "workbench.action.debug.stepOut" ]
+    },
+    {
+      "before": ["<leader>", "d", "p"],
+      "commands": [ "workbench.action.debug.pause" ]
+    },
+    {
+      "before": ["<leader>", "d", "r"],
+      "commands": [ "workbench.action.debug.restart" ]
+    },
+    {
+      "before": ["<leader>", "d", "s"],
+      "commands": [ "workbench.action.debug.stop" ]
+    },
+    {
+      "before": ["<leader>", "d", "c"],
+      "commands": [ "workbench.panel.repl.view.focus" ]
+    },
+    {
+      "before": ["<leader>", "d", "t"],
+      "commands": [ "terminal.focus" ]
+    },
+    {
+      "before": ["<leader>", "d", "o"],
+      "commands": [ "workbench.panel.output.focus" ]
+    },
+    {
+      "before": ["<leader>", "m"],
+      "commands": [ "workbench.action.togglePanel" ]
+    },
+    {
+      "before": [ "d", "i", "l" ],
+      "after": [ "^", "d", "g", "_" ]
+    },
+    {
+      "before": [ "y", "i", "l" ],
+      "after": [ "^", "y", "g", "_" ]
+    },
+    {
+      "before": [ "d", "a", "l" ],
+      "after": [ "0", "d", "$" ]
+    },
+    {
+      "before": [ "y", "a", "l" ],
+      "after": [ "0", "y", "$" ]
+    },
+    {
+      "before": ["K"],
+       "commands": "editor.action.showHover",
+       "when": "editorTextFocus"
+    },
+    {
+      "before": ["K"],
+      "commands": "editor.debug.action.showDebugHover",
+      "when": "editorTextFocus && inDebugMode"
+    }
+  ],
+  "vim.visualModeKeyBindingsNonRecursive": [
+    {
+      "before": [">"],
+      "after": [">", "g", "v"]
+    },
+    {
+      "before": ["<"],
+      "after": ["<", "g" ,"v"]
+    },
+    {
+      "before": ["ctrl+r", "m"],
+      "commands": [ {
+        "command": "editor.action.codeAction",
+        "args": {
+          "kind": "refactor.extract.function"
+        },
+      }]
+    },
+    {
+      "before": ["ctrl+r", "c"],
+      "commands": [ {
+        "command": "editor.action.codeAction",
+        "args": {
+          "kind": "refactor.extract.constant",
+          "preferred": true,
+          "apply": "ifsingle"
+        },
+      }]
+    },
+    {
+      "before": ["ctrl+r", "g"],
+      "commands": [ {
+        "command": "editor.action.codeAction",
+        "args": {
+          "kind": "refactor.extract.constant",
+          "preferred": false,
+          "apply": "ifsingle"
+        },
+      }]
+    },
+  ],
 }
 ```
 
@@ -89,6 +236,12 @@ If using Flatpak and zsh you'll need to change terminal settings or zsh won't wo
 ```
 
 #### Configure keybindings.json (Probably only necessary on Linux. Linux defaults are weird. Make them better match Windows.)
+
+Because vim has taken over normal Cut/Copy/Pase use these if you need non-vim cut/copy/paste. This is especially useful \(but not as usueful as Ctrl+C/V/X would have been\) if you are using one hand for the mouse and need to use quickly use one hand for cut/copy/paste
+
+Ctrl+Insert instaed of Ctrl+C
+Shift+Insert instead of Ctrl+V
+Shift+Delete instead of Ctrl+X
 
 ```json
   {
@@ -111,6 +264,115 @@ If using Flatpak and zsh you'll need to change terminal settings or zsh won't wo
     "command": "-editor.action.insertCursorAbove",
     "when": "editorTextFocus"
   }
+```
+
+If using vscode-vim, put in some keybindings to make it work better
+```json
+   {
+        "key": "r",
+        "command": "renameFile",
+        "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+    },
+    {
+        "key": "d",
+        "command": "deleteFile",
+        "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+    },
+    {
+        "key": "c",
+        "command": "filesExplorer.copy",
+        "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+    },
+    {
+        "key": "p",
+        "command": "filesExplorer.paste",
+        "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+    },
+    {
+        "key": "a",
+        "command": "workbench.files.action.createFileFromExplorer",
+        "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+    },
+    {
+        "key": "shift+a",
+        "command": "workbench.files.action.createFolderFromExplorer",
+        "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+    },
+    {
+        "key": "shift+y",
+        "command": "copyFilePath",
+        "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+    },
+    {
+        "key": "ctrl+y",
+        "command": "copyRelativeFilePath",
+        "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+    },
+    {
+      "key": "shift+w",
+      "command": "workbench.files.action.collapseExplorerFolders",
+      "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+    },
+    {
+        "key": "ctrl+k",
+        "command": "workbench.action.navigateUp"
+    },
+    {
+        "key": "ctrl+j",
+        "command": "workbench.action.navigateDown"
+    },
+    {
+        "key": "ctrl+h",
+        "command": "workbench.action.navigateLeft"
+    },
+    {
+        "key": "ctrl+l",
+        "command": "workbench.action.navigateRight"
+    },
+    {
+      "key": "shift+l",
+      "command": "workbench.action.nextEditor",
+      "when": "vim.mode == 'Normal'"
+    },
+    {
+      "key": "shift+h",
+      "command": "workbench.action.previousEditor",
+      "when": "vim.mode == 'Normal'"
+    },
+    {
+        "key": "alt+k",
+        "command": "editor.action.moveLinesUpAction",
+        "when": "editorTextFocus && !editorReadonly && vim.mode == 'Visual'"
+    },
+    {
+        "key": "alt+k",
+        "command": "editor.action.moveLinesUpAction",
+        "when": "editorTextFocus && !editorReadonly && vim.mode == 'VisualLine'"
+    },
+    {
+        "key": "alt+k",
+        "command": "editor.action.moveLinesUpAction",
+        "when": "editorTextFocus && !editorReadonly && vim.mode == 'VisualBlock'"
+    },
+    {
+        "key": "alt+j",
+        "command": "editor.action.moveLinesDownAction",
+        "when": "editorTextFocus && !editorReadonly && vim.mode == 'Visual'"
+    },
+    {
+        "key": "alt+j",
+        "command": "editor.action.moveLinesDownAction",
+        "when": "editorTextFocus && !editorReadonly && vim.mode == 'VisualLine'"
+    },
+    {
+        "key": "alt+j",
+        "command": "editor.action.moveLinesDownAction",
+        "when": "editorTextFocus && !editorReadonly && vim.mode == 'VisualBlock'"
+    },
+    {
+        "key": "shift+win+i",
+        "command": "workbench.action.inspectContextKeys"
+    },
 ```
 
 #### Configure user snippets
