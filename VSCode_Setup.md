@@ -34,6 +34,7 @@ TODO: Do we need Prettier extension if ESLint is configured to use prettier?
 - vscode-icons (VSCode Icons Team)
 - Docker (Microsoft)
 - Remote - Containers (Microsoft)
+- Git Graph (mhutchie)
 
 Here are the install commands for ctrl+p
 
@@ -57,13 +58,17 @@ ext install ms-azuretools.vscode-docker
 ext ms-vscode-remote.remote-containers
 ```
 
+```
+ext mhutchie.git-graph
+```
+
 ### Update the comment colors in nord theme
 Open ~/.vscode/extensions/arcticicestudio.nord-visual-studio-code-0.19.0/themes/nord-color-theme.json
 
 Find two entries "name": "Comment" & "Punctuation Definition Comment"
 Update their "foreground": entry to "#B48EAD"
 
-#### Configure settings.json
+### Configure settings.json
 
 Feel free to delete the javascript, python entries if you aren't using those languages.
 
@@ -74,6 +79,8 @@ Feel free to delete the javascript, python entries if you aren't using those lan
   "editor.fontFamily": "'JetBrains Mono', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
   "terminal.integrated.fontFamily": "Courier, MesloLGS NF",
   "vim.camelCaseMotion.enable": true,
+  "vim.surround": true,
+  "vim.easymotion": true,
   "vim.leader": "<space>",
   "vim.replaceWithRegister": true,
   "vim.useSystemClipboard": true,
@@ -109,7 +116,7 @@ Feel free to delete the javascript, python entries if you aren't using those lan
       "commands": [ "editor.debug.action.runToCursor" ]
     },
     {
-      "before": ["<leader>", "<space>"],
+      "before": ["<leader>", "d", "d"],
       "commands": [ "workbench.action.debug.continue" ]
     },
     {
@@ -147,6 +154,10 @@ Feel free to delete the javascript, python entries if you aren't using those lan
     {
       "before": ["<leader>", "d", "o"],
       "commands": [ "workbench.panel.output.focus" ]
+    },
+    {
+      "before": [ "<leader>", "g", "g" ],
+      "commands": [ "git-graph.view" ]
     },
     {
       "before": ["<leader>", "m"],
