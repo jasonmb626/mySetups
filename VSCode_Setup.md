@@ -78,14 +78,14 @@ Feel free to delete the javascript, python entries if you aren't using those lan
   "vim.replaceWithRegister": true,
   "vim.useSystemClipboard": true,
   "vim.useCtrlKeys": true,
-  "editor.lineNumbers": "relative",
+  "vim.smartRelativeLine": true,
   "editor.formatOnSave": true,
   "editor.tabSize": 2,
   "editor.insertSpaces": true,
   "editor.bracketPairColorization.enabled": true,
   "vim.normalModeKeyBindingsNonRecursive": [
     {
-      "before": ["<leader>", "e"],
+      "before": ["<leader>", "s"],
       "commands": ["workbench.action.toggleSidebarVisibility"]
     },
     {
@@ -177,6 +177,14 @@ Feel free to delete the javascript, python entries if you aren't using those lan
       "before": ["K"],
       "commands": "editor.debug.action.showDebugHover",
       "when": "editorTextFocus && inDebugMode"
+    },
+    {
+      "before": ["u"],
+      "commands": ["undo"]
+    },
+    {
+      "before": ["<C-r>"],
+      "commands": ["redo"]
     }
   ],
   "vim.visualModeKeyBindingsNonRecursive": [
@@ -237,11 +245,11 @@ If using Flatpak and zsh you'll need to change terminal settings or zsh won't wo
 
 #### Configure keybindings.json (Probably only necessary on Linux. Linux defaults are weird. Make them better match Windows.)
 
-Because vim has taken over normal Cut/Copy/Pase use these if you need non-vim cut/copy/paste. This is especially useful \(but not as usueful as Ctrl+C/V/X would have been\) if you are using one hand for the mouse and need to use quickly use one hand for cut/copy/paste
+Because vim has taken over normal Cut/Copy/Pase use these if you need non-vim cut/copy/paste and you're having trouble with Ctrl+C/X/V (though there's an entry below to compensate). 
 
-Ctrl+Insert instaed of Ctrl+C
-Shift+Insert instead of Ctrl+V
-Shift+Delete instead of Ctrl+X
+- Ctrl+Insert instaed of Ctrl+C
+- Shift+Insert instead of Ctrl+V
+- Shift+Delete instead of Ctrl+X
 
 ```json
   {
@@ -332,12 +340,12 @@ If using vscode-vim, put in some keybindings to make it work better
     {
       "key": "shift+l",
       "command": "workbench.action.nextEditor",
-      "when": "vim.mode == 'Normal'"
+      "when": "editorFocus && vim.mode == 'Normal'"
     },
     {
       "key": "shift+h",
       "command": "workbench.action.previousEditor",
-      "when": "vim.mode == 'Normal'"
+      "when": "editorFocus && vim.mode == 'Normal'"
     },
     {
         "key": "alt+k",
@@ -373,6 +381,26 @@ If using vscode-vim, put in some keybindings to make it work better
         "key": "shift+win+i",
         "command": "workbench.action.inspectContextKeys"
     },
+    {
+      "key": "ctrl+c",
+      "command": "editor.action.clipboardCopyAction",
+      "when": "editorTextFocus && vim.mode != 'Normal'"
+    },
+    {
+      "key": "ctrl+v",
+      "command": "editor.action.clipboardPasteAction",
+      "when": "editorTextFocus && vim.mode != 'Normal'"
+    },
+    {
+      "key": "ctrl+x",
+      "command": "editor.action.clipboardCutAction",
+      "when": "editorTextFocus && vim.mode != 'Normal'"
+    },
+    {
+      "key": "ctrl+a",
+      "command": "editor.action.selectAll",
+      "when": "editorTextFocus && vim.mode != 'Normal'"
+    }
 ```
 
 #### Configure user snippets
