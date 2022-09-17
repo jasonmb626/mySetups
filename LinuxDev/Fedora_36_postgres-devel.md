@@ -136,7 +136,7 @@ INSERT INTO test VALUES(default, 'Hi', 'There');
 <details>
   <summary>With node</summary>
 
-Add a Dockerfile for your utility contianer Dockerfile.npm
+Add a Dockerfile for your utility container Dockerfile.npm
 ```
 #docker pull node:18.9.0 latest successful test
 FROM node:latest 
@@ -193,27 +193,24 @@ Copy your package.json
 ```
 
 Add a Dockerfile for your app contianer Dockerfile.nodeapp
+We'll run this as 1000:1000 (node) but need to make sure we can have root privileges if needed, so add node to sudo and don't require a password
 ```
 #docker pull node:18.9.0 latest successful test
 FROM node:latest 
 
-RUN userdel -r node
+RUN apt-get update && \
+      apt-get -y install sudo
 
-ARG USER_ID
+RUN echo 'node ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
-ARG GROUP_ID
-
-RUN addgroup --gid $GROUP_ID user
-
-RUN adduser --disabled-password --gecos '' --uid $USER_ID --gid $GROUP_ID user
-
-USER user
+RUN adduser node sudo
 
 WORKDIR /app
 
 COPY ./app/package.json .
 
 RUN npm i
+
 ```
 
 add your app to your docker-compose.yml in the services section
@@ -227,6 +224,7 @@ add your app to your docker-compose.yml in the services section
       - ./app/node_modules
     stdin_open: true
     tty: true
+    user: 1000:1000
     environment:
       PGUSER: app
       PGPASSWORD: 654321
@@ -240,8 +238,40 @@ This line:
 - ./app/node_modules
 Ensures that the above volume does not override node_modules folder which is not passed as a volume but is instead actually installed in the image
 
+Tell VSCode about your containers for remote development
+create a .devcontainer folder and add your devcontainer.json file
+```json
+//devcontainer.json
+{
+  "name": "Node.js",
+  "dockerComposeFile": "../docker-compose.yaml",
+  "service": "app",
+  "runServices": [
+    "db",
+    "pgadmin"
+  ],
+  "workspaceFolder": "/app",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.shell.linux": "/bin/bash"
+      },
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode"
+      ]
+    }
+  },
+  "forwardPorts": [
+    3000
+  ],
+  "postCreateCommand": "sudo npm install",
+  "remoteUser": "node"
+}
+```
 
 Create your javascript file
+Add an app directory and add your js file (app.js)
 
 ```javascript
 const { Pool } = require("pg");
@@ -271,6 +301,8 @@ const pool = new Pool({
   }
 })().finally(() => pool.end());
 ```
+<details>
+  <summary>Commandline</summary>
 
 Restart everything
 ```sh
@@ -284,7 +316,22 @@ docker exec -it nodeapp /bin/bash
 node app.js
 ```
 
+</details>
+
+<details>
+  <summary>VSCode Remote Environment</summary>
+
+- Open project folder (which contains your dockerfiles etc and has an app subfolder) in VSCode
+- With Remove Development Extension installed, bottom left corner click the remote development connection icon, and select "Reopen in Container"
+- Open a terminal
+```sh
+node app.js
+```
+
+</details>
 Does it work? Success!
+
+
 </details>
 
 <details>
