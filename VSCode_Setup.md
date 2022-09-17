@@ -1,29 +1,4 @@
-# Configure VS Code/VSCodium/VS Code OOS
-
-## Enable extensions gallery \(VSCodium/VS Code OOS\) Only
-
-From their [gighub](https://github.com/VSCodium/vscodium/blob/master/DOCS.md#extensions-marketplace)
-
-For the Open Source packaged distrubutions of VSCode \(VSCodium/VS Code OOS\), by default only extensions available on open-vsx.org are shown.
-
-If you want all of the extensions available in vanilla VS Code then you will need to edit product.json and add the following:
-```json
-{
-  "extensionsGallery": {
-    "serviceUrl": "https://marketplace.visualstudio.com/_apis/public/gallery",
-    "cacheUrl": "https://vscode.blob.core.windows.net/gallery/index",
-    "itemUrl": "https://marketplace.visualstudio.com/items",
-    "controlUrl": "",
-    "recommendationsUrl": ""
-  }
-}
-```
-product.json should be placed in one of the following locations:
-
-Windows: %APPDATA%\VSCodium\product.json or %USERPROFILE%\AppData\Roaming\VSCodium\product.json
-macOS: ~/Library/Application Support/VSCodium/product.json
-Linux: $XDG_CONFIG_HOME/VSCodium/product.json or ~/.config/VSCodium/product.json
-Linux \(Flatpak\): $XDG_CONFIG_HOME/.var/app/com.vscodium.codium/config/VSCodium/product.json
+# Configure VS Code
 
 #### Install VS Code extensions
 
