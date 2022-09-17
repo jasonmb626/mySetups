@@ -2,8 +2,6 @@
 
 #### Install VS Code extensions
 
-TODO: Do we need Prettier extension if ESLint is configured to use prettier?
-
 - vim (vscodevim)
 - Nord (arcticicestudio)
 - vscode-icons (VSCode Icons Team)
