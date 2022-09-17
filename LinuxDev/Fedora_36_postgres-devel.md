@@ -165,8 +165,11 @@ docker build -f ./Dockerfile.npm -t npm --build-arg USER_ID=$(id -u) --build-arg
 ```
 
 By making sure container is running as same uid:guid as you, you can init your own project
+Make sure you are in your app directory
 
 ```sh
+mkdir app
+cd app
 docker run -it --rm -v $(pwd):/app:Z npm npm init
 docker run -it --rm -v $(pwd):/app:Z npm npm i pg
 ```
@@ -301,6 +304,8 @@ const pool = new Pool({
   }
 })().finally(() => pool.end());
 ```
+### Testing
+
 <details>
   <summary>Commandline</summary>
 
