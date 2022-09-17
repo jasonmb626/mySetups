@@ -10,6 +10,28 @@ sudo dnf install postgresql
 Do we need the Development tools etc anymore?
 groupinstall 'Development Tools' installs things like gcc,'Development Libraries' too, and is my recommendation.
 
+### Set your environment variables
+
+#### Linux
+
+```sh
+sudo vim /etc/environment
+```
+
+Add the following
+
+```
+export PGUSER=app
+export PGPASSWORD=654321
+export PGHOST=localhost
+export PGPORT=5432
+export PGDATABASE=project_name
+```
+
+Reboot the system or your user won't have group permission for Docker & environment variables won't yet be loaded.
+
+### Start project 
+
 Create a project directory and put the below in its docker-compose.yml file.
 
 ```yaml
@@ -59,10 +81,14 @@ Create a role for our dev user
 
 ```sql
   CREATE ROLE dev WITH SUPERUSER CREATEROLE CREATEDB LOGIN PASSWORD '123456';
-  exit
+  \q
 ```
 
-From here you should not need to login to psql via docker anymore. Use native psql on host.
+From here you should login to psql with new user
+```sh
+docker exec -it db /usr/bin/psql -U dev -W -d postgres
+```
+
 
 ### Connect to Database instance
 
@@ -110,9 +136,78 @@ INSERT INTO test VALUES(default, 'Hi', 'There');
 <details>
   <summary>With node</summary>
 
-Add a Dockerfile
+Add a Dockerfile for your utility contianer Dockerfile.npm
 ```
-FROM node:latest #docker pull node:18.9.0 latest successful test
+#docker pull node:18.9.0 latest successful test
+FROM node:latest 
+
+RUN userdel -r node
+
+ARG USER_ID
+
+ARG GROUP_ID
+
+RUN addgroup --gid $GROUP_ID user
+
+RUN adduser --disabled-password --gecos '' --uid $USER_ID --gid $GROUP_ID user
+
+USER user
+
+WORKDIR /app
+
+ENTRYPOINT [ "npm" ]
+```
+
+build your image
+
+```sh
+docker build -f ./Dockerfile.npm -t npm --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g) .
+```
+
+By making sure container is running as same uid:guid as you, you can init your own project
+
+```sh
+docker run -it --rm -v $(pwd):/app:Z npm npm init
+docker run -it --rm -v $(pwd):/app:Z npm npm i pg
+```
+
+OR
+
+Copy your package.json
+```json
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "pg": "^8.8.0"
+  }
+}
+```
+
+Add a Dockerfile for your app contianer Dockerfile.nodeapp
+```
+#docker pull node:18.9.0 latest successful test
+FROM node:latest 
+
+RUN userdel -r node
+
+ARG USER_ID
+
+ARG GROUP_ID
+
+RUN addgroup --gid $GROUP_ID user
+
+RUN adduser --disabled-password --gecos '' --uid $USER_ID --gid $GROUP_ID user
+
+USER user
 
 WORKDIR /app
 
@@ -121,16 +216,10 @@ COPY ./app/package.json .
 RUN npm i
 ```
 
-build your image
-
-```sh
-docker build -t pyapp .
-```
-
 add your app to your docker-compose.yml in the services section
 ```yaml
   app:
-    image: nodeapp
+    build: ./Dockerfile.nodeapp
     container_name: app
     restart: always
     volumes:
@@ -151,24 +240,6 @@ This line:
 - ./app/node_modules
 Ensures that the above volume does not override node_modules folder which is not passed as a volume but is instead actually installed in the image
 
-Copy your package.json
-```json
-{
-  "name": "app",
-  "version": "1.0.0",
-  "description": "",
-  "main": "app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "pg": "^8.8.0"
-  }
-}
-```
 
 Create your javascript file
 
@@ -226,6 +297,9 @@ https://stackoverflow.com/questions/49355010/how-do-i-watch-python-source-code-f
 Add a Dockerfile
 
 TODO: Add remote developer content like from (here)[https://dev.to/alvarocavalcanti/setting-up-a-python-remote-interpreter-using-docker-1i24]
+
+Resource for permissions:
+https://vsupalov.com/docker-shared-permissions/
 
 ```
 FROM python:latest #docker pull python:3.10.7 last verified
