@@ -1,11 +1,22 @@
 # Setting up my Fedora 36 development machine
 
+
 From a fresh Fedora 36 installation, updated, username dev
+
+
+If using Windows as host and Fedora 36 inside of VirtualBox, you may want to take these additional steps
 
 ## \(Optional\) add user to vboxsf group so you can share folders inside VirtualBox
 
 ```sh
 sudo usermod -aG vboxsf dev
+```
+
+## \(Optional\) disable Super+G game bar
+
+From Windows PowerShell (run as administrator)
+```
+Get-AppxPackage Microsoft.XboxGamingOverlay | Remove-AppxPackage     
 ```
 
 Then _reboot_ or changes won't take effect.
