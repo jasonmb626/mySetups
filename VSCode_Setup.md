@@ -45,6 +45,8 @@ Update their "foreground": entry to "#B48EAD"
 
 Feel free to delete the javascript, python entries if you aren't using those languages.
 
+The colorCustomizations are for bracket pair colorization to work with Nord theme. TODO: Colors need adjustments and see if can add directly to colorscheme
+
 ```json
 {
   "workbench.iconTheme": "vscode-icons",
@@ -63,6 +65,14 @@ Feel free to delete the javascript, python entries if you aren't using those lan
   "editor.tabSize": 2,
   "editor.insertSpaces": true,
   "editor.bracketPairColorization.enabled": true,
+  "workbench.colorCustomizations": {
+    "editorBracketHighlight.foreground1": "#5bb3b3",
+    "editorBracketHighlight.foreground2": "#fac863",
+    "editorBracketHighlight.foreground3": "#f99157",
+    "editorBracketHighlight.foreground4": "#ec5f67",
+    "editorBracketHighlight.foreground5": "#bb80b3",
+    "editorBracketHighlight.foreground6": "#98C379",
+  },
   "vim.normalModeKeyBindingsNonRecursive": [
     {
       "before": ["<leader>", "s"],
