@@ -45,7 +45,7 @@ Update their "foreground": entry to "#B48EAD"
 
 Feel free to delete the javascript, python entries if you aren't using those languages.
 
-The colorCustomizations are for bracket pair colorization to work with Nord theme. TODO: Colors need adjustments and see if can add directly to colorscheme
+The colorCustomizations are for bracket pair colorization to work with Nord theme. TODO: See if can add directly to colorscheme
 
 ```json
 {
@@ -66,12 +66,12 @@ The colorCustomizations are for bracket pair colorization to work with Nord them
   "editor.insertSpaces": true,
   "editor.bracketPairColorization.enabled": true,
   "workbench.colorCustomizations": {
-    "editorBracketHighlight.foreground1": "#5bb3b3",
-    "editorBracketHighlight.foreground2": "#fac863",
-    "editorBracketHighlight.foreground3": "#f99157",
-    "editorBracketHighlight.foreground4": "#ec5f67",
-    "editorBracketHighlight.foreground5": "#bb80b3",
-    "editorBracketHighlight.foreground6": "#98C379",
+    "editorBracketHighlight.foreground1": "#88C0D0",
+    "editorBracketHighlight.foreground2": "#EBCB8B",
+    "editorBracketHighlight.foreground3": "#D08770",
+    "editorBracketHighlight.foreground4": "#BF616A",
+    "editorBracketHighlight.foreground5": "#B48EAD",
+    "editorBracketHighlight.foreground6": "#A3BE8C",
   },
   "vim.normalModeKeyBindingsNonRecursive": [
     {
