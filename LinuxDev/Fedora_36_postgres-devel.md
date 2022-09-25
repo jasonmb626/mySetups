@@ -210,10 +210,17 @@ RUN adduser node sudo
 
 WORKDIR /app
 
-COPY ./app/package.json .
+RUN chown -R 1000:1000 /app
+
+USER node
+
+COPY --chown=1000:1000 ./app/package.json .
 
 RUN npm i
 
+COPY --chown=1000:1000 ./app/* ./
+
+# CMD ["node", "app.js"]
 ```
 
 add your app to your docker-compose.yml in the services section
@@ -224,16 +231,15 @@ add your app to your docker-compose.yml in the services section
     restart: always
     volumes:
       - ./app:/app:Z
-      - ./app/node_modules
     stdin_open: true
     tty: true
     user: 1000:1000
     environment:
-      PGUSER: app
+      PGUSER: ${PGUSER}
       PGPASSWORD: 654321
-      PGHOST: db
-      PGPORT: 5432
-      PGDATABASE: project_name
+      PGHOST: {PGHOST}
+      PGPORT: ${PGPORT}
+      PGDATABASE: ${PGDATABASE}
       DATABASE_URL: postgres://${PGUSER}@${PGHOST}:${PGPORT}/${PGDATABASE}
 ```
 
@@ -268,7 +274,6 @@ create a .devcontainer folder and add your devcontainer.json file
   "forwardPorts": [
     3000
   ],
-  "postCreateCommand": "sudo npm install",
   "remoteUser": "node"
 }
 ```
