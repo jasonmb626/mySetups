@@ -1,4 +1,4 @@
-# Setting up my Fedora 36 development machine
+# Setting up my Fedora 37 development machine
 
 
 From a fresh Fedora 37 installation, updated, username dev
