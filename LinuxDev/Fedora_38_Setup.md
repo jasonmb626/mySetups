@@ -151,7 +151,7 @@ If flatpak Gnome Extension requires you to choose from multiple matches, choose 
 ```sh
 sudo flatpak override --filesystem=$HOME/.themes
 sudo flatpak override --env=GTK_THEME=Nordic-bluish-accent
-sudo echo "GTK_THEME=Nordic-bluish-accent" >> /etc/environment
+echo "GTK_THEME=Nordic-bluish-accent" | sudo tee -a /etc/environment
 ```
 
 <details>
