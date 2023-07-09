@@ -28,4 +28,6 @@ autoload -Uz compinit
 compinit
 zstyle ':completion:*' menu select
 
+setopt interactivecomments
+
 alias ls="ls --color=auto"
