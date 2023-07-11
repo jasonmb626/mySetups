@@ -15,17 +15,7 @@ groupinstall 'Development Tools' installs things like gcc,'Development Libraries
 #### Linux
 
 ```sh
-sudo vim /etc/environment
-```
-
-Add the following
-
-```
-export PGUSER=app
-export PGPASSWORD=654321
-export PGHOST=localhost
-export PGPORT=5432
-export PGDATABASE=project_name
+echo "export PGUSER=app\nexport PGPASSWORD=654321\nexport PGHOST=localhost\nexport PGPORT=5432\nexport PGDATABASE=project_name" | sudo tee -a /etc/environment
 ```
 
 Reboot the system or your user won't have group permission for Docker & environment variables won't yet be loaded.
