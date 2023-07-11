@@ -10,16 +10,6 @@ sudo dnf install postgresql libpq-devel
 Do we need the Development tools etc anymore? libpq-devel should not be necessary if using dev container/python interpreter in Docker
 groupinstall 'Development Tools' installs things like gcc,'Development Libraries' too, and is my recommendation.
 
-### Set your environment variables
-
-#### Linux
-
-```sh
-echo "export PGUSER=app\nexport PGPASSWORD=654321\nexport PGHOST=localhost\nexport PGPORT=5432\nexport PGDATABASE=project_name" | sudo tee -a /etc/environment
-```
-
-Reboot the system or your user won't have group permission for Docker & environment variables won't yet be loaded.
-
 ### Start project 
 
 Create a project directory and put the below in its docker-compose.yml file.
