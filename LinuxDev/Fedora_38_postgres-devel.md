@@ -352,7 +352,7 @@ add a devcontainer.json to .devcontainer folder.
 {
   "dockerComposeFile": "../docker-compose.yml",
   "service": "dev",
-  "workspaceFolder": "/app",
+  "workspaceFolder": "/code/app",
   "remoteUser": "dev",
       "extensions": [
       "ms-python.python",
@@ -395,15 +395,22 @@ RUN pip install -r requirements.txt
 COPY requirements-dev.txt /code/
 RUN pip install -r requirements-dev.txt
 
-WORKDIR /app
+#WORKDIR /app
 
-RUN chown -R 1000:1000 /app
+#RUN chown -R 1000:1000 /app
 
-COPY --chown=1000:1000 ./app/* ./
+#COPY --chown=1000:1000 ./app/* ./
 
 USER dev
 
 #CMD ["python", "app.py"]
+```
+
+Add your requirements
+
+```sh
+echo "psycopg2" >> requirements.txt
+touch requirements-dev.txt
 ```
 
 add your app to your docker-compose.yml in the services section
@@ -442,7 +449,7 @@ services:
     ports:
       - 127.0.0.1:9922:22
     volumes:
-      - .:/code/:Z
+      - .:/code:Z
     environment:
       DEV: 'True'
       PGUSER: app
