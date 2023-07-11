@@ -215,12 +215,12 @@ add your app to your docker-compose.yml in the services section
     tty: true
     user: 1000:1000
     environment:
-      PGUSER: ${PGUSER}
+      PGUSER: app
       PGPASSWORD: 654321
-      PGHOST: {PGHOST}
-      PGPORT: ${PGPORT}
-      PGDATABASE: ${PGDATABASE}
-      DATABASE_URL: postgres://${PGUSER}@${PGHOST}:${PGPORT}/${PGDATABASE}
+      PGHOST: db
+      PGPORT: 5432
+      PGDATABASE: project_name
+      DATABASE_URL: postgres://app@$localhost:5432/project_name
 ```
 
 This line:
@@ -437,7 +437,7 @@ services:
       PGHOST: db
       PGPORT: 5432
       PGDATABASE: project_name
-      DATABASE_URL: postgres://${PGUSER}@${PGHOST}:${PGPORT}/${PGDATABASE}
+      DATABASE_URL: postgres://app@$db:5432/project_name
 volumes:
   appdb:
 
