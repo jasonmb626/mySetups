@@ -64,7 +64,7 @@ git config --global init.defaultBranch main
 ## Tweak DNF config
 
 ```sh
-sudo echo -e "max_parallel_downloads=10\nfastestmirror=True" >> /etc/dnf/dnf.conf
+echo -e "max_parallel_downloads=10\nfastestmirror=True" | tee -a /etc/dnf/dnf.conf
 ```
 
 ## (Optional) Install [RPM Fusion](https://rpmfusion.org/) and general multimedia stuff
