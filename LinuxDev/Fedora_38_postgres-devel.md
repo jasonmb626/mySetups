@@ -437,7 +437,7 @@ services:
       PGHOST: db
       PGPORT: 5432
       PGDATABASE: project_name
-      DATABASE_URL: postgres://app@$db:5432/project_name
+      DATABASE_URL: postgres://app@db:5432/project_name
 volumes:
   appdb:
 
