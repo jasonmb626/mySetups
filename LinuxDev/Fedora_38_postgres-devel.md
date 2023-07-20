@@ -150,8 +150,8 @@ Make sure you are in your app directory
 ```sh
 mkdir app
 cd app
-docker run -it --rm -v $(pwd):/app:Z npm npm init
-docker run -it --rm -v $(pwd):/app:Z npm npm i pg
+docker run -it --rm -v $(pwd):/app:Z npm init
+docker run -it --rm -v $(pwd):/app:Z npm i pg
 ```
 
 OR
@@ -182,15 +182,15 @@ We'll run this as 1000:1000 (node) but need to make sure we can have root privil
 FROM node:latest 
 
 RUN apt-get update && \
-      apt-get -y install sudo
+  apt-get -y install sudo
 
 RUN echo 'node ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 RUN adduser node sudo
 
-WORKDIR /app
+WORKDIR /code
 
-RUN chown -R 1000:1000 /app
+RUN chown -R 1000:1000 /code
 
 USER node
 
@@ -206,11 +206,13 @@ COPY --chown=1000:1000 ./app/* ./
 add your app to your docker-compose.yml in the services section
 ```yaml
   app:
-    build: ./Dockerfile.nodeapp
+     build:
+      context: .
+      dockerfile: Dockerfile.nodeapp
     container_name: app
     restart: always
     volumes:
-      - ./app:/app:Z
+      - .:/code:Z
     stdin_open: true
     tty: true
     user: 1000:1000
@@ -232,29 +234,18 @@ create a .devcontainer folder and add your devcontainer.json file
 ```json
 //devcontainer.json
 {
-  "name": "Node.js",
-  "dockerComposeFile": "../docker-compose.yaml",
-  "service": "app",
-  "runServices": [
-    "db",
-    "pgadmin"
-  ],
-  "workspaceFolder": "/app",
+  "dockerComposeFile": "../docker-compose.yml",
+  "service": "dev",
+  "workspaceFolder": "/code/app",
+  "remoteUser": "node",
   "customizations": {
     "vscode": {
-      "settings": {
-        "terminal.integrated.shell.linux": "/bin/bash"
-      },
       "extensions": [
         "dbaeumer.vscode-eslint",
         "esbenp.prettier-vscode"
       ]
     }
-  },
-  "forwardPorts": [
-    3000
-  ],
-  "remoteUser": "node"
+  }
 }
 ```
 
