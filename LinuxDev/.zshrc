@@ -31,3 +31,4 @@ zstyle ':completion:*' menu select
 setopt interactivecomments
 
 alias ls="ls --color=auto"
+alias dca="docker-compose run --rm app sh -c"
