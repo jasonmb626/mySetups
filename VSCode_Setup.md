@@ -53,14 +53,6 @@ The colorCustomizations are for bracket pair colorization to work with Nord them
   "workbench.colorTheme": "Nord",
   "editor.fontFamily": "'JetBrains Mono', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
   "terminal.integrated.fontFamily": "Courier, MesloLGS NF",
-  "vim.camelCaseMotion.enable": true,
-  "vim.surround": true,
-  "vim.easymotion": true,
-  "vim.leader": "<space>",
-  "vim.replaceWithRegister": true,
-  "vim.useSystemClipboard": true,
-  "vim.useCtrlKeys": true,
-  "vim.smartRelativeLine": true,
   "editor.formatOnSave": true,
   "editor.tabSize": 2,
   "editor.insertSpaces": true,
@@ -73,145 +65,7 @@ The colorCustomizations are for bracket pair colorization to work with Nord them
     "editorBracketHighlight.foreground5": "#B48EAD",
     "editorBracketHighlight.foreground6": "#A3BE8C",
   },
-  "vim.normalModeKeyBindingsNonRecursive": [
-    {
-      "before": ["<leader>", "s"],
-      "commands": ["workbench.action.toggleSidebarVisibility"]
-    },
-    {
-      "before": ["<leader>", "z"],
-      "commands": ["workbench.action.focusSideBar"]
-    },
-    {
-      "before": ["<leader>", "f"],
-      "commands": [ "revealInExplorer" ],
-    },
-    {
-      "before": ["<leader>", "d", "b"],
-      "commands": [ "editor.debug.action.toggleBreakpoint" ]
-    },
-    {
-      "before": ["<leader>", "d", "B"],
-      "commands": [ "editor.debug.action.conditionalBreakpoint" ]
-    },
-    {
-      "before": ["<leader>", "d", "C"],
-      "commands": [ "editor.debug.action.runToCursor" ]
-    },
-    {
-      "before": ["<leader>", "d", "d"],
-      "commands": [ "workbench.action.debug.continue" ]
-    },
-    {
-      "before": ["<leader>", "d", "j"],
-      "commands": [ "workbench.action.debug.stepOver" ]
-    },
-    {
-      "before": ["<leader>", "d", "l"],
-      "commands": [ "workbench.action.debug.stepInto" ]
-    },
-    {
-      "before": ["<leader>", "d", "h"],
-      "commands": [ "workbench.action.debug.stepOut" ]
-    },
-    {
-      "before": ["<leader>", "d", "p"],
-      "commands": [ "workbench.action.debug.pause" ]
-    },
-    {
-      "before": ["<leader>", "d", "r"],
-      "commands": [ "workbench.action.debug.restart" ]
-    },
-    {
-      "before": ["<leader>", "d", "s"],
-      "commands": [ "workbench.action.debug.stop" ]
-    },
-    {
-      "before": ["<leader>", "d", "c"],
-      "commands": [ "workbench.panel.repl.view.focus" ]
-    },
-    {
-      "before": ["<leader>", "d", "t"],
-      "commands": [ "terminal.focus" ]
-    },
-    {
-      "before": ["<leader>", "d", "o"],
-      "commands": [ "workbench.panel.output.focus" ]
-    },
-    {
-      "before": [ "<leader>", "g", "g" ],
-      "commands": [ "git-graph.view" ]
-    },
-    {
-      "before": ["<leader>", "m"],
-      "commands": [ "workbench.action.togglePanel" ]
-    },
-    {
-      "before": [ "d", "i", "l" ],
-      "after": [ "^", "d", "g", "_" ]
-    },
-    {
-      "before": [ "y", "i", "l" ],
-      "after": [ "^", "y", "g", "_" ]
-    },
-    {
-      "before": [ "d", "a", "l" ],
-      "after": [ "0", "d", "$" ]
-    },
-    {
-      "before": [ "y", "a", "l" ],
-      "after": [ "0", "y", "$" ]
-    },
-    {
-      "before": ["u"],
-      "commands": ["undo"]
-    },
-    {
-      "before": ["<C-r>"],
-      "commands": ["redo"]
-    }
-  ],
-  "vim.visualModeKeyBindingsNonRecursive": [
-    {
-      "before": [">"],
-      "after": [">", "g", "v"]
-    },
-    {
-      "before": ["<"],
-      "after": ["<", "g" ,"v"]
-    },
-    {
-      "before": ["ctrl+r", "m"],
-      "commands": [ {
-        "command": "editor.action.codeAction",
-        "args": {
-          "kind": "refactor.extract.function"
-        },
-      }]
-    },
-    {
-      "before": ["ctrl+r", "c"],
-      "commands": [ {
-        "command": "editor.action.codeAction",
-        "args": {
-          "kind": "refactor.extract.constant",
-          "preferred": true,
-          "apply": "ifsingle"
-        },
-      }]
-    },
-    {
-      "before": ["ctrl+r", "g"],
-      "commands": [ {
-        "command": "editor.action.codeAction",
-        "args": {
-          "kind": "refactor.extract.constant",
-          "preferred": false,
-          "apply": "ifsingle"
-        },
-      }]
-    },
-  ],
+   "files.trimTrailingWhitespace": true
 }
 ```
 
@@ -229,7 +83,7 @@ If using Flatpak and zsh you'll need to change terminal settings or zsh won't wo
 
 #### Configure keybindings.json (Probably only necessary on Linux. Linux defaults are weird. Make them better match Windows.)
 
-Because vim has taken over normal Cut/Copy/Pase use these if you need non-vim cut/copy/paste and you're having trouble with Ctrl+C/X/V (though there's an entry below to compensate). 
+Because vim has taken over normal Cut/Copy/Pase use these if you need non-vim cut/copy/paste and you're having trouble with Ctrl+C/X/V (though there's an entry below to compensate).
 
 - Ctrl+Insert instaed of Ctrl+C
 - Shift+Insert instead of Ctrl+V
