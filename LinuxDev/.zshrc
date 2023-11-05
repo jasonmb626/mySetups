@@ -27,8 +27,16 @@ source ~/powerlevel10k/powerlevel10k.zsh-theme
 autoload -Uz compinit
 compinit
 zstyle ':completion:*' menu select
+zstyle ':completion:*:*:docker:*' option-stacking yes
+zstyle ':completion:*:*:docker-*:*' option-stacking yes
+
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=500000
+SAVEHIST=500000
+setopt appendhistory
+setopt INC_APPEND_HISTORY
+setopt SHARE_HISTORY
 
 setopt interactivecomments
 
 alias ls="ls --color=auto"
-alias dca="docker-compose run --rm app sh -c"
