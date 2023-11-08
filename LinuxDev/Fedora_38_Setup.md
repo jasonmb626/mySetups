@@ -82,7 +82,7 @@ sudo dnf install ffmpeg-libs installs slightly less stuff than the above and als
 ## Install Docker
 
 ```sh
-sudo dnf install moby-engine docker-compose
+sudo dnf install moby-engine golang-github-moby-buildkit docker-compose
  
 sudo usermod -aG docker dev
 sudo systemctl start docker
@@ -152,6 +152,7 @@ If flatpak Gnome Extension requires you to choose from multiple matches, choose 
 sudo flatpak override --filesystem=$HOME/.themes
 sudo flatpak override --env=GTK_THEME=Nordic-bluish-accent
 echo "GTK_THEME=Nordic-bluish-accent" | sudo tee -a /etc/environment
+echo "DOCKER_BUILDKIT=1" | sudo tee -a /etc/environment
 ```
 
 <details>
