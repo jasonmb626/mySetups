@@ -25,6 +25,13 @@ Then _reboot_ or changes won't take effect.
 
 ```sh
 mkdir ~/git
+git clone https://github.com/jasonmb626/dotfiles ~./config/
+```
+
+## Clone your Setups repository
+
+```sh
+mkdir ~/git
 git clone https://github.com/jasonmb626/mySetups.git ~/git/mySetups
 ```
 
@@ -85,6 +92,7 @@ sudo dnf install ffmpeg-libs installs slightly less stuff than the above and als
 sudo dnf install moby-engine golang-github-moby-buildkit docker-compose
  
 sudo usermod -aG docker dev
+sudo newgrp docker
 sudo systemctl start docker
 sudo systemctl enable docker
 ```
@@ -115,16 +123,11 @@ rm -fr nord-gnome-terminal
 #### Get Powerline 10k
 
 ```sh
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
-echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.local/share/zsh/powerlevel10k
+echo 'source ~/.local/share/zsh/powerlevel10k/powerlevel10k.zsh-theme' >>~/.config/zsh/.zshrc
 ```
 
 #### Get your custom zsh stolen from Manjaro Linux
-
-From your host
-```sh
-cp -a ~/git/mySetups/LinuxDev/zsh/ ~/.local/share/
-```
 
 ### (Optional) Key Logging 
 
@@ -152,7 +155,7 @@ If flatpak Gnome Extension requires you to choose from multiple matches, choose 
 sudo flatpak override --filesystem=$HOME/.themes
 sudo flatpak override --env=GTK_THEME=Nordic-bluish-accent
 echo "GTK_THEME=Nordic-bluish-accent" | sudo tee -a /etc/environment
-echo "DOCKER_BUILDKIT=1" | sudo tee -a /etc/environment
+echo "ZDOTDIR=/home/dev/.config/zsh" | sudo tee -a /etc/environment
 ```
 
 <details>
@@ -197,25 +200,6 @@ Fonts
 ```sh
 mkdir ~/.local/share/fonts
 cp ~/git/mySetups/resources/fonts/ttf/* ~/.local/share/fonts
-```
-
-Copy your custome .p10k.zsh
-
-```sh
-cp -a ~/git/mySetups/LinuxDev/.p10k.zsh ~
-```
-
-####  Copy your custom .zshrc from your Setups Directory
-
-```sh
-cp ~/git/mySetups/LinuxDev/.zshrc ~/.zshrc
-```
-
-#### Download Zsh Docker autocompletion
-```sh
-mkdir -p ~/.zsh/completion
-curl -L https://raw.githubusercontent.com/docker/compose/$(docker-compose version --short)/contrib/completion/zsh/_docker-compose > ~/.zsh/completion/_docker-compose
-curl https://raw.githubusercontent.com/docker/cli/master/contrib/completion/zsh/_docker -o ~/.zsh/completion/_docker
 ```
 
 Import Gnome Settings via dconf
@@ -285,11 +269,9 @@ Open tweaks
 
 #### Install fonts ####
 
-Install the 4 meslo fonts recommended for Powerline 10k
-Links [here](https://github.com/romkatv/powerlevel10k#meslo-nerd-font-patched-for-powerlevel10k)
-or in this base repo in fonts/ttf folder (might as well install JetBrains fonts at the same time :) )
-
-Install the JetBrains mono font Available on their [website](https://www.jetbrains.com/lp/mono/)
+Install the 2 Fira fonts recommended for Powerline 10k
+Links [here](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/FiraMono.zip)
+or in this base repo in fonts/ttf folder.
 
 #### Set the Gnome Terminal Settings
 
@@ -340,14 +322,6 @@ My options:
 * Enable Transient Prompt? -> y (Yes)
 * Instant Prompt Mode -> 1 (Verbose)
 * Apply changes to ~/.zshrc? -> y (Yes)
-
-### Set your .zshrc
-
-####  Copy/Paste from your Git Repository
-
-mySetups/LinuxDev/.zshrc
-
-</details>
 
 #### If using VSCode
 
