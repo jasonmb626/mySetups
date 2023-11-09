@@ -25,14 +25,7 @@ Then _reboot_ or changes won't take effect.
 
 ```sh
 mkdir ~/git
-git clone https://github.com/jasonmb626/dotfiles ~./config/
-```
-
-## Clone your Setups repository
-
-```sh
-mkdir ~/git
-git clone https://github.com/jasonmb626/mySetups.git ~/git/mySetups
+git clone git@github.com:jasonmb626/mySetups.git ~/git/mySetups
 ```
 
 ## Install your ssh keys
@@ -66,6 +59,15 @@ Set you git configurations
 git config --global user.email "jason@jasonbrunelle.com"
 git config --global user.name "Jason Brunelle"
 git config --global init.defaultBranch main
+```
+
+## Clone your dotfiles repository and symlink your directories
+
+```sh
+git clone --recurse-submodules git@github.com:jasonmb626/dotfiles-dev.git ~/git/dotfiles-dev
+ln -s ~/git/dotfiles-dev/nvim/ ~/.config/nvim
+ln -s ~/git/dotfiles-dev/tmux/ ~/.config/tmux
+ln -s ~/git/dotfiles-dev/zsh/ ~/.config/zsh
 ```
 
 ## Tweak DNF config
@@ -124,10 +126,7 @@ rm -fr nord-gnome-terminal
 
 ```sh
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.local/share/zsh/powerlevel10k
-echo 'source ~/.local/share/zsh/powerlevel10k/powerlevel10k.zsh-theme' >>~/.config/zsh/.zshrc
 ```
-
-#### Get your custom zsh stolen from Manjaro Linux
 
 ### (Optional) Key Logging 
 
