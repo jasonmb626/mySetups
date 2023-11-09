@@ -68,6 +68,7 @@ git clone --recurse-submodules git@github.com:jasonmb626/dotfiles-dev.git ~/git/
 ln -s ~/git/dotfiles-dev/nvim/ ~/.config/nvim
 ln -s ~/git/dotfiles-dev/tmux/ ~/.config/tmux
 ln -s ~/git/dotfiles-dev/zsh/ ~/.config/zsh
+ln -s ~/git/dotfiles-dev/zsh/.p10k.zsh ~/.p10k.zsh
 ```
 
 ## Tweak DNF config
