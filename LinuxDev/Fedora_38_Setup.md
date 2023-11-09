@@ -59,6 +59,7 @@ Set you git configurations
 git config --global user.email "jason@jasonbrunelle.com"
 git config --global user.name "Jason Brunelle"
 git config --global init.defaultBranch main
+git config pull.rebase false  # merge
 ```
 
 ## Clone your dotfiles repository and symlink your directories
