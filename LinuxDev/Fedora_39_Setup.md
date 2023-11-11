@@ -95,10 +95,10 @@ sudo dnf -y install ffmpeg-libs installs slightly less stuff than the above and 
 
 TODO: Check back on moby-engine. As of the time of writing it does not support DOCKER_BUILDKIT=1
 
-Remove any old dependencies that might be present
+### Remove any old dependencies that might be present
 
 ```sh
-sudo dnf remove docker \
+sudo dnf -y remove docker \
                   docker-client \
                   docker-client-latest \
                   docker-common \
@@ -110,13 +110,14 @@ sudo dnf remove docker \
                   docker-engine
 ```
 
-Set up the repository
+### Install the official docker repository
 
 ```sh
 sudo dnf -y install dnf-plugins-core
 sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
 ```
 
+### Install, start, enable  Docker & and give use Docker permissions
 
 ```sh
 sudo dnf install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
@@ -125,13 +126,13 @@ sudo systemctl start docker
 sudo systemctl enable docker
 ```
 
-### Install zsh, vim, gnome-shell-extension-pop-shell, xprop and tool to provide chsh
+### Install zsh, (n)vim, gnome-shell-extension-pop-shell, xprop and tool to provide chsh
 
 util-linux-user provides chsh command
 xprop needed by gnome-shell-extension-pop-shell which provides tiling window manager functionality
 
 ```sh
-sudo dnf install -y zsh util-linux-user vim gnome-shell-extension-pop-shell xprop;
+sudo dnf install -y zsh util-linux-user vim neovim gnome-shell-extension-pop-shell xprop;
 chsh
 ```
 
@@ -177,8 +178,8 @@ echo "\n#Postgres defaults\nexport PGUSER=app\nexport PGPASSWORD=654321\nexport 
 
 ### (Optional) Install packages for Postgres development
 ```sh
-sudo dnf groupinstall 'Development Tools' 'Development Libraries'
-sudo dnf install postgresql libpq-devel
+sudo dnf -y groupinstall 'Development Tools' 'Development Libraries'
+sudo dnf -y install postgresql libpq-devel
 ```
 
 ### Set all the theme options
@@ -346,6 +347,8 @@ My options:
 * Enable Transient Prompt? -> y (Yes)
 * Instant Prompt Mode -> 1 (Verbose)
 * Apply changes to ~/.zshrc? -> y (Yes)
+
+</details>
 
 #### If using VSCode
 
