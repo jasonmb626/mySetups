@@ -131,8 +131,10 @@ sudo systemctl enable docker
 util-linux-user provides chsh command
 xprop needed by gnome-shell-extension-pop-shell which provides tiling window manager functionality
 
-```sh
+TODO: check if gnome-shell-extension-pop-shell has been updated for Gnome 45. If so add back to installation here
 sudo dnf install -y zsh util-linux-user vim neovim gnome-shell-extension-pop-shell xprop;
+```sh
+sudo dnf install -y zsh util-linux-user vim neovim xprop;
 chsh
 ```
 
@@ -350,7 +352,42 @@ My options:
 
 </details>
 
-#### If using VSCode
+### Install the Pop Shell extension from source
+
+#### Use your neovim develpment container to do the compilation
+
+##### Clone the repositories
+
+```sh
+mkdir -p ~/git
+git clone git@github.com:jasonmb626/neovim-devel-containers.git ~/git/neovim-devel-containers
+git clone https://github.com/pop-os/shell.git ~/git/pop-shell
+```
+
+##### Copy development container files and run the development container
+
+```sh
+cd ~/git/pop-shell
+cp ~/git/neovim-devel-containers/Dockerfile .
+cp ~/git/neovim-devel-containers/docker-compose.yml .
+docker run --rm dev sh
+```
+
+#### Install typescript and compile the code
+```sh
+sudo npm i -g typescript
+make compile
+exit
+```
+
+#### Now install it
+```sh
+make install
+```
+
+#### Reboot or change won't take effect
+
+## If using VSCode
 
 TODO: Check back on VSCodium. As of the time of writing it does not support devcontainers
 
