@@ -1,10 +1,10 @@
-# Setting up my Fedora 37 development machine
+# Setting up my Fedora 39 development machine -- wip
 
 
-From a fresh Fedora 37 installation, updated, username dev
+From a fresh Fedora 39 installation, updated, username dev
 
 
-If using Windows as host and Fedora 37 inside of VirtualBox, you may want to take these additional steps
+If using Windows as host and Fedora 39 inside of VirtualBox, you may want to take these additional steps
 
 ## \(Optional\) add user to vboxsf group so you can share folders inside VirtualBox
 
@@ -59,40 +59,67 @@ Set you git configurations
 git config --global user.email "jason@jasonbrunelle.com"
 git config --global user.name "Jason Brunelle"
 git config --global init.defaultBranch main
+git config pull.rebase false  # merge
+```
+
+## Clone your dotfiles repository and symlink your directories
+
+```sh
+git clone git@github.com:jasonmb626/dotfiles-dev.git ~/git/dotfiles-dev
+git clone git@github.com:jasonmb626/nvim-dotfiles.git ~/git/nvim-dotfiles
+ln -s ~/git/nvim-dotfiles/ ~/.config/nvim
+ln -s ~/git/dotfiles-dev/tmux/ ~/.config/tmux
+ln -s ~/git/dotfiles-dev/zsh/ ~/.config/zsh
+ln -s ~/git/dotfiles-dev/zsh/.p10k.zsh ~/.p10k.zsh
 ```
 
 ## Tweak DNF config
 
 ```sh
-sudo echo -e "max_parallel_downloads=10\nfastestmirror=True" >> /etc/dnf/dnf.conf
-```
-
-## Enable Flathub
-
-Follow directions [here](https://developer.fedoraproject.org/deployment/flatpak/flatpak-usage.html)
-
-```sh
-flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-flatpak remote-add --if-not-exists fedora oci+https://registry.fedoraproject.org
+echo -e "max_parallel_downloads=10\nfastestmirror=True" | sudo tee -a /etc/dnf/dnf.conf
 ```
 
 ## (Optional) Install [RPM Fusion](https://rpmfusion.org/) and general multimedia stuff
 
 ```sh
-sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-sudo dnf groupupdate core sound-and-video
-sudo dnf group upgrade --with-optional Multimedia
+sudo dnf -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+sudo dnf -y groupupdate core sound-and-video
+sudo dnf -y group upgrade --with-optional Multimedia
 ```
 
-sudo dnf group upgrade --with-optional Multimedia after installing RPM fusion seems to help some streaming video playback. Reboot may be required.
+sudo dnf -y group upgrade --with-optional Multimedia after installing RPM fusion seems to help some streaming video playback. Reboot may be required.
 the groupupdate of sound-and-video may not do anything? Doesn't seem to hurt. Previously noted missing software options in Gnome Software that was audio-related.
-sudo dnf install ffmpeg-libs installs slightly less stuff than the above and also seems to work, but again, REBOOT required. \(We'll be rebooting in a few steps so no need to rush a reboot.\)
+sudo dnf -y install ffmpeg-libs installs slightly less stuff than the above and also seems to work, but again, REBOOT required. \(We'll be rebooting in a few steps so no need to rush a reboot.\)
 
 ## Install Docker
 
+TODO: Check back on moby-engine. As of the time of writing it does not support DOCKER_BUILDKIT=1
+
+Remove any old dependencies that might be present
+
 ```sh
-sudo dnf install moby-engine docker-compose
- 
+sudo dnf remove docker \
+                  docker-client \
+                  docker-client-latest \
+                  docker-common \
+                  docker-latest \
+                  docker-latest-logrotate \
+                  docker-logrotate \
+                  docker-selinux \
+                  docker-engine-selinux \
+                  docker-engine
+```
+
+Set up the repository
+
+```sh
+sudo dnf -y install dnf-plugins-core
+sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+```
+
+
+```sh
+sudo dnf install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 sudo usermod -aG docker dev
 sudo systemctl start docker
 sudo systemctl enable docker
@@ -104,7 +131,7 @@ util-linux-user provides chsh command
 xprop needed by gnome-shell-extension-pop-shell which provides tiling window manager functionality
 
 ```sh
-sudo dnf install zsh util-linux-user vim gnome-shell-extension-pop-shell xprop
+sudo dnf install -y zsh util-linux-user vim gnome-shell-extension-pop-shell xprop;
 chsh
 ```
 
@@ -124,25 +151,7 @@ rm -fr nord-gnome-terminal
 #### Get Powerline 10k
 
 ```sh
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
-echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
-```
-
-#### Get your custom zsh stolen from Manjaro Linux
-
-From your host
-```sh
-cp -a ~/git/mySetups/LinuxDev/zsh/ ~/.local/share/
-```
-
-### (Optional) Key Logging 
-
-Build logkeys from their [GitHub](https://github.com/kernc/logkeys)
-
-Run with the following command: \(my_lang.keymap is in your LinuxDev\)
-
-```sh
-sudo logkeys --start --keymap my_lang.keymap --output test.log
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.local/share/zsh/powerlevel10k
 ```
 
 ## Desktop Appearance
@@ -150,8 +159,8 @@ sudo logkeys --start --keymap my_lang.keymap --output test.log
 ### Install dependencies for extending Gnome functionality
 
 ```sh
-sudo dnf install gnome-tweaks
-flatpak install org.gnome.Extensions
+sudo dnf -y install gnome-tweaks
+flatpak install -y org.gnome.Extensions
 ```
 
 If flatpak Gnome Extension requires you to choose from multiple matches, choose 'fedora'
@@ -160,8 +169,19 @@ If flatpak Gnome Extension requires you to choose from multiple matches, choose 
 ```sh
 sudo flatpak override --filesystem=$HOME/.themes
 sudo flatpak override --env=GTK_THEME=Nordic-bluish-accent
-sudo echo "GTK_THEME=Nordic-bluish-accent" >> /etc/environment
+echo "GTK_THEME=Nordic-bluish-accent" | sudo tee -a /etc/environment
+echo "DOCKER_BUILDKIT=1" | sudo tee -a /etc/environment
+echo "ZDOTDIR=/home/dev/.config/zsh" | sudo tee -a /etc/environment
+echo "\n#Postgres defaults\nexport PGUSER=app\nexport PGPASSWORD=654321\nexport PGHOST=localhost\nexport PGPORT=5432\nexport PGDATABASE=project_name" | sudo tee -a /etc/environment
 ```
+
+### (Optional) Install packages for Postgres development
+```sh
+sudo dnf groupinstall 'Development Tools' 'Development Libraries'
+sudo dnf install postgresql libpq-devel
+```
+
+### Set all the theme options
 
 <details>
   <summary>Copy/Paste - Command Prompt entries</summary>
@@ -188,7 +208,6 @@ gnome-shell-extension-installer 19 #User Themes
 gnome-shell-extension-installer 307 #Dash to Dock
 gnome-shell-extension-installer 779 #Clipboard Indicator
 gnome-shell-extension-installer 3740 #Compiz alike magic lamp effect
-git clone https://github.com/jasonmb626/workspaces-bar.git $HOME/.local/share/gnome-shell/extensions/workspaces-bar@jasonmb626
 ```
 
 Icon/Cursor/Theme
@@ -205,18 +224,6 @@ Fonts
 ```sh
 mkdir ~/.local/share/fonts
 cp ~/git/mySetups/resources/fonts/ttf/* ~/.local/share/fonts
-```
-
-Copy your custome .p10k.zsh
-
-```sh
-cp -a ~/git/mySetups/LinuxDev/.p10k.zsh ~
-```
-
-####  Copy your custom .zshrc from your Setups Directory
-
-```sh
-cp ~/git/mySetups/LinuxDev/.zshrc ~/.zshrc
 ```
 
 Import Gnome Settings via dconf
@@ -286,11 +293,9 @@ Open tweaks
 
 #### Install fonts ####
 
-Install the 4 meslo fonts recommended for Powerline 10k
-Links [here](https://github.com/romkatv/powerlevel10k#meslo-nerd-font-patched-for-powerlevel10k)
-or in this base repo in fonts/ttf folder (might as well install JetBrains fonts at the same time :) )
-
-Install the JetBrains mono font Available on their [website](https://www.jetbrains.com/lp/mono/)
+Install the 2 Fira fonts recommended for Powerline 10k
+Links [here](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/FiraMono.zip)
+or in this base repo in fonts/ttf folder.
 
 #### Set the Gnome Terminal Settings
 
@@ -342,23 +347,28 @@ My options:
 * Instant Prompt Mode -> 1 (Verbose)
 * Apply changes to ~/.zshrc? -> y (Yes)
 
-### Set your .zshrc
-
-####  Copy/Paste from your Git Repository
-
-mySetups/LinuxDev/.zshrc
-
-</details>
-
 #### If using VSCode
+
+TODO: Check back on VSCodium. As of the time of writing it does not support devcontainers
 
 [VS Code](https://code.visualstudio.com/docs/setup/linux#_rhel-fedora-and-centos-based-distributions)
 
 ```sh
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
 sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
-sudo dnf check-update
-sudo dnf install code
+sudo dnf -y check-update
+sudo dnf -y install code
 ```
 
 Follow instructions [here](https://github.com/jasonmb626/mySetups/blob/main/VSCode_Setup.md ) to set up your VS Code environment.
+
+### (Optional) Key Logging 
+
+Build logkeys from their [GitHub](https://github.com/kernc/logkeys)
+
+Run with the following command: \(my_lang.keymap is in your LinuxDev\)
+
+```sh
+sudo logkeys --start --keymap my_lang.keymap --output test.log
+```
+
