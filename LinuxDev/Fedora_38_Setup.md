@@ -25,7 +25,7 @@ Then _reboot_ or changes won't take effect.
 
 ```sh
 mkdir ~/git
-git clone git@github.com:jasonmb626/mySetups.git ~/git/mySetups
+git clone https://github.com/jasonmb626/mySetups.git ~/git/mySetups
 ```
 
 ## Install your ssh keys
@@ -69,6 +69,7 @@ git clone --recurse-submodules git@github.com:jasonmb626/dotfiles-dev.git ~/git/
 ln -s ~/git/dotfiles-dev/nvim/ ~/.config/nvim
 ln -s ~/git/dotfiles-dev/tmux/ ~/.config/tmux
 ln -s ~/git/dotfiles-dev/zsh/ ~/.config/zsh
+ln -s ~/git/dotfiles-dev/zsh/.p10k.zsh ~/.p10k.zsh
 ```
 
 ## Tweak DNF config
@@ -80,19 +81,19 @@ echo -e "max_parallel_downloads=10\nfastestmirror=True" | sudo tee -a /etc/dnf/d
 ## (Optional) Install [RPM Fusion](https://rpmfusion.org/) and general multimedia stuff
 
 ```sh
-sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-sudo dnf groupupdate core sound-and-video
-sudo dnf group upgrade --with-optional Multimedia
+sudo dnf -y install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+sudo dnf -y groupupdate core sound-and-video
+sudo dnf -y group upgrade --with-optional Multimedia
 ```
 
-sudo dnf group upgrade --with-optional Multimedia after installing RPM fusion seems to help some streaming video playback. Reboot may be required.
+sudo dnf -y group upgrade --with-optional Multimedia after installing RPM fusion seems to help some streaming video playback. Reboot may be required.
 the groupupdate of sound-and-video may not do anything? Doesn't seem to hurt. Previously noted missing software options in Gnome Software that was audio-related.
-sudo dnf install ffmpeg-libs installs slightly less stuff than the above and also seems to work, but again, REBOOT required. \(We'll be rebooting in a few steps so no need to rush a reboot.\)
+sudo dnf -y install ffmpeg-libs installs slightly less stuff than the above and also seems to work, but again, REBOOT required. \(We'll be rebooting in a few steps so no need to rush a reboot.\)
 
 ## Install Docker
 
 ```sh
-sudo dnf install moby-engine golang-github-moby-buildkit docker-compose
+sudo dnf -y install moby-engine golang-github-moby-buildkit docker-compose
  
 sudo usermod -aG docker dev
 sudo newgrp docker
@@ -106,7 +107,7 @@ util-linux-user provides chsh command
 xprop needed by gnome-shell-extension-pop-shell which provides tiling window manager functionality
 
 ```sh
-sudo dnf install zsh util-linux-user vim gnome-shell-extension-pop-shell xprop
+sudo dnf -y install zsh util-linux-user vim gnome-shell-extension-pop-shell xprop;
 chsh
 ```
 
@@ -144,8 +145,8 @@ sudo logkeys --start --keymap my_lang.keymap --output test.log
 ### Install dependencies for extending Gnome functionality
 
 ```sh
-sudo dnf install gnome-tweaks
-flatpak install org.gnome.Extensions
+sudo dnf -y install gnome-tweaks
+flatpak install -y org.gnome.Extensions
 ```
 
 If flatpak Gnome Extension requires you to choose from multiple matches, choose 'fedora'
@@ -330,8 +331,8 @@ My options:
 ```sh
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
 sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
-sudo dnf check-update
-sudo dnf install code
+sudo dnf -y check-update
+sudo dnf -y install code
 ```
 
 Follow instructions [here](https://github.com/jasonmb626/mySetups/blob/main/VSCode_Setup.md ) to set up your VS Code environment.
