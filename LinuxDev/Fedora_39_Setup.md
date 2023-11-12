@@ -132,9 +132,9 @@ util-linux-user provides chsh command
 xprop needed by gnome-shell-extension-pop-shell which provides tiling window manager functionality
 
 TODO: check if gnome-shell-extension-pop-shell has been updated for Gnome 45. If so add back to installation here
-sudo dnf install -y zsh util-linux-user vim neovim gnome-shell-extension-pop-shell xprop;
 ```sh
-sudo dnf install -y zsh util-linux-user vim neovim xprop;
+sudo dnf copr enable atim/lazygit -y
+sudo dnf install -y zsh util-linux-user vim neovim ripgrep lazygit gnome-shell-extension-pop-shell xprop;
 chsh
 ```
 
