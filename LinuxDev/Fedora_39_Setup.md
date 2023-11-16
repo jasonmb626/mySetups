@@ -56,7 +56,7 @@ git remote set-url origin git@github.com:jasonmb626/mySetups.git
 
 Set you git configurations
 ```sh
-git config --global user.email "jason@jasonbrunelle.com"
+git config --global user.email "jasonmb626@gmail.com"
 git config --global user.name "Jason Brunelle"
 git config --global init.defaultBranch main
 git config pull.rebase false  # merge
