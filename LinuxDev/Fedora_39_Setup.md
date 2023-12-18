@@ -1,13 +1,13 @@
 # Setting up my Fedora 39 development machine -- wip
 
-From a fresh Fedora 39 installation, updated, username dev
+From a fresh Fedora 39 installation, updated, username jason
 
 If using Windows as host and Fedora 39 inside of VirtualBox, you may want to take these additional steps
 
 ## \(Optional\) add user to vboxsf group so you can share folders inside VirtualBox
 
 ```sh
-sudo usermod -aG vboxsf dev
+sudo usermod -aG vboxsf jason
 ```
 
 ## \(Optional\) disable Super+G game bar
@@ -20,20 +20,11 @@ Get-AppxPackage Microsoft.XboxGamingOverlay | Remove-AppxPackage
 
 Then _reboot_ or changes won't take effect.
 
-## Clone your Setups repository
+## Install your github-ssh_keys
 
 ```sh
-mkdir ~/git
-git clone https://github.com/jasonmb626/mySetups.git ~/git/mySetups
-```
-
-## Install your ssh keys
-
-Copy your github-ssh_keys.zip to ~/.ssh
-
-```sh
-mkdir ~/.ssh
-unzip ~/git/mySetups/resources/github-ssh_keys.zip -d ~/.ssh
+curl -o /tmp/github-ssh_keys.zip https://raw.githubusercontent.com/jasonmb626/mySetups/main/resources/github-ssh_keys.zip
+unzip /tmp/github-ssh_keys.zip -d ~/.ssh
 ls -l ~/.ssh
 ```
 
@@ -42,25 +33,36 @@ You'll be prompted for a password at the unzip. (Enter password)
 You should now have these files and permissions in that folder.
 
 ```
--rw------- 1 dev dev 3.4K xxxx-xx-xx 07:14 id_rsa
--rw-r--r-- 1 dev dev  749 xxxx-xx-xx 06-02 07:14 id_rsa.pub
+-rw------- 1 jason jason 3.4K xxxx-xx-xx 07:14 id_rsa
+-rw-r--r-- 1 jason jason  749 xxxx-xx-xx 06-02 07:14 id_rsa.pub
 ```
 
-Now you can change the remote URL to ssh-based authentication
+## Clone your Setups repository
 
 ```sh
-cd ~/git/mySetups
-git remote set-url origin git@github.com:jasonmb626/mySetups.git
+mkdir ~/git
+git clone git@github.com:jasonmb626/mySetups.git ~/git/mySetups
 ```
 
 Set you git configurations
 
 ```sh
+cat <<EOF >~/.gitconfig
+[user]
+	email = jasonmb626@gmail.com
+	name = Jason Brunelle
+[init]
+	defaultBranch = main
+[pull]
+	rebase = false
+EOF
+```
+
+The above is same as:
 git config --global user.email "jasonmb626@gmail.com"
 git config --global user.name "Jason Brunelle"
 git config --global init.defaultBranch main
-git config pull.rebase false  # merge
-```
+git config --global pull.rebase false # merge
 
 ## Clone your dotfiles repository and symlink your directories
 
@@ -121,7 +123,7 @@ sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/dock
 
 ```sh
 sudo dnf install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-sudo usermod -aG docker dev
+sudo usermod -aG docker jason
 sudo systemctl start docker
 sudo systemctl enable docker
 ```
