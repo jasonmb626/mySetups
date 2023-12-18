@@ -1,8 +1,6 @@
 # Setting up my Fedora 39 development machine -- wip
 
-
 From a fresh Fedora 39 installation, updated, username dev
-
 
 If using Windows as host and Fedora 39 inside of VirtualBox, you may want to take these additional steps
 
@@ -15,8 +13,9 @@ sudo usermod -aG vboxsf dev
 ## \(Optional\) disable Super+G game bar
 
 From Windows PowerShell (run as administrator)
+
 ```
-Get-AppxPackage Microsoft.XboxGamingOverlay | Remove-AppxPackage     
+Get-AppxPackage Microsoft.XboxGamingOverlay | Remove-AppxPackage
 ```
 
 Then _reboot_ or changes won't take effect.
@@ -51,10 +50,11 @@ Now you can change the remote URL to ssh-based authentication
 
 ```sh
 cd ~/git/mySetups
-git remote set-url origin git@github.com:jasonmb626/mySetups.git 
+git remote set-url origin git@github.com:jasonmb626/mySetups.git
 ```
 
 Set you git configurations
+
 ```sh
 git config --global user.email "jasonmb626@gmail.com"
 git config --global user.name "Jason Brunelle"
@@ -66,17 +66,17 @@ git config pull.rebase false  # merge
 
 ```sh
 git clone git@github.com:jasonmb626/dotfiles-dev.git ~/git/dotfiles-dev
-git clone git@github.com:jasonmb626/nvim-dotfiles.git ~/git/nvim-dotfiles
-ln -s ~/git/nvim-dotfiles/ ~/.config/nvim
+git clone git@github.com:jasonmb626/epicvim.git ~/git/epicvim
+ln -s ~/git/epicvim/ ~/.config/nvim
 ln -s ~/git/dotfiles-dev/tmux/ ~/.config/tmux
 ln -s ~/git/dotfiles-dev/zsh/ ~/.config/zsh
-ln -s ~/git/dotfiles-dev/zsh/.p10k.zsh ~/.p10k.zsh
 ```
 
-## Tweak DNF config
+## Tweak DNF and its config
 
 ```sh
-echo -e "max_parallel_downloads=10\nfastestmirror=True" | sudo tee -a /etc/dnf/dnf.conf
+sudo dnf install -y dnf5 #Newer, faster dnf
+echo -e "max_parallel_downloads=10\nfastestmirror=True" | sudo tee -a /etc/dnf/dnf.conf #allow more mirrors
 ```
 
 ## (Optional) Install [RPM Fusion](https://rpmfusion.org/) and general multimedia stuff
@@ -93,7 +93,7 @@ sudo dnf -y install ffmpeg-libs installs slightly less stuff than the above and 
 
 ## Install Docker
 
-TODO: Check back on moby-engine. As of the time of writing it does not support DOCKER_BUILDKIT=1
+TODO: Check back on moby-engine. As of the time of writing it does not support Buildkit
 
 ### Remove any old dependencies that might be present
 
@@ -117,7 +117,7 @@ sudo dnf -y install dnf-plugins-core
 sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
 ```
 
-### Install, start, enable  Docker & and give use Docker permissions
+### Install, start, enable Docker & and give use Docker permissions
 
 ```sh
 sudo dnf install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
@@ -132,9 +132,10 @@ util-linux-user provides chsh command
 xprop needed by gnome-shell-extension-pop-shell which provides tiling window manager functionality
 
 TODO: check if gnome-shell-extension-pop-shell has been updated for Gnome 45. If so add back to installation here
+
 ```sh
 sudo dnf copr enable atim/lazygit -y
-sudo dnf install -y zsh util-linux-user vim neovim ripgrep lazygit gnome-shell-extension-pop-shell xprop;
+sudo dnf install -y zsh util-linux-user vim neovim gcc gcc-c++ patch npm ripgrep mercurial fd-find lazygit gnome-shell-extension-pop-shell xprop;
 chsh
 ```
 
@@ -151,10 +152,12 @@ cd nord-gnome-terminal/src
 cd ../..
 rm -fr nord-gnome-terminal
 ```
-#### Get Powerline 10k
+
+#### Get zsh completions
 
 ```sh
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.local/share/zsh/powerlevel10k
+mkdir -p ~/.local/share/zsh/completions/
+curl -o ~/.local/share/zsh/completions/_docker https://raw.githubusercontent.com/docker/cli/master/contrib/completion/zsh/_docker
 ```
 
 ## Desktop Appearance
@@ -169,16 +172,18 @@ flatpak install -y org.gnome.Extensions
 If flatpak Gnome Extension requires you to choose from multiple matches, choose 'fedora'
 
 ### Set some globals
+
 ```sh
 sudo flatpak override --filesystem=$HOME/.themes
 sudo flatpak override --env=GTK_THEME=Nordic-bluish-accent
 echo "GTK_THEME=Nordic-bluish-accent" | sudo tee -a /etc/environment
 echo "DOCKER_BUILDKIT=1" | sudo tee -a /etc/environment
-echo "ZDOTDIR=/home/dev/.config/zsh" | sudo tee -a /etc/environment
-echo "\n#Postgres defaults\nexport PGUSER=app\nexport PGPASSWORD=654321\nexport PGHOST=localhost\nexport PGPORT=5432\nexport PGDATABASE=project_name" | sudo tee -a /etc/environment
+echo -e "\n#Postgres defaults\nexport PGUSER=app\nexport PGPASSWORD=654321\nexport PGHOST=localhost\nexport PGPORT=5432\nexport PGDATABASE=project_name" | sudo tee -a /etc/environment
+echo -e "if [[ -z \"$XDG_CONFIG_HOME\" ]]; then\n	export XDG_CONFIG_HOME=\"$HOME/.config\"\nfi\n\nif [[ -d \"$XDG_CONFIG_HOME/zsh\" ]]; then\n	export ZDOTDIR=\"$XDG_CONFIG_HOME/zsh/\"\nfi" | sudo tee -a /etc/zshenv
 ```
 
 ### (Optional) Install packages for Postgres development
+
 ```sh
 sudo dnf -y groupinstall 'Development Tools' 'Development Libraries'
 sudo dnf -y install postgresql libpq-devel
@@ -189,8 +194,8 @@ sudo dnf -y install postgresql libpq-devel
 <details>
   <summary>Copy/Paste - Command Prompt entries</summary>
 
- Wallpaper 
- 
+Wallpaper
+
 ```sh
 mkdir ~/.local/share/wallpapers
 cp ~/git/mySetups/resources/Wallpapers/3908317.jpg ~/.local/share/wallpapers/
@@ -259,6 +264,7 @@ Right click desktop, select Change Background. Add Picture and set it as your de
 Settings -> Multitasking
 
 Workspaces
+
 - Fixed, 6
 
 ### Enable Gnome Extensions
@@ -269,6 +275,7 @@ Install from the [User Themes](https://extensions.gnome.org/extension/19/user-th
 You'll need to install the browser plugin (it'll prompt you) and then refresh the page
 
 #### Enable [Dash to Dock](https://extensions.gnome.org/extension/307/dash-to-dock/)
+
 (Check in on https://extensions.gnome.org/extension/5004/dash-to-dock-for-cosmic/. Seems more maintained and doesn't seem to clash even if not using COSMIC)
 
 #### Enable [Clipboard Indicator](https://extensions.gnome.org/extension/779/clipboard-indicator/)
@@ -283,8 +290,9 @@ Download Nordic-bluish-accent.tar.xz, Nordic-Folders.tar.xz Nordzy-cursors.tar.g
 
 ### Set the themes
 
-Open tweaks 
+Open tweaks
 -> Appearance
+
 - Icons: Nordic
 - Cursor: Nordzy
 - Shell: Nordic-bluish-accent-v40
@@ -294,7 +302,7 @@ Open tweaks
 
 ### Terminal
 
-#### Install fonts ####
+#### Install fonts
 
 Install the 2 Fira fonts recommended for Powerline 10k
 Links [here](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/FiraMono.zip)
@@ -305,20 +313,20 @@ or in this base repo in fonts/ttf folder.
 Open Gnome Terminal. Hamburger menu => Preferences
 
 Under profiles Choose Nord
-Check custom font, set to MesloLGS NF 12
+Check custom font, set to FiraMono Nerd Font 12
 Using down chevron next to Nord choose set as default.
 
 Optional - under colors, set transparent background.
 
 ### Set Gnome Keyboard Shortcuts
 
-  Settings -> Keyboard -> Keyboard Shortcuts
-  View and Customize Shortcuts
+Settings -> Keyboard -> Keyboard Shortcuts
+View and Customize Shortcuts
 
-  Navigation
+Navigation
 
-  Set "Hide all normal windows" to Super+D
-  Set your "Switch to workspace #" to your keys
+Set "Hide all normal windows" to Super+D
+Set your "Switch to workspace #" to your keys
 
 #### Reboot
 
@@ -329,58 +337,53 @@ This is a good time to reboot so all the changes get sourced properly.
 Start terminal and Powerlevel10k will prompt you for options.
 
 My options:
-* Diamond -> y
-* Lock -> y
-* Debian -> y
-* Do they fit -> y
-* Prompt Style -> 3 (Rainbow)
-* Character Set -> 1 (Unicode)
-* Show current time? -> 3 (12-hour format.)
-* Prompt Separators -> 1 (Angled)
-* Prompt Heads -> 1 (Sharp)
-* Prompt Tails -> 5 (Rounded)
-* Prompt Height -> 2 (Two lines)
-* Prompt Connection -> 3 (Solid)
-* Prompt Frame -> 4 (Full)
-* Connection & Frame Color -> 1 (Lightest)
-* Prompt Spacing -> 2 (Sparse)
-* Icons -> 2 (Many icons)
-* Prompt Flow -> 2 (Fluent)
-* Enable Transient Prompt? -> y (Yes)
-* Instant Prompt Mode -> 1 (Verbose)
-* Apply changes to ~/.zshrc? -> y (Yes)
+
+- Diamond -> y
+- Lock -> y
+- Debian -> y
+- Do they fit -> y
+- Prompt Style -> 3 (Rainbow)
+- Character Set -> 1 (Unicode)
+- Show current time? -> 3 (12-hour format.)
+- Prompt Separators -> 1 (Angled)
+- Prompt Heads -> 1 (Sharp)
+- Prompt Tails -> 5 (Rounded)
+- Prompt Height -> 2 (Two lines)
+- Prompt Connection -> 3 (Solid)
+- Prompt Frame -> 4 (Full)
+- Connection & Frame Color -> 1 (Lightest)
+- Prompt Spacing -> 2 (Sparse)
+- Icons -> 2 (Many icons)
+- Prompt Flow -> 2 (Fluent)
+- Enable Transient Prompt? -> y (Yes)
+- Instant Prompt Mode -> 1 (Verbose)
+- Apply changes to ~/.zshrc? -> y (Yes)
 
 </details>
 
 ### Install the Pop Shell extension from source
 
-#### Use your neovim develpment container to do the compilation
-
 ##### Clone the repositories
 
 ```sh
-mkdir -p ~/git
-git clone git@github.com:jasonmb626/neovim-devel-containers.git ~/git/neovim-devel-containers
-git clone https://github.com/pop-os/shell.git ~/git/pop-shell
-```
-
-##### Copy development container files and run the development container
-
-```sh
-cd ~/git/pop-shell
-cp ~/git/neovim-devel-containers/Dockerfile .
-cp ~/git/neovim-devel-containers/docker-compose.yml .
-docker run --rm dev sh
+mkdir -p ~/git/pop-shell-compiler-container
+cd ~/git/pop-shell-compiler-container
+~/.config/nvim/if_docker/prep_for_neovim_docker.sh #use this for a temporary container to use for compilation
+git clone https://github.com/pop-os/shell.git ~/git/pop-shell-compiler-container/app/pop-shell
+dcr dev tmux
 ```
 
 #### Install typescript and compile the code
+
 ```sh
+cd pop-shell
 sudo npm i -g typescript
 make compile
 exit
 ```
 
 #### Now install it
+
 ```sh
 make install
 ```
@@ -400,9 +403,9 @@ sudo dnf -y check-update
 sudo dnf -y install code
 ```
 
-Follow instructions [here](https://github.com/jasonmb626/mySetups/blob/main/VSCode_Setup.md ) to set up your VS Code environment.
+Follow instructions [here](https://github.com/jasonmb626/mySetups/blob/main/VSCode_Setup.md) to set up your VS Code environment.
 
-### (Optional) Key Logging 
+### (Optional) Key Logging
 
 Build logkeys from their [GitHub](https://github.com/kernc/logkeys)
 
@@ -411,4 +414,3 @@ Run with the following command: \(my_lang.keymap is in your LinuxDev\)
 ```sh
 sudo logkeys --start --keymap my_lang.keymap --output test.log
 ```
-
