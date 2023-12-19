@@ -370,6 +370,50 @@ My options:
 
 #### Reboot or change won't take effect
 
+## Complete Neovim setup
+
+### Optional: add to zsh rc so this happens automatically when starting terminal
+
+```sh
+cat <<EOF >>~/.config/zsh/.zshrc
+if [[ ! -x /home/app/.local/share/nvim/lazy/nvim-treesitter/parser/markdown.so ]]; then
+    if [[ -x /home/app/.config/nvim/if_docker/auto_install_dependencies.sh ]]; then
+        /home/app/.config/nvim/if_docker/auto_install_dependencies.sh >/dev/null 2>&1
+        echo "Neovim packages are installing in the background. Please wait before starting up neovim."
+        echo "This usually happens only on a fresh install."
+        echo "Sleeping 30 seconds."
+        sleep 30
+        PID=\$(ps aux | grep 'nvim --headless -c TSInstall! markdown' | grep -v grep | awk '{print \$2}')
+        kill \$PID
+        echo "You may now start neovim. Additional LSPs, formatters, and linters may install on startup."
+        echo "Once there is no longer feedback that new tools are installing, we recommend restarting neovim one more time."
+    fi
+fi
+EOF
+```
+
+Otherwise:
+
+Start neovim
+
+```sh
+nvim
+```
+
+Install the markdown parser for Treesitter
+
+```
+:TSInstall markdown
+```
+
+Install stylua
+
+```
+:Mason
+```
+
+Find stylua and press 'i'
+
 ## If using VSCode
 
 TODO: Check back on VSCodium. As of the time of writing it does not support devcontainers
