@@ -1,4 +1,4 @@
-# Setting up my Fedora 39 development machine -- wip
+# Setting up my Fedora 39 development machine
 
 From a fresh Fedora 39 installation, updated, username jason
 
@@ -44,7 +44,7 @@ mkdir ~/git
 git clone git@github.com:jasonmb626/mySetups.git ~/git/mySetups
 ```
 
-Set you git configurations
+Set your git configurations
 
 ```sh
 cat <<EOF >~/.gitconfig
@@ -59,10 +59,13 @@ EOF
 ```
 
 The above is same as:
-git config --global user.email "jasonmb626@gmail.com"
-git config --global user.name "Jason Brunelle"
-git config --global init.defaultBranch main
-git config --global pull.rebase false # merge
+
+- git config --global user.email "jasonmb626@gmail.com"
+- git config --global user.name "Jason Brunelle"
+- git config --global init.defaultBranch main
+- git config --global pull.rebase false # merge
+
+but is easier to add to a script.
 
 ## Clone your dotfiles repository and symlink your directories
 
@@ -112,6 +115,8 @@ sudo dnf -y remove docker \
                   docker-engine
 ```
 
+This is recommended per the Docker install guide, but frankly all it seems to do (on a fresh install) is remove docker-selinux which gets added right back in (from the same repo) in a follow-up step.
+
 ### Install the official docker repository
 
 ```sh
@@ -132,8 +137,6 @@ sudo systemctl enable docker
 
 util-linux-user provides chsh command
 xprop needed by gnome-shell-extension-pop-shell which provides tiling window manager functionality
-
-TODO: check if gnome-shell-extension-pop-shell has been updated for Gnome 45. If so add back to installation here
 
 ```sh
 sudo dnf copr enable atim/lazygit -y
@@ -179,9 +182,8 @@ If flatpak Gnome Extension requires you to choose from multiple matches, choose 
 sudo flatpak override --filesystem=$HOME/.themes
 sudo flatpak override --env=GTK_THEME=Nordic-bluish-accent
 echo "GTK_THEME=Nordic-bluish-accent" | sudo tee -a /etc/environment
-echo "DOCKER_BUILDKIT=1" | sudo tee -a /etc/environment
 echo -e "\n#Postgres defaults\nexport PGUSER=app\nexport PGPASSWORD=654321\nexport PGHOST=localhost\nexport PGPORT=5432\nexport PGDATABASE=project_name" | sudo tee -a /etc/environment
-echo -e "if [[ -z \"$XDG_CONFIG_HOME\" ]]; then\n	export XDG_CONFIG_HOME=\"$HOME/.config\"\nfi\n\nif [[ -d \"$XDG_CONFIG_HOME/zsh\" ]]; then\n	export ZDOTDIR=\"$XDG_CONFIG_HOME/zsh/\"\nfi" | sudo tee -a /etc/zshenv
+echo -e "if [[ -z \"\$XDG_CONFIG_HOME\" ]]; then\n	export XDG_CONFIG_HOME=\"\$HOME/.config\"\nfi\n\nif [[ -d \"\$XDG_CONFIG_HOME/zsh\" ]]; then\n	export ZDOTDIR=\"\$XDG_CONFIG_HOME/zsh/\"\nfi" | sudo tee -a /etc/zshenv
 ```
 
 ### (Optional) Install packages for Postgres development
@@ -231,9 +233,12 @@ cp -a ~/git/mySetups/LinuxDev/Nordic/ ~/git/mySetups/LinuxDev/Nordzy-cursors/ ~/
 
 Fonts
 
+Download from [GitHub](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/FiraMono/Regular)
+
 ```sh
 mkdir ~/.local/share/fonts
-cp ~/git/mySetups/resources/fonts/ttf/* ~/.local/share/fonts
+curl -o ~/.local/share/fonts/FiraMonoNerdFontMono-Regular.otf https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/FiraMono/Regular/FiraMonoNerdFontMono-Regular.otf
+curl -o ~/.local/share/fonts/FiraMonoNerdFont-Regular.otf https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/FiraMono/Regular/FiraMonoNerdFont-Regular.otf
 ```
 
 Import Gnome Settings via dconf
@@ -362,33 +367,6 @@ My options:
 - Apply changes to ~/.zshrc? -> y (Yes)
 
 </details>
-
-### Install the Pop Shell extension from source
-
-##### Clone the repositories
-
-```sh
-mkdir -p ~/git/pop-shell-compiler-container
-cd ~/git/pop-shell-compiler-container
-~/.config/nvim/if_docker/prep_for_neovim_docker.sh #use this for a temporary container to use for compilation
-git clone https://github.com/pop-os/shell.git ~/git/pop-shell-compiler-container/app/pop-shell
-dcr dev tmux
-```
-
-#### Install typescript and compile the code
-
-```sh
-cd pop-shell
-sudo npm i -g typescript
-make compile
-exit
-```
-
-#### Now install it
-
-```sh
-make install
-```
 
 #### Reboot or change won't take effect
 
