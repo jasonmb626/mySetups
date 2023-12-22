@@ -208,7 +208,7 @@ cp ~/git/mySetups/resources/Wallpapers/3908317.jpg ~/.local/share/wallpapers/
 Download extensions installer
 
 ```sh
-wget -O gnome-shell-extension-installer "https://github.com/brunelli/gnome-shell-extension-installer/raw/master/gnome-shell-extension-installer"
+wget -O gnome-shell-extension-installer "https://github.com/jasonmb626/gnome-shell-extension-installer/raw/master/gnome-shell-extension-installer"
 chmod +x gnome-shell-extension-installer
 sudo mv gnome-shell-extension-installer /usr/bin/
 ```
