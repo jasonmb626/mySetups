@@ -217,10 +217,13 @@ Now Install the Extensions
 
 ```sh
 gnome-shell-extension-installer 19 #User Themes
-gnome-shell-extension-installer 307 #Dash to Dock
+gnome-shell-extension-installer 1160 # Dash to panel
 gnome-shell-extension-installer 779 #Clipboard Indicator
 gnome-shell-extension-installer 3740 #Compiz alike magic lamp effect
 ```
+
+This workspaces bar is great but will only show on one display.
+gnome-shell-extension-installer 6394 # Simple Workspaces Bar
 
 Icon/Cursor/Theme
 
