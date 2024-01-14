@@ -74,6 +74,7 @@ git clone git@github.com:jasonmb626/dotfiles-dev.git ~/git/dotfiles-dev
 git clone git@github.com:jasonmb626/epicvim.git ~/git/epicvim
 ln -s ~/git/epicvim/ ~/.config/nvim
 ln -s ~/git/dotfiles-dev/tmux/ ~/.config/tmux
+ln -s ~/git/dotfiles-dev/alacritty/ ~/.config/alacritty
 git clone https://github.com/tmux-plugins/tpm /home/jason/.config/tmux/plugins/tpm
 ln -s ~/git/dotfiles-dev/zsh/ ~/.config/zsh
 ```
