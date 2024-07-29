@@ -25,10 +25,11 @@ Then _reboot_ or changes won't take effect.
 Assuming the share is called "shared"
 
 ```sh
-echo "shared /home/jason/shared virtiofs defaults 0 0" | sudo tee -a /etc/fstab
+mkdir -P /home/jason/Shared
+echo "Shared /home/jason/Shared virtiofs defaults 0 0" | sudo tee -a /etc/fstab
 sudo mount -a
 
-sudo dnf install cargo libxcd-devel
+sudo dnf install cargo libxcb-devel
 cargo install clipboard-sync
 ```
 
