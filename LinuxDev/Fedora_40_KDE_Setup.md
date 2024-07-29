@@ -47,8 +47,6 @@ echo -e "max_parallel_downloads=10\nfastestmirror=True" | sudo tee -a /etc/dnf/d
 
 ## Install packages
 
-#qt needed for some dbus commands to work. Like "Toggle Overview"
-
 ```sh
 sudo dnf install git
 ```
@@ -226,8 +224,6 @@ Right click Application launcher in top bar
 Show Alternatives
 Choose application dashboard
 
--> Window Titlebars -> Placement = Left
-
 ### Terminal
 
 #### Install fonts
@@ -260,13 +256,13 @@ Open Console. Hamburger menu => Create New Profile
 Under profiles Choose Nord
 Check custom font, set to FiraMono Nerd Font 12
 
-Optional - under colors, set transparent background.
+Optional - under colors, change transparent background.
 
 #### Reboot
 
 This is a good time to reboot so all the changes get sourced properly.
 
-#### (Options) setting up PowerLevel10k (If not done via copy/paste)
+#### (Optional) setting up PowerLevel10k (If not done via copy/paste)
 
 Start terminal and Powerlevel10k will prompt you for options.
 
@@ -292,8 +288,6 @@ My options:
 - Enable Transient Prompt? -> y (Yes)
 - Instant Prompt Mode -> 1 (Verbose)
 - Apply changes to ~/.zshrc? -> y (Yes)
-
-#### Reboot or change won't take effect
 
 ## Complete Neovim setup
 
