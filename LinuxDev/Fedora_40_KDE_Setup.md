@@ -178,7 +178,7 @@ qt needed for some dbus calls, such as from "toggle overview" button
 
 ```sh
 sudo dnf copr enable atim/lazygit -y
-sudo dnf install -y zsh util-linux-user vim neovim gcc gcc-c++ patch npm ripgrep mercurial fd-find lazygit qt;
+sudo dnf install -y zsh util-linux-user vim neovim gcc gcc-c++ patch npm ripgrep mercurial fd-find lazygit qt alacritty
 chsh
 ```
 
