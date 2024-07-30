@@ -22,20 +22,28 @@ Then _reboot_ or changes won't take effect.
 
 ## \(Optional\) add your shared folder if using virtmanager & install dependencies for shared clipboard
 
-Assuming the share is called "shared"
+Assuming the share is called "Shared"
 
 ```sh
-mkdir -P /home/jason/Shared
+mkdir -p /home/jason/Shared
 echo "Shared /home/jason/Shared virtiofs defaults 0 0" | sudo tee -a /etc/fstab
 sudo mount -a
+```
 
-sudo dnf install cargo libxcb-devel
+This syncs the clipboard between Wayland and some kind of X11 which is what spice uses for shared memory
+
+Remember to enable shared memory in the virmanager configs
+
+```sh
+sudo dnf install -y cargo libxcb-devel
 cargo install clipboard-sync
 ```
 
 Open system settings, go to Autostart, and add the command to the list
 
+```
 /home/jason/.cargo/bin/clipboard-sync
+```
 
 Reboot
 
@@ -49,7 +57,7 @@ echo -e "max_parallel_downloads=10\nfastestmirror=True" | sudo tee -a /etc/dnf/d
 ## Install packages
 
 ```sh
-sudo dnf install git
+sudo dnf -y install git
 ```
 
 ## Install your github-ssh_keys
@@ -58,15 +66,17 @@ sudo dnf install git
 curl -o /tmp/github-ssh_keys.zip https://raw.githubusercontent.com/jasonmb626/mySetups/main/resources/github-ssh_keys.zip
 unzip /tmp/github-ssh_keys.zip -d ~/.ssh
 ls -l ~/.ssh
+ssh-add /home/jason/github_id_ed25519
 ```
 
 You'll be prompted for a password at the unzip. (Enter password)
+You'll be prompted for a passphase for the ssh key. (Enter passphrase)
 
 You should now have these files and permissions in that folder.
 
 ```
--rw------- 1 jason jason 3.4K xxxx-xx-xx 07:14 id_rsa
--rw-r--r-- 1 jason jason  749 xxxx-xx-xx 06-02 07:14 id_rsa.pub
+-rw-------. 1 jason jason 444 Jan 14  2024 github_id_ed25519
+-rw-r--r--. 1 jason jason  88 Jan 14  2024 github_id_ed25519.pub
 ```
 
 ## Clone your Setups repository
@@ -142,7 +152,7 @@ sudo dnf -y remove docker \
                   docker-engine
 ```
 
-This is recommended per the Docker install guide, but frankly all it seems to do (on a fresh install) is remove docker-selinux which gets added right back in (from the same repo) in a follow-up step.
+This is recommended per the Docker install guide, but it didn't remove anything.
 
 ### Install the official docker repository
 
@@ -211,19 +221,27 @@ Open Settings -> Colors & Themes
   Install Utterly Nord for Plasma 6
   Once installed, enable it
   CLick Utterly Nord under Global Themes
-  Also check "Desktop and widnow layout
+  Also check "Desktop and window layout
   Click Apply
 
 - Icons: Zafiro-Nord-Light-Blue
 - Cursor: Nordic-cursors (Might show already enabled. Might have to switch to another and switch back)
+- Login Screen (SDDM): Nordic darker SDDM Plamsa 6
+
+- Security and Privacy
+- Screen Locking
+- Configure Appearnce
+  Utterly Nord
 
 Right click top bar
 Show panel configuration
-Remove the Window Buttons applet
+Remove the Window Buttons applet and margins separators
 
 Right click Application launcher in top bar
 Show Alternatives
 Choose application dashboard
+
+Add Pager widget
 
 ### Terminal
 
@@ -243,21 +261,54 @@ or in this base repo in fonts/ttf folder.
 
 #### Set the Konsole Settings
 
-Open Console. Hamburger menu => Create New Profile
+Open Konsole. Hamburger menu => Create New Profile
+Note please restart Konsole if it was still running from when you curled down the fonts. They won't show until a restart.
 
 - General
   Name the Profile: Utterly Nord w Nerd Font
-
+  Check Default profile
 - Appearance
   Get New...
   Install Utterly Nord by himdek, then choose from the list
+  Edit it to change background color transparency to 10%
+
   By Font, click Choose...
   Pick FiraMono Nerd Font 12
 
 Under profiles Choose Nord
 Check custom font, set to FiraMono Nerd Font 12
 
-Optional - under colors, change transparent background.
+### Optional: add to zshrc to partial neovim setup happens automatically when starting terminal
+
+```sh
+cat <<EOF >>~/.config/zsh/.zshrc
+if [[ ! -x /home/app/.local/share/nvim/lazy/nvim-treesitter/parser/markdown.so ]]; then
+    if [[ -x /home/app/.config/nvim/if_docker/auto_install_dependencies.sh ]]; then
+        /home/app/.config/nvim/if_docker/auto_install_dependencies.sh >/dev/null 2>&1
+        echo "Neovim packages are installing in the background. Please wait before starting up neovim."
+        echo "This usually happens only on a fresh install."
+        echo "Sleeping 30 seconds."
+        sleep 30
+        PID=\$(ps aux | grep 'nvim --headless -c TSInstall! markdown' | grep -v grep | awk '{print \$2}')
+        kill \$PID
+        echo "You may now start neovim. Additional LSPs, formatters, and linters may install on startup."
+        echo "Once there is no longer feedback that new tools are installing, we recommend restarting neovim one more time."
+    fi
+fi
+EOF
+```
+
+### Optional: add to zshrc to autoinstall tmux plugins on start, if necessary
+
+```sh
+cat <<EOF >>~/.config/zsh/.zshrc
+mkdir -p /home/jason/.local/share/tmux/plugins/
+if [[ "\$(ls -1 /home/jason/.local/share/tmux/plugins/ | wc -l )" -eq 0 ]]; then
+    /home/jason/.config/tmux/plugins/tpm/scripts/install_plugins.sh
+    tmux source ~/.config/tmux/tmux.conf
+fi
+EOF
+```
 
 #### Reboot
 
@@ -292,35 +343,13 @@ My options:
 
 ## Complete Neovim setup
 
-### Optional: add to zsh rc so this happens automatically when starting terminal
-
-```sh
-cat <<EOF >>~/.config/zsh/.zshrc
-if [[ ! -x /home/app/.local/share/nvim/lazy/nvim-treesitter/parser/markdown.so ]]; then
-    if [[ -x /home/app/.config/nvim/if_docker/auto_install_dependencies.sh ]]; then
-        /home/app/.config/nvim/if_docker/auto_install_dependencies.sh >/dev/null 2>&1
-        echo "Neovim packages are installing in the background. Please wait before starting up neovim."
-        echo "This usually happens only on a fresh install."
-        echo "Sleeping 30 seconds."
-        sleep 30
-        PID=\$(ps aux | grep 'nvim --headless -c TSInstall! markdown' | grep -v grep | awk '{print \$2}')
-        kill \$PID
-        echo "You may now start neovim. Additional LSPs, formatters, and linters may install on startup."
-        echo "Once there is no longer feedback that new tools are installing, we recommend restarting neovim one more time."
-    fi
-fi
-EOF
-```
-
-Otherwise:
-
 Start neovim
 
 ```sh
 nvim
 ```
 
-Install the markdown parser for Treesitter
+Install the markdown parser for Treesitter, if setup script was not added to zsh config above
 
 ```
 :TSInstall markdown
