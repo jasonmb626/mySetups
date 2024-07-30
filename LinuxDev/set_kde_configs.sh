@@ -22,26 +22,26 @@ kwriteconfig6 --file=$HOME/.config/kglobalshortcutsrc --group="services" --group
 kwriteconfig6 --file=$HOME/.config/kwinrc --group="Effect-overview" --key="BorderActivate" 9 #Remove hot corner
 
 #Virtual Desktops
-kwriteconfig6 --file=$HOME/.config/.kwinrc --group="Desktops" --key="Id_1" "8f4d53c1-323f-4369-97c8-afb0774f2bf3"
-kwriteconfig6 --file=$HOME/.config/.kwinrc --group="Desktops" --key="Id_2" "aa97e102-6221-4ea3-a8ae-c4663bd83f65"
-kwriteconfig6 --file=$HOME/.config/.kwinrc --group="Desktops" --key="Id_3" "e8053d89-9d38-4f04-8487-c3c8b10be96c"
-kwriteconfig6 --file=$HOME/.config/.kwinrc --group="Desktops" --key="Id_4" "219eb681-3ddb-4ea1-bf75-0fc52ac6c2e2"
-kwriteconfig6 --file=$HOME/.config/.kwinrc --group="Desktops" --key="Id_5" "d941d48b-3910-45a5-a9ea-3b369de81620"
-kwriteconfig6 --file=$HOME/.config/.kwinrc --group="Desktops" --key="Id_6" "0b6a8f7d-6d30-4728-8184-a67624cc0afb"
-kwriteconfig6 --file=$HOME/.config/.kwinrc --group="Desktops" --key="Number" 6
-kwriteconfig6 --file=$HOME/.config/.kwinrc --group="Desktops" --key="Rows" 2
-kwriteconfig6 --file=$HOME/.config/.kwinrc --group="Plugins" --key="diminactiveEnabled" true
-kwriteconfig6 --file=$HOME/.config/.kwinrc --group="Plugins" --key="slidebackEnabled" true
-kwriteconfig6 --file=$HOME/.config/.kwinrc --group="Plugins" --key="cubeEnabled" true
-kwriteconfig6 --file=$HOME/.config/.kwinrc --group="Plugins" --key="wobblywindowsEnabled" true
-kwriteconfig6 --file=$HOME/.config/.kwinrc --group="Plugins" --key="magiclampEnabled" true
+#kwriteconfig6 --file=$HOME/.config/.kwinrc --group="Desktops" --key="Id_1" "8f4d53c1-323f-4369-97c8-afb0774f2bf3"
+kwriteconfig6 --file=$HOME/.config/kwinrc --group="Desktops" --key="Id_2" "aa97e102-6221-4ea3-a8ae-c4663bd83f65"
+kwriteconfig6 --file=$HOME/.config/kwinrc --group="Desktops" --key="Id_3" "e8053d89-9d38-4f04-8487-c3c8b10be96c"
+kwriteconfig6 --file=$HOME/.config/kwinrc --group="Desktops" --key="Id_4" "219eb681-3ddb-4ea1-bf75-0fc52ac6c2e2"
+kwriteconfig6 --file=$HOME/.config/kwinrc --group="Desktops" --key="Id_5" "d941d48b-3910-45a5-a9ea-3b369de81620"
+kwriteconfig6 --file=$HOME/.config/kwinrc --group="Desktops" --key="Id_6" "0b6a8f7d-6d30-4728-8184-a67624cc0afb"
+kwriteconfig6 --file=$HOME/.config/kwinrc --group="Desktops" --key="Number" 6
+kwriteconfig6 --file=$HOME/.config/kwinrc --group="Desktops" --key="Rows" 2
+kwriteconfig6 --file=$HOME/.config/kwinrc --group="Plugins" --key="diminactiveEnabled" true
+kwriteconfig6 --file=$HOME/.config/kwinrc --group="Plugins" --key="slidebackEnabled" true
+kwriteconfig6 --file=$HOME/.config/kwinrc --group="Plugins" --key="cubeEnabled" true
+kwriteconfig6 --file=$HOME/.config/kwinrc --group="Plugins" --key="wobblywindowsEnabled" true
+kwriteconfig6 --file=$HOME/.config/kwinrc --group="Plugins" --key="magiclampEnabled" true
 
-kwriteconfig6 --file=$HOME/.config/.kwinrc --group="Effect-wobblywindows" --key="WobblynessLevel" 3
-kwriteconfig6 --file=$HOME/.config/.kwinrc --group="Effect-wobblywindows" --key="Stiffness" 3
-kwriteconfig6 --file=$HOME/.config/.kwinrc --group="Effect-wobblywindows" --key="MoveFactor" 20
-kwriteconfig6 --file=$HOME/.config/.kwinrc --group="Effect-wobblywindows" --key="Drag" 92
+kwriteconfig6 --file=$HOME/.config/kwinrc --group="Effect-wobblywindows" --key="WobblynessLevel" 3
+kwriteconfig6 --file=$HOME/.config/kwinrc --group="Effect-wobblywindows" --key="Stiffness" 3
+kwriteconfig6 --file=$HOME/.config/kwinrc --group="Effect-wobblywindows" --key="MoveFactor" 20
+kwriteconfig6 --file=$HOME/.config/kwinrc --group="Effect-wobblywindows" --key="Drag" 92
 
-kwriteconfig6 --file=$HOME/.config/.kwinrc --group="org.kde.kdedecoration2" --key="ButtonsOnLeft" "XIAM"
-kwriteconfig6 --file=$HOME/.config/.kwinrc --group="org.kde.kdedecoration2" --key="ButtonsOnRight" "H"
+kwriteconfig6 --file=$HOME/.config/kwinrc --group="org.kde.kdecoration2" --key="ButtonsOnLeft" "XIAM"
+kwriteconfig6 --file=$HOME/.config/kwinrc --group="org.kde.kdecoration2" --key="ButtonsOnRight" "H"
 
 qdbus org.kde.KWin /KWin reconfigure
