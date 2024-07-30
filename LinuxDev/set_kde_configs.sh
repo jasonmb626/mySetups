@@ -17,7 +17,7 @@ kwriteconfig6 --file=$HOME/.config/kglobalshortcutsrc --group="kwin" --key="Wind
 kwriteconfig6 --file=$HOME/.config/kglobalshortcutsrc --group="kwin" --key="Window Quick Tile Top" "Meta+PgUp,Meta+Up,Quick Tile Winndow to the Top"
 kwriteconfig6 --file=$HOME/.config/kglobalshortcutsrc --group="kwin" --key="Window Fullscreen" "Meta+F,,Make Window Fullscreen"
 kwriteconfig6 --file=$HOME/.config/kglobalshortcutsrc --group="services" --group="org.kde.krunner.desktop" --key="_launch" "Meta+Space"
-kwriteconfig6 --file=$HOME/.config/kglobalshortcutsrc --group="services" --group="org.kde.konsole.desktop" --key="_launch" "Meta+Return"
+kwriteconfig6 --file=$HOME/.config/kglobalshortcutsrc --group="services" --group="Alacrittydesktop" --key="_launch" "Meta+Return"
 
 kwriteconfig6 --file=$HOME/.config/kwinrc --group="Effect-overview" --key="BorderActivate" 9 #Remove hot corner
 

@@ -243,6 +243,8 @@ Choose application dashboard
 
 Add Pager widget
 
+Set height to 44
+
 ### Terminal
 
 #### Install fonts
