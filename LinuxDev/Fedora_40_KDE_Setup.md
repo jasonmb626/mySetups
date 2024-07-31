@@ -37,7 +37,8 @@ Remember to enable shared memory in the virmanager configs
 ```sh
 sudo dnf install -y cargo libxcb-devel
 cargo install clipboard-sync
-echo -e "[Desktop Entry]\nExec=/home/jason/.cargo/bin/clipboard-sync\nIcon=\nName=clipboard-sync\nPath=\nTerminal=False\nType=Application" ❯/home/jason/.config/autostart/clipboard-sync.desktop
+mkdir -p /home/jason/.config/autostart
+echo -e "[Desktop Entry]\nExec=/home/jason/.cargo/bin/clipboard-sync\nIcon=\nName=clipboard-sync\nPath=\nTerminal=False\nType=Application" >/home/jason/.config/autostart/clipboard-sync.desktop
 ```
 
 Open system settings, go to Autostart, and add the command to the list
