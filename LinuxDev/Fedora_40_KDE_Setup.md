@@ -37,6 +37,7 @@ Remember to enable shared memory in the virmanager configs
 ```sh
 sudo dnf install -y cargo libxcb-devel
 cargo install clipboard-sync
+echo -e "[Desktop Entry]\nExec=/home/jason/.cargo/bin/clipboard-sync\nIcon=\nName=clipboard-sync\nPath=\nTerminal=False\nType=Application" ❯/home/jason/.config/autostart/clipboard-sync.desktop
 ```
 
 Open system settings, go to Autostart, and add the command to the list
@@ -222,17 +223,10 @@ curl -o ~/.local/share/zsh/completions/_docker https://raw.githubusercontent.com
 
 ```sh
 sudo flatpak override --filesystem=$HOME/.themes
-echo -e "\n#Postgres defaults\nexport PGUSER=app\nexport PGPASSWORD=654321\nexport PGHOST=localhost\nexport PGPORT=5432\nexport PGDATABASE=project_name" | sudo tee -a /etc/environment
 echo -e "if [[ -z \"\$XDG_CONFIG_HOME\" ]]; then\n	export XDG_CONFIG_HOME=\"\$HOME/.config\"\nfi\n\nif [[ -d \"\$XDG_CONFIG_HOME/zsh\" ]]; then\n	export ZDOTDIR=\"\$XDG_CONFIG_HOME/zsh/\"\nfi" | sudo tee -a /etc/zshenv
 ```
 
 ### Set all the theme options
-
-## Set your KDE options
-
-```sh
-$HOME/git/mySetups/LinuxDev/set_kde_configs.sh
-```
 
 Change the look and feel to your prefrences.
 
@@ -268,6 +262,7 @@ Show Alternatives
 Choose application dashboard
 
 Add Pager widget
+Configure Pager to show icons and desktop numbers
 
 Set height to 44
 
@@ -287,7 +282,20 @@ curl -o ~/.local/share/fonts/FiraMonoNerdFont-Regular.otf https://raw.githubuser
 Or full font package [here](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/FiraMono.zip)
 or in this base repo in fonts/ttf folder.
 
-#### Set the Konsole Settings
+## Set your KDE options
+
+```sh
+$HOME/git/mySetups/LinuxDev/set_kde_configs.sh
+```
+
+#### Reboot
+
+This is a good time to reboot so all the changes get sourced properly.
+
+#### (Optional) Set the Konsole Settings
+
+If you don't want to use Alacritty
+Fonts seem to be overlapping in Konsole, even when choosing same font as Alacritty.
 
 Open Konsole. Hamburger menu => Create New Profile
 Note please restart Konsole if it was still running from when you curled down the fonts. They won't show until a restart.
@@ -305,42 +313,6 @@ Note please restart Konsole if it was still running from when you curled down th
 
 Under profiles Choose Nord
 Check custom font, set to FiraMono Nerd Font 12
-
-### Optional: add to zshrc to partial neovim setup happens automatically when starting terminal
-
-```sh
-cat <<EOF >>~/.config/zsh/.zshrc
-if [[ ! -x /home/jason/.local/share/nvim/lazy/nvim-treesitter/parser/markdown.so ]]; then
-    if [[ -x /home/jason/.config/nvim/if_docker/auto_install_dependencies.sh ]]; then
-        /home/jason/.config/nvim/if_docker/auto_install_dependencies.sh >/dev/null 2>&1
-        echo "Neovim packages are installing in the background. Please wait before starting up neovim."
-        echo "This usually happens only on a fresh install."
-        echo "Sleeping 30 seconds."
-        sleep 30
-        PID=\$(ps aux | grep 'nvim --headless -c TSInstall! markdown' | grep -v grep | awk '{print \$2}')
-        kill \$PID
-        echo "You may now start neovim. Additional LSPs, formatters, and linters may install on startup."
-        echo "Once there is no longer feedback that new tools are installing, we recommend restarting neovim one more time."
-    fi
-fi
-EOF
-```
-
-### Optional: add to zshrc to autoinstall tmux plugins on start, if necessary
-
-```sh
-cat <<EOF >>~/.config/zsh/.zshrc
-mkdir -p /home/jason/.local/share/tmux/plugins/
-if [[ "\$(ls -1 /home/jason/.local/share/tmux/plugins/ | wc -l )" -eq 0 ]]; then
-    /home/jason/.config/tmux/plugins/tpm/scripts/install_plugins.sh
-    tmux source ~/.config/tmux/tmux.conf
-fi
-EOF
-```
-
-#### Reboot
-
-This is a good time to reboot so all the changes get sourced properly.
 
 #### (Optional) setting up PowerLevel10k (If not done via copy/paste)
 
