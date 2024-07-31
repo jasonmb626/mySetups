@@ -1,14 +1,4 @@
-# Setting up my Fedora 40 development machine (wip)
-
-From a fresh Fedora 40 KDE installation, updated, username jason
-
-If using Windows as host and Fedora 40 inside of VirtualBox, you may want to take these additional steps
-
-## \(Optional\) add user to vboxsf group so you can share folders inside VirtualBox
-
-```sh
-sudo usermod -aG vboxsf jason
-```
+# Setting up my Fedora 40 development machine (wip) From a fresh Fedora 40 KDE installation, updated, username jason If using Windows as host and Fedora 40 inside of VirtualBox, you may want to take these additional steps ## \(Optional\) add user to vboxsf group so you can share folders inside VirtualBox `sh sudo usermod -aG vboxsf jason `
 
 ## \(Optional\) disable Super+G game bar
 
@@ -66,7 +56,7 @@ sudo dnf -y install git
 curl -o /tmp/github-ssh_keys.zip https://raw.githubusercontent.com/jasonmb626/mySetups/main/resources/github-ssh_keys.zip
 unzip /tmp/github-ssh_keys.zip -d ~/.ssh
 ls -l ~/.ssh
-ssh-add /home/jason/github_id_ed25519
+ssh-add /home/jason/.ssh/github_id_ed25519
 ```
 
 You'll be prompted for a password at the unzip. (Enter password)
@@ -77,6 +67,32 @@ You should now have these files and permissions in that folder.
 ```
 -rw-------. 1 jason jason 444 Jan 14  2024 github_id_ed25519
 -rw-r--r--. 1 jason jason  88 Jan 14  2024 github_id_ed25519.pub
+```
+
+Now fix SSH_ASKPASS variable
+
+```sh
+sudo rm /etc/profile.d/gnome-ssh-askpass.*
+export SSH_ASKPASS=/usr/bin/ksshaskpass #Now that the above were deleted it'll default to this on next boot
+echo "#!/bin/bash\n# always have the SSH keys loaded\nssh-add /home/jason/.ssh/github_id_ed25519 </dev/null" >/home/jason/.ssh/startup_keys.sh
+chmod +x /home/jason/.ssh/startup_keys.sh
+/home/jason/.ssh/startup_keys.sh
+"
+```
+
+You'll be prompted (graphically with kwallet) for the passphrase. Enter it here and it'll keep.
+It should load your keys into memory
+
+You can test your GitHub ssh connection with
+
+```sh
+ssh -T -p 443 git@ssh.github.com
+```
+
+Add this script as an autostart
+
+```sh
+echo "[Desktop Entry]\nExec=/home/jason/.ssh/startup_keys.sh\nIcon=\nName=startup_keys.sh\nPath=\nTerminal=False\nType=Application" > /home/jason/.config/autostart/startup_keys.sh.desktop
 ```
 
 ## Clone your Setups repository
@@ -97,6 +113,8 @@ cat <<EOF >~/.gitconfig
 	defaultBranch = main
 [pull]
 	rebase = false
+[core]
+    askpass = /usr/bin/ksshaskpass
 EOF
 ```
 
@@ -106,6 +124,7 @@ The above is same as:
 - git config --global user.name "Jason Brunelle"
 - git config --global init.defaultBranch main
 - git config --global pull.rebase false # merge
+- git config --global core.askpass
 
 but is easier to add to a script.
 
@@ -117,6 +136,7 @@ git clone git@github.com:jasonmb626/epicvim.git ~/git/epicvim
 ln -s ~/git/epicvim/ ~/.config/nvim
 ln -s ~/git/dotfiles-dev/tmux/ ~/.config/tmux
 ln -s ~/git/dotfiles-dev/alacritty/ ~/.config/alacritty
+mkdir -p /home/jason/.config/tmux/plugins/
 git clone https://github.com/tmux-plugins/tpm /home/jason/.config/tmux/plugins/tpm
 ln -s ~/git/dotfiles-dev/zsh/ ~/.config/zsh
 ```
