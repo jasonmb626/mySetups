@@ -39,15 +39,14 @@ sudo dnf install -y cargo libxcb-devel
 cargo install clipboard-sync
 mkdir -p /home/jason/.config/autostart
 echo -e "[Desktop Entry]\nExec=/home/jason/.cargo/bin/clipboard-sync\nIcon=\nName=clipboard-sync\nPath=\nTerminal=False\nType=Application" >/home/jason/.config/autostart/clipboard-sync.desktop
+/home/jason/.cargo/bin/clipboard-sync &
 ```
 
-Open system settings, go to Autostart, and add the command to the list
+To add to autostart manually Open system settings, go to Autostart, and add the command to the list
 
 ```
 /home/jason/.cargo/bin/clipboard-sync
 ```
-
-Reboot
 
 ## Tweak DNF and its config
 
@@ -245,7 +244,7 @@ Open Settings -> Colors & Themes
   Click Apply
 
 - Icons: Zafiro-Nord-Light-Blue
-- Cursor: Nordic-cursors (Might show already enabled. Might have to switch to another and switch back)
+- Cursor: Nordic-cursors (Might show already enabled. Might have to switch to another and switch back, or just wait until reboot.)
 - Login Screen (SDDM): Nordic darker SDDM Plamsa 6
 
 Settings -> Security and Privacy
@@ -263,7 +262,6 @@ Show Alternatives
 Choose application dashboard
 
 Add Pager widget
-Configure Pager to show icons and desktop numbers
 
 Set height to 44
 
@@ -292,6 +290,16 @@ $HOME/git/mySetups/LinuxDev/set_kde_configs.sh
 #### Reboot
 
 This is a good time to reboot so all the changes get sourced properly.
+
+#### Reboot follow-up
+
+Workspaces should have taken effect now
+
+Configure Pager to show icons and desktop numbers
+
+Start Alacritty w/ Meta+Return or from Dashboard
+
+You should be prompted for sudo password as it's trying to install some stuff.
 
 #### (Optional) Set the Konsole Settings
 
