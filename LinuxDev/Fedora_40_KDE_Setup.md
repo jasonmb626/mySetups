@@ -51,8 +51,8 @@ To add to autostart manually Open system settings, go to Autostart, and add the 
 ## Tweak DNF and its config
 
 ```sh
-sudo dnf install -y dnf5 #Newer, faster dnf
 echo -e "max_parallel_downloads=10\nfastestmirror=True" | sudo tee -a /etc/dnf/dnf.conf #allow more mirrors
+sudo dnf install -y dnf5 #Newer, faster dnf
 ```
 
 ## Install packages
@@ -145,6 +145,7 @@ ln -s ~/git/dotfiles-dev/alacritty/ ~/.config/alacritty
 mkdir -p /home/jason/.config/tmux/plugins/
 git clone https://github.com/tmux-plugins/tpm /home/jason/.config/tmux/plugins/tpm
 ln -s ~/git/dotfiles-dev/zsh/ ~/.config/zsh
+git clone git@github.com:jasonmb626/commandline_utilities.git
 ```
 
 ## (Optional) Install [RPM Fusion](https://rpmfusion.org/) and general multimedia stuff
