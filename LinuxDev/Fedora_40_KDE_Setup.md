@@ -80,9 +80,10 @@ sudo dnf -y install git
 ## Install your github-ssh_keys
 
 ```sh
+mkdir -p /home/$USER/.ssh
 curl -o /tmp/github-ssh_keys.zip https://raw.githubusercontent.com/$USERmb626/mySetups/main/resources/github-ssh_keys.zip
-unzip /tmp/github-ssh_keys.zip -d ~/.ssh
-ls -l ~/.ssh
+unzip /tmp/github-ssh_keys.zip -d /home/$USER/.ssh
+ls -l /home/$USER/.ssh
 ```
 
 You'll be prompted for a password at the unzip. (Enter password)
