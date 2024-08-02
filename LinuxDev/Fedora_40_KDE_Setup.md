@@ -2,6 +2,8 @@
 
 From a fresh Fedora 40 KDE installation, updated, username jason
 
+<details>
+  <summary>Virtualbox</summary>
 If using Windows as host and Fedora 40 inside of VirtualBox, you may want to take these additional steps
 
 ## \(Optional\) add user to vboxsf group so you can share folders inside VirtualBox
@@ -20,6 +22,10 @@ Get-AppxPackage Microsoft.XboxGamingOverlay | Remove-AppxPackage
 
 Then _reboot_ or changes won't take effect.
 
+</details>
+
+<details>
+    <summary>Virtmanager</summary>
 ## \(Optional\) add your shared folder if using virtmanager & install dependencies for shared clipboard
 
 Assuming the share is called "Shared"
@@ -47,6 +53,16 @@ To add to autostart manually Open system settings, go to Autostart, and add the 
 ```
 /home/jason/.cargo/bin/clipboard-sync
 ```
+
+</details>
+
+<details>
+    <summary>Native - Lenovo</summary>
+Add your home volume to the fstab
+```sh
+echo "UUID=f65c61c5-ba0e-4d07-b9b3-b65d9c2e6194 /home/jason ext4 defaults 0 0" | sudo tee -a /etc/fstab
+```
+</details>
 
 ## Tweak DNF and its config
 
