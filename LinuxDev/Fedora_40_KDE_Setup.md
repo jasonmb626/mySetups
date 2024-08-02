@@ -9,7 +9,7 @@ If using Windows as host and Fedora 40 inside of VirtualBox, you may want to tak
 ## \(Optional\) add user to vboxsf group so you can share folders inside VirtualBox
 
 ```sh
-sudo usermod -aG vboxsf $(USER)
+sudo usermod -aG vboxsf $USER
 ```
 
 ## \(Optional\) disable Super+G game bar
@@ -31,8 +31,8 @@ Then _reboot_ or changes won't take effect.
 Assuming the share is called "Shared"
 
 ```sh
-mkdir -p /home/$(USER)/Shared
-echo "Shared /home/$(USER)/Shared virtiofs defaults 0 0" | sudo tee -a /etc/fstab
+mkdir -p /home/$USER/Shared
+echo "Shared /home/$USER/Shared virtiofs defaults 0 0" | sudo tee -a /etc/fstab
 sudo mount -a
 ```
 
@@ -43,15 +43,15 @@ Remember to enable shared memory in the virmanager configs
 ```sh
 sudo dnf install -y cargo libxcb-devel
 cargo install clipboard-sync
-mkdir -p /home/$(USER)/.config/autostart
-echo -e "[Desktop Entry]\nExec=/home/$(USER)/.cargo/bin/clipboard-sync\nIcon=\nName=clipboard-sync\nPath=\nTerminal=False\nType=Application" >/home/$(USER)/.config/autostart/clipboard-sync.desktop
-/home/$(USER)/.cargo/bin/clipboard-sync &
+mkdir -p /home/$USER/.config/autostart
+echo -e "[Desktop Entry]\nExec=/home/$USER/.cargo/bin/clipboard-sync\nIcon=\nName=clipboard-sync\nPath=\nTerminal=False\nType=Application" >/home/$USER/.config/autostart/clipboard-sync.desktop
+/home/$USER/.cargo/bin/clipboard-sync &
 ```
 
 To add to autostart manually Open system settings, go to Autostart, and add the command to the list
 
 ```
-/home/$(USER)/.cargo/bin/clipboard-sync
+/home/$USER/.cargo/bin/clipboard-sync
 ```
 
 </details>
@@ -60,7 +60,7 @@ To add to autostart manually Open system settings, go to Autostart, and add the 
     <summary>Native - Lenovo</summary>
 Add your home volume to the fstab
 ```sh
-echo "UUID=f65c61c5-ba0e-4d07-b9b3-b65d9c2e6194 /home/$(USER) ext4 defaults 0 0" | sudo tee -a /etc/fstab
+echo "UUID=f65c61c5-ba0e-4d07-b9b3-b65d9c2e6194 /home/$USER ext4 defaults 0 0" | sudo tee -a /etc/fstab
 ```
 </details>
 
@@ -80,7 +80,7 @@ sudo dnf -y install git
 ## Install your github-ssh_keys
 
 ```sh
-curl -o /tmp/github-ssh_keys.zip https://raw.githubusercontent.com/$(USER)mb626/mySetups/main/resources/github-ssh_keys.zip
+curl -o /tmp/github-ssh_keys.zip https://raw.githubusercontent.com/$USERmb626/mySetups/main/resources/github-ssh_keys.zip
 unzip /tmp/github-ssh_keys.zip -d ~/.ssh
 ls -l ~/.ssh
 ```
@@ -99,9 +99,9 @@ Now fix SSH_ASKPASS variable
 ```sh
 sudo rm /etc/profile.d/gnome-ssh-askpass.*
 export SSH_ASKPASS=/usr/bin/ksshaskpass #Now that the above were deleted it'll default to this on next boot
-echo -e '#!/bin/bash\n# always have the SSH keys loaded\nssh-add /home/$(USER)/.ssh/github_id_ed25519 </dev/null' >/home/$(USER)/.ssh/startup_keys.sh
-chmod +x /home/$(USER)/.ssh/startup_keys.sh
-/home/$(USER)/.ssh/startup_keys.sh
+echo -e '#!/bin/bash\n# always have the SSH keys loaded\nssh-add /home/$USER/.ssh/github_id_ed25519 </dev/null' >/home/$USER/.ssh/startup_keys.sh
+chmod +x /home/$USER/.ssh/startup_keys.sh
+/home/$USER/.ssh/startup_keys.sh
 ```
 
 You'll be prompted (graphically with kwallet) for the passphrase. Enter it here, select "Remember Passord" and it'll keep.
@@ -116,8 +116,8 @@ ssh -T -p 443 git@ssh.github.com
 Add this script as an autostart
 
 ```sh
-mkdir -p /home/$(USER)/.config/autostart
-echo -e "[Desktop Entry]\nExec=/home/$(USER)/.ssh/startup_keys.sh\nIcon=\nName=startup_keys.sh\nPath=\nTerminal=False\nType=Application" > /home/$(USER)/.config/autostart/startup_keys.sh.desktop
+mkdir -p /home/$USER/.config/autostart
+echo -e "[Desktop Entry]\nExec=/home/$USER/.ssh/startup_keys.sh\nIcon=\nName=startup_keys.sh\nPath=\nTerminal=False\nType=Application" > /home/$USER/.config/autostart/startup_keys.sh.desktop
 ```
 
 ## Clone your Setups repository
@@ -158,8 +158,8 @@ git clone git@github.com:jasonmb626/epicvim.git ~/git/epicvim
 ln -s ~/git/epicvim/ ~/.config/nvim
 ln -s ~/git/dotfiles-dev/tmux/ ~/.config/tmux
 ln -s ~/git/dotfiles-dev/alacritty/ ~/.config/alacritty
-mkdir -p /home/$(USER)/.config/tmux/plugins/
-git clone https://github.com/tmux-plugins/tpm /home/$(USER)/.config/tmux/plugins/tpm
+mkdir -p /home/$USER/.config/tmux/plugins/
+git clone https://github.com/tmux-plugins/tpm /home/$USER/.config/tmux/plugins/tpm
 ln -s ~/git/dotfiles-dev/zsh/ ~/.config/zsh
 git clone git@github.com:jasonmb626/commandline_utilities.git
 ```
@@ -208,7 +208,7 @@ sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/dock
 
 ```sh
 sudo dnf install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-sudo usermod -aG docker $(USER)
+sudo usermod -aG docker $USER
 sudo systemctl start docker
 sudo systemctl enable docker
 ```
