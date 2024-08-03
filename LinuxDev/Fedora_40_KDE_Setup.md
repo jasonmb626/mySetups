@@ -81,7 +81,7 @@ sudo dnf -y install git
 
 ```sh
 mkdir -p /home/$USER/.ssh
-curl -o /tmp/github-ssh_keys.zip https://raw.githubusercontent.com/$USERmb626/mySetups/main/resources/github-ssh_keys.zip
+curl -o /tmp/github-ssh_keys.zip https://github.com/jasonmb626/mySetups/deferred-metadata/main/resources/github-ssh_keys.zip
 unzip /tmp/github-ssh_keys.zip -d /home/$USER/.ssh
 ls -l /home/$USER/.ssh
 ```
