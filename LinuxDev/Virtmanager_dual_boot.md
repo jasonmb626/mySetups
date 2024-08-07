@@ -94,8 +94,20 @@ sudo mount /dev/vda1 /mnt/root/boot
 for i in /dev /dev/pts /proc /sys /run; do sudo mount -B $i /mnt/root$i; done
 sudo chroot /mnt/root
 mount -t efivarfs efivarfs /sys/firmware/efi/efivars
+```
 
-#This step actually restores the Grub menu
+Optional
+
+```sh
+dnf reinstall shim-* grub2-*
+
+grub2-mkconfig -o /boot/grub2/grub.cfg
+```
+
+I have not found the above to be necessary, but adding this step may help if grub needs to be rebuilt
+
+```
+#This step actually restores the Grub menu with EFI
 sudo efibootmgr -c -L Fedora -d /dev/vda -p 1 -l \\EFI\\fedora\\shim.efi
 ```
 
