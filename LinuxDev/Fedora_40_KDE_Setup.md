@@ -235,6 +235,20 @@ mkdir -p ~/.local/share/zsh/completions/
 curl -o ~/.local/share/zsh/completions/_docker https://raw.githubusercontent.com/docker/cli/master/contrib/completion/zsh/_docker
 ```
 
+#### Install fonts
+
+Install the 2 Fira fonts recommended for Powerline 10k
+Download from [GitHub](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/FiraMono/Regular)
+
+```sh
+mkdir ~/.local/share/fonts
+curl -o ~/.local/share/fonts/FiraMonoNerdFontMono-Regular.otf https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/FiraMono/Regular/FiraMonoNerdFontMono-Regular.otf
+curl -o ~/.local/share/fonts/FiraMonoNerdFont-Regular.otf https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/FiraMono/Regular/FiraMonoNerdFont-Regular.otf
+```
+
+Or full font package [here](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/FiraMono.zip)
+or in this base repo in fonts/ttf folder.
+
 ## Desktop Appearance
 
 ### Set some globals
@@ -284,20 +298,6 @@ Add Pager widget
 Set height to 44
 
 ### Terminal
-
-#### Install fonts
-
-Install the 2 Fira fonts recommended for Powerline 10k
-Download from [GitHub](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/FiraMono/Regular)
-
-```sh
-mkdir ~/.local/share/fonts
-curl -o ~/.local/share/fonts/FiraMonoNerdFontMono-Regular.otf https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/FiraMono/Regular/FiraMonoNerdFontMono-Regular.otf
-curl -o ~/.local/share/fonts/FiraMonoNerdFont-Regular.otf https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/FiraMono/Regular/FiraMonoNerdFont-Regular.otf
-```
-
-Or full font package [here](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/FiraMono.zip)
-or in this base repo in fonts/ttf folder.
 
 ## Set your KDE options
 
@@ -368,7 +368,9 @@ My options:
 - Instant Prompt Mode -> 1 (Verbose)
 - Apply changes to ~/.zshrc? -> y (Yes)
 
-## Complete Neovim setup
+## Complete Neovim setup?
+
+The block in zshrc should have completed this already, but if not:
 
 Start neovim
 
