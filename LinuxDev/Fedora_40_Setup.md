@@ -1,4 +1,4 @@
-# Setting up my Fedora 39 development machine
+# Setting up my Fedora 40 development machine
 
 From a fresh Fedora 40 installation, updated.
 
@@ -92,6 +92,7 @@ You should now have these files and permissions in that folder, username may not
 Add your SSH key to ssh-agent
 
 ```sh
+sudo dnf install openssh-askpass
 sh-add /home/$USER/.ssh/github_id_ed25519 </dev/null
 ```
 
@@ -140,7 +141,7 @@ mkdir -p /home/$USER/.config/tmux/plugins/
 git clone https://github.com/tmux-plugins/tpm /home/$USER/.config/tmux/plugins/tpm
 git clone git@github.com:jasonmb626/dotfiles-dev.git ~/git/dotfiles-dev
 git clone git@github.com:jasonmb626/epicvim.git ~/git/epicvim
-git clone git@github.com:jasonmb626/commandline_utilities.git
+git clone git@github.com:jasonmb626/commandline_utilities.git ~/git/commandline_utilities
 ```
 
 ## Symlink those repositories to config folders
@@ -183,7 +184,7 @@ sudo dnf -y remove docker \
                   docker-engine
 ```
 
-This is recommended per the Docker install guide, but frankly all it seems to do (on a fresh install) is remove docker-selinux which gets added right back in (from the same repo) in a follow-up step.
+This is recommended per the Docker install guide. In different editions it removes nothing or lots. Best to do it.
 
 ### Install the official docker repository
 
@@ -197,8 +198,7 @@ sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/dock
 ```sh
 sudo dnf install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 sudo usermod -aG docker $USER
-sudo systemctl start docker
-sudo systemctl enable docker
+sudo systemctl enable --now docker
 ```
 
 ### Install zsh, (n)vim, gnome-shell-extension-pop-shell, xprop and tool to provide chsh
@@ -257,7 +257,7 @@ flatpak install -y org.gnome.Extensions com.mattjakeman.ExtensionManager
 
 ```
 
-If flatpak Gnome Extension requires you to choose from multiple matches, choose 'fedora'
+If flatpak Gnome Extension requires you to choose from multiple matches, choose 'flathub'
 
 ### Set some globals
 
@@ -303,10 +303,21 @@ gnome-shell-extension-installer 6394 # Simple Workspaces Bar
 Icon/Cursor/Theme
 
 ```
-mkdir ~/.themes
-cp -a ~/git/mySetups/LinuxDev/Nordic-bluish-accent* ~/.themes/
-mkdir ~/.icons
-cp -a ~/git/mySetups/LinuxDev/Nordic/ ~/git/mySetups/LinuxDev/Nordzy-cursors/ ~/.icons/
+mkdir -p ~/.themes
+git clone -b bluish-accent https://github.com/EliverLara/Nordic.git ~/.themes/Nordic-bluish-accent
+mkdir -p ~/.icons
+git clone https://github.com/alvatip/Nordzy-cursors /tmp/Nordzy-cursors
+/tmp/Nordzy-cursors/install.sh
+rm -fr /tmp/Nordzy-cursors
+git clone https://github.com/EliverLara/Nordic.git /tmp/Nordic
+cp -r Nordic-bluish ~/.icons
+rm -fr /tmp/Nordic
+```
+
+Fix Alacritty Desktop entry
+
+```sh
+sudo ~/git/commandline_utilities/fix_alacritty_gtk.sh
 ```
 
 Import Gnome Settings via dconf
