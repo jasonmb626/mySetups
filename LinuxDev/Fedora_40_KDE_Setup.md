@@ -151,18 +151,23 @@ The above is same as:
 
 but is easier to add to a script.
 
-## Clone your dotfiles repository and symlink your directories
+## Clone your dotfiles/tools repositories
 
 ```sh
+mkdir -p /home/$USER/.config/tmux/plugins/
+git clone https://github.com/tmux-plugins/tpm /home/$USER/.config/tmux/plugins/tpm
 git clone git@github.com:jasonmb626/dotfiles-dev.git ~/git/dotfiles-dev
 git clone git@github.com:jasonmb626/epicvim.git ~/git/epicvim
+git clone git@github.com:jasonmb626/commandline_utilities.git
+```
+
+## Symlink those repositories to config folders
+
+```sh
 ln -s ~/git/epicvim/ ~/.config/nvim
 ln -s ~/git/dotfiles-dev/tmux/ ~/.config/tmux
 ln -s ~/git/dotfiles-dev/alacritty/ ~/.config/alacritty
-mkdir -p /home/$USER/.config/tmux/plugins/
-git clone https://github.com/tmux-plugins/tpm /home/$USER/.config/tmux/plugins/tpm
 ln -s ~/git/dotfiles-dev/zsh/ ~/.config/zsh
-git clone git@github.com:jasonmb626/commandline_utilities.git
 ```
 
 ## (Optional) Install [RPM Fusion](https://rpmfusion.org/) and general multimedia stuff
@@ -222,7 +227,7 @@ qt needed for some dbus calls, such as from "toggle overview" button
 
 ```sh
 sudo dnf copr enable atim/lazygit -y
-sudo dnf install -y zsh util-linux-user vim neovim gcc gcc-c++ patch npm ripgrep mercurial fd-find lazygit qt alacritty
+sudo dnf install -y zsh util-linux-user vim neovim gcc gcc-c++ patch npm ripgrep mercurial fd-find lazygit qt alacritty applet-window-buttons
 chsh
 ```
 
