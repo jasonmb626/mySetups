@@ -1,13 +1,15 @@
 # Setting up my Fedora 39 development machine
 
-From a fresh Fedora 39 installation, updated, username jason
+From a fresh Fedora 40 installation, updated.
 
-If using Windows as host and Fedora 39 inside of VirtualBox, you may want to take these additional steps
+<details>
+  <summary>Virtualbox</summary>
+If using Windows as host and Fedora 40 inside of VirtualBox, you may want to take these additional steps
 
 ## \(Optional\) add user to vboxsf group so you can share folders inside VirtualBox
 
 ```sh
-sudo usermod -aG vboxsf jason
+sudo usermod -aG vboxsf $USER
 ```
 
 ## \(Optional\) disable Super+G game bar
@@ -20,21 +22,85 @@ Get-AppxPackage Microsoft.XboxGamingOverlay | Remove-AppxPackage
 
 Then _reboot_ or changes won't take effect.
 
+</details>
+
+<details>
+    <summary>Virtmanager</summary>
+## \(Optional\) add your shared folder if using virtmanager & install dependencies for shared clipboard
+
+Assuming the share is called "Shared"
+
+```sh
+mkdir -p /home/$USER/Shared
+echo "Shared /home/$USER/Shared virtiofs defaults 0 0" | sudo tee -a /etc/fstab
+sudo mount -a
+```
+
+This syncs the clipboard between Wayland and some kind of X11 which is what spice uses for shared memory
+
+Remember to enable shared memory in the virmanager configs
+
+```sh
+sudo dnf install -y cargo libxcb-devel
+cargo install clipboard-sync
+mkdir -p /home/$USER/.config/autostart
+echo -e "[Desktop Entry]\nExec=/home/$USER/.cargo/bin/clipboard-sync\nIcon=\nName=clipboard-sync\nPath=\nTerminal=False\nType=Application" >/home/$USER/.config/autostart/clipboard-sync.desktop
+/home/$USER/.cargo/bin/clipboard-sync &
+```
+
+To add to autostart manually Open system settings, go to Autostart, and add the command to the list
+
+```
+/home/$USER/.cargo/bin/clipboard-sync
+```
+
+</details>
+
+<details>
+    <summary>Native - Lenovo</summary>
+Add your home volume to the fstab
+```sh
+echo "UUID=f65c61c5-ba0e-4d07-b9b3-b65d9c2e6194 /home/$USER ext4 defaults 0 0" | sudo tee -a /etc/fstab
+```
+</details>
+
+## Tweak DNF and its config
+
+```sh
+echo -e "max_parallel_downloads=10\nfastestmirror=True" | sudo tee -a /etc/dnf/dnf.conf #allow more mirrors
+sudo dnf install -y dnf5 #Newer, faster dnf
+```
+
 ## Install your github-ssh_keys
 
 ```sh
+mkdir -p /home/$USER/.ssh
 curl -o /tmp/github-ssh_keys.zip https://raw.githubusercontent.com/jasonmb626/mySetups/main/resources/github-ssh_keys.zip
-unzip /tmp/github-ssh_keys.zip -d ~/.ssh
-ls -l ~/.ssh
+unzip /tmp/github-ssh_keys.zip -d /home/$USER/.ssh
+ls -l /home/$USER/.ssh
 ```
 
 You'll be prompted for a password at the unzip. (Enter password)
 
-You should now have these files and permissions in that folder.
+You should now have these files and permissions in that folder, username may not match if you chose something other than jason.
 
 ```
--rw------- 1 jason jason 3.4K xxxx-xx-xx 07:14 id_rsa
--rw-r--r-- 1 jason jason  749 xxxx-xx-xx 06-02 07:14 id_rsa.pub
+-rw-------. 1 jason jason 444 Jan 14  2024 github_id_ed25519
+-rw-r--r--. 1 jason jason  88 Jan 14  2024 github_id_ed25519.pub
+```
+
+Add your SSH key to ssh-agent
+
+```sh
+sh-add /home/$USER/.ssh/github_id_ed25519 </dev/null
+```
+
+You'll be prompted for your passphrase. Make sure to select "Remember"
+
+You can test your GitHub ssh connection with
+
+```sh
+ssh -T -p 443 git@ssh.github.com
 ```
 
 ## Clone your Setups repository
@@ -67,23 +133,23 @@ The above is same as:
 
 but is easier to add to a script.
 
-## Clone your dotfiles repository and symlink your directories
+## Clone your dotfiles/tools repositories
 
 ```sh
+mkdir -p /home/$USER/.config/tmux/plugins/
+git clone https://github.com/tmux-plugins/tpm /home/$USER/.config/tmux/plugins/tpm
 git clone git@github.com:jasonmb626/dotfiles-dev.git ~/git/dotfiles-dev
 git clone git@github.com:jasonmb626/epicvim.git ~/git/epicvim
+git clone git@github.com:jasonmb626/commandline_utilities.git
+```
+
+## Symlink those repositories to config folders
+
+```sh
 ln -s ~/git/epicvim/ ~/.config/nvim
 ln -s ~/git/dotfiles-dev/tmux/ ~/.config/tmux
 ln -s ~/git/dotfiles-dev/alacritty/ ~/.config/alacritty
-git clone https://github.com/tmux-plugins/tpm /home/jason/.config/tmux/plugins/tpm
 ln -s ~/git/dotfiles-dev/zsh/ ~/.config/zsh
-```
-
-## Tweak DNF and its config
-
-```sh
-sudo dnf install -y dnf5 #Newer, faster dnf
-echo -e "max_parallel_downloads=10\nfastestmirror=True" | sudo tee -a /etc/dnf/dnf.conf #allow more mirrors
 ```
 
 ## (Optional) Install [RPM Fusion](https://rpmfusion.org/) and general multimedia stuff
@@ -130,7 +196,7 @@ sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/dock
 
 ```sh
 sudo dnf install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-sudo usermod -aG docker jason
+sudo usermod -aG docker $USER
 sudo systemctl start docker
 sudo systemctl enable docker
 ```
@@ -142,7 +208,7 @@ xprop needed by gnome-shell-extension-pop-shell which provides tiling window man
 
 ```sh
 sudo dnf copr enable atim/lazygit -y
-sudo dnf install -y zsh util-linux-user vim neovim gcc gcc-c++ patch npm ripgrep mercurial fd-find lazygit gnome-shell-extension-pop-shell xprop;
+sudo dnf install -y zsh util-linux-user vim neovim gcc gcc-c++ patch npm ripgrep mercurial fd-find lazygit gnome-shell-extension-pop-shell xprop alacritty
 chsh
 ```
 
@@ -167,13 +233,28 @@ mkdir -p ~/.local/share/zsh/completions/
 curl -o ~/.local/share/zsh/completions/_docker https://raw.githubusercontent.com/docker/cli/master/contrib/completion/zsh/_docker
 ```
 
+#### Install fonts
+
+Install the 2 Fira fonts recommended for Powerline 10k
+Download from [GitHub](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/FiraMono/Regular)
+
+```sh
+mkdir ~/.local/share/fonts
+curl -o ~/.local/share/fonts/FiraMonoNerdFontMono-Regular.otf https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/FiraMono/Regular/FiraMonoNerdFontMono-Regular.otf
+curl -o ~/.local/share/fonts/FiraMonoNerdFont-Regular.otf https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/FiraMono/Regular/FiraMonoNerdFont-Regular.otf
+```
+
+Or full font package [here](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/FiraMono.zip)
+or in this base repo in fonts/ttf folder.
+
 ## Desktop Appearance
 
 ### Install dependencies for extending Gnome functionality
 
 ```sh
 sudo dnf -y install gnome-tweaks
-flatpak install -y org.gnome.Extensions
+flatpak install -y org.gnome.Extensions com.mattjakeman.ExtensionManager
+
 ```
 
 If flatpak Gnome Extension requires you to choose from multiple matches, choose 'fedora'
@@ -184,15 +265,7 @@ If flatpak Gnome Extension requires you to choose from multiple matches, choose 
 sudo flatpak override --filesystem=$HOME/.themes
 sudo flatpak override --env=GTK_THEME=Nordic-bluish-accent
 echo "GTK_THEME=Nordic-bluish-accent" | sudo tee -a /etc/environment
-echo -e "\n#Postgres defaults\nexport PGUSER=app\nexport PGPASSWORD=654321\nexport PGHOST=localhost\nexport PGPORT=5432\nexport PGDATABASE=project_name" | sudo tee -a /etc/environment
 echo -e "if [[ -z \"\$XDG_CONFIG_HOME\" ]]; then\n	export XDG_CONFIG_HOME=\"\$HOME/.config\"\nfi\n\nif [[ -d \"\$XDG_CONFIG_HOME/zsh\" ]]; then\n	export ZDOTDIR=\"\$XDG_CONFIG_HOME/zsh/\"\nfi" | sudo tee -a /etc/zshenv
-```
-
-### (Optional) Install packages for Postgres development
-
-```sh
-sudo dnf -y groupinstall 'Development Tools' 'Development Libraries'
-sudo dnf -y install postgresql libpq-devel
 ```
 
 ### Set all the theme options
@@ -234,16 +307,6 @@ mkdir ~/.themes
 cp -a ~/git/mySetups/LinuxDev/Nordic-bluish-accent* ~/.themes/
 mkdir ~/.icons
 cp -a ~/git/mySetups/LinuxDev/Nordic/ ~/git/mySetups/LinuxDev/Nordzy-cursors/ ~/.icons/
-```
-
-Fonts
-
-Download from [GitHub](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/FiraMono/Regular)
-
-```sh
-mkdir ~/.local/share/fonts
-curl -o ~/.local/share/fonts/FiraMonoNerdFontMono-Regular.otf https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/FiraMono/Regular/FiraMonoNerdFontMono-Regular.otf
-curl -o ~/.local/share/fonts/FiraMonoNerdFont-Regular.otf https://raw.githubusercontent.com/ryanoasis/nerd-fonts/master/patched-fonts/FiraMono/Regular/FiraMonoNerdFont-Regular.otf
 ```
 
 Import Gnome Settings via dconf
@@ -314,12 +377,6 @@ Open tweaks
 
 ### Terminal
 
-#### Install fonts
-
-Install the 2 Fira fonts recommended for Powerline 10k
-Links [here](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/FiraMono.zip)
-or in this base repo in fonts/ttf folder.
-
 #### Set the Gnome Terminal Settings
 
 Open Gnome Terminal. Hamburger menu => Preferences
@@ -375,29 +432,7 @@ My options:
 
 #### Reboot or change won't take effect
 
-## Complete Neovim setup
-
-### Optional: add to zsh rc so this happens automatically when starting terminal
-
-```sh
-cat <<EOF >>~/.config/zsh/.zshrc
-if [[ ! -x /home/app/.local/share/nvim/lazy/nvim-treesitter/parser/markdown.so ]]; then
-    if [[ -x /home/app/.config/nvim/if_docker/auto_install_dependencies.sh ]]; then
-        /home/app/.config/nvim/if_docker/auto_install_dependencies.sh >/dev/null 2>&1
-        echo "Neovim packages are installing in the background. Please wait before starting up neovim."
-        echo "This usually happens only on a fresh install."
-        echo "Sleeping 30 seconds."
-        sleep 30
-        PID=\$(ps aux | grep 'nvim --headless -c TSInstall! markdown' | grep -v grep | awk '{print \$2}')
-        kill \$PID
-        echo "You may now start neovim. Additional LSPs, formatters, and linters may install on startup."
-        echo "Once there is no longer feedback that new tools are installing, we recommend restarting neovim one more time."
-    fi
-fi
-EOF
-```
-
-Otherwise:
+## Complete Neovim setup?
 
 Start neovim
 
@@ -410,14 +445,6 @@ Install the markdown parser for Treesitter
 ```
 :TSInstall markdown
 ```
-
-Install stylua
-
-```
-:Mason
-```
-
-Find stylua and press 'i'
 
 ## If using VSCode
 
@@ -433,13 +460,3 @@ sudo dnf -y install code
 ```
 
 Follow instructions [here](https://github.com/jasonmb626/mySetups/blob/main/VSCode_Setup.md) to set up your VS Code environment.
-
-### (Optional) Key Logging
-
-Build logkeys from their [GitHub](https://github.com/kernc/logkeys)
-
-Run with the following command: \(my_lang.keymap is in your LinuxDev\)
-
-```sh
-sudo logkeys --start --keymap my_lang.keymap --output test.log
-```
