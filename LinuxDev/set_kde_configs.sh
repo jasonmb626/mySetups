@@ -43,5 +43,6 @@ kwriteconfig6 --file=$HOME/.config/kwinrc --group="Effect-wobblywindows" --key="
 
 kwriteconfig6 --file=$HOME/.config/kwinrc --group="org.kde.kdecoration2" --key="ButtonsOnLeft" "XIAM"
 kwriteconfig6 --file=$HOME/.config/kwinrc --group="org.kde.kdecoration2" --key="ButtonsOnRight" "H"
+kwriteconfig6 --file $HOME/.config/kwinrc --group="Windows" --key="BorderlessMaximizedWindows" true
 
 qdbus org.kde.KWin /KWin reconfigure
