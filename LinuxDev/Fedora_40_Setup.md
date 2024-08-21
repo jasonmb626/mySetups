@@ -1,12 +1,13 @@
 # Setting up my Fedora 40 development machine
 
-From a fresh Fedora 40 installation, updated.
+From a fresh Fedora 40 installation
 
-## Tweak DNF and its config
+## Tweak DNF and its config, update
 
 ```sh
 echo -e "max_parallel_downloads=10\nfastestmirror=True" | sudo tee -a /etc/dnf/dnf.conf #allow more mirrors
 sudo dnf install -y dnf5 #Newer, faster dnf
+sudo dnf update -y
 ```
 
 ## Environment-specific configs
@@ -94,8 +95,9 @@ You should now have these files and permissions in that folder, username may not
 Add your SSH key to ssh-agent
 
 ```sh
-sudo dnf install openssh-askpass
-sh-add /home/$USER/.ssh/github_id_ed25519 </dev/null
+sudo dnf install -y openssh-askpass
+export SSH_ASKPASS=/usr/libexec/openssh/gnome-ssh-askpass
+ssh-add /home/$USER/.ssh/github_id_ed25519 </dev/null
 ```
 
 You'll be prompted for your passphrase. Make sure to select "Remember"
@@ -139,8 +141,8 @@ but is easier to add to a script.
 ## Clone your dotfiles/tools repositories
 
 ```sh
-mkdir -p /home/$USER/.config/tmux/plugins/
-git clone https://github.com/tmux-plugins/tpm /home/$USER/.config/tmux/plugins/tpm
+mkdir -p /home/$USER/.local/share/tmux/plugins/
+git clone https://github.com/tmux-plugins/tpm /home/$USER/.local/share/tmux/plugins/tpm
 git clone git@github.com:jasonmb626/dotfiles-dev.git ~/git/dotfiles-dev
 git clone git@github.com:jasonmb626/epicvim.git ~/git/epicvim
 git clone git@github.com:jasonmb626/commandline_utilities.git ~/git/commandline_utilities
@@ -254,9 +256,8 @@ or in this base repo in fonts/ttf folder.
 ### Install dependencies for extending Gnome functionality
 
 ```sh
-sudo dnf -y install gnome-tweaks
 flatpak install -y org.gnome.Extensions com.mattjakeman.ExtensionManager
-
+sudo dnf -y install gnome-tweaks
 ```
 
 If flatpak Gnome Extension requires you to choose from multiple matches, choose 'flathub'
@@ -309,10 +310,11 @@ mkdir -p ~/.themes
 git clone -b bluish-accent https://github.com/EliverLara/Nordic.git ~/.themes/Nordic-bluish-accent
 mkdir -p ~/.icons
 git clone https://github.com/alvatip/Nordzy-cursors /tmp/Nordzy-cursors
-/tmp/Nordzy-cursors/install.sh
+cd /tmp/Nordzy-cursors
+./install.sh
 rm -fr /tmp/Nordzy-cursors
 git clone https://github.com/EliverLara/Nordic.git /tmp/Nordic
-cp -r Nordic-bluish ~/.icons
+cp -r /tmp/Nordic/kde/folders/Nordic-bluish ~/.icons
 rm -fr /tmp/Nordic
 ```
 
