@@ -2,6 +2,15 @@
 
 From a fresh Fedora 40 installation, updated.
 
+## Tweak DNF and its config
+
+```sh
+echo -e "max_parallel_downloads=10\nfastestmirror=True" | sudo tee -a /etc/dnf/dnf.conf #allow more mirrors
+sudo dnf install -y dnf5 #Newer, faster dnf
+```
+
+## Environment-specific configs
+
 <details>
   <summary>Virtualbox</summary>
 If using Windows as host and Fedora 40 inside of VirtualBox, you may want to take these additional steps
@@ -63,13 +72,6 @@ Add your home volume to the fstab
 echo "UUID=f65c61c5-ba0e-4d07-b9b3-b65d9c2e6194 /home/$USER ext4 defaults 0 0" | sudo tee -a /etc/fstab
 ```
 </details>
-
-## Tweak DNF and its config
-
-```sh
-echo -e "max_parallel_downloads=10\nfastestmirror=True" | sudo tee -a /etc/dnf/dnf.conf #allow more mirrors
-sudo dnf install -y dnf5 #Newer, faster dnf
-```
 
 ## Install your github-ssh_keys
 
