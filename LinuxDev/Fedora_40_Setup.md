@@ -74,13 +74,14 @@ echo "UUID=f65c61c5-ba0e-4d07-b9b3-b65d9c2e6194 /home/$USER ext4 defaults 0 0" |
 ```
 </details>
 
-## Install your github-ssh_keys
+## Install your github-ssh_keys & inform ssh which keys to use for Github
 
 ```sh
 mkdir -p /home/$USER/.ssh
 curl -o /tmp/github-ssh_keys.zip https://raw.githubusercontent.com/jasonmb626/mySetups/main/resources/github-ssh_keys.zip
 unzip /tmp/github-ssh_keys.zip -d /home/$USER/.ssh
 ls -l /home/$USER/.ssh
+echo "Host github.com\n  User git\n  IdentityFile ~/.ssh/github_id_ed25519" >> ~/.ssh/config
 ```
 
 You'll be prompted for a password at the unzip. (Enter password)
@@ -92,21 +93,15 @@ You should now have these files and permissions in that folder, username may not
 -rw-r--r--. 1 jason jason  88 Jan 14  2024 github_id_ed25519.pub
 ```
 
-Add your SSH key to ssh-agent
+Add your SSH key to ssh-agent & test connection. (Correct key used automatically b/c set in config)
 
 ```sh
 sudo dnf install -y openssh-askpass
 export SSH_ASKPASS=/usr/libexec/openssh/gnome-ssh-askpass
-ssh-add /home/$USER/.ssh/github_id_ed25519 </dev/null
+ssh -T -p 443 git@ssh.github.com
 ```
 
 You'll be prompted for your passphrase. Make sure to select "Remember"
-
-You can test your GitHub ssh connection with
-
-```sh
-ssh -T -p 443 git@ssh.github.com
-```
 
 ## Clone your Setups repository
 
@@ -312,6 +307,7 @@ mkdir -p ~/.icons
 git clone https://github.com/alvatip/Nordzy-cursors /tmp/Nordzy-cursors
 cd /tmp/Nordzy-cursors
 ./install.sh
+cd
 rm -fr /tmp/Nordzy-cursors
 git clone https://github.com/EliverLara/Nordic.git /tmp/Nordic
 cp -r /tmp/Nordic/kde/folders/Nordic-bluish ~/.icons
