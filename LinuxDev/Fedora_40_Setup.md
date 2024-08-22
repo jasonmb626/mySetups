@@ -289,10 +289,12 @@ sudo mv gnome-shell-extension-installer /usr/bin/
 Now Install the Extensions
 
 ```sh
-gnome-shell-extension-installer 19 #User Themes
-gnome-shell-extension-installer 1160 # Dash to panel
-gnome-shell-extension-installer 779 #Clipboard Indicator
+gnome-shell-extension-installer 19   #User Themes
+gnome-shell-extension-installer 307  #Dash to Dock
+gnome-shell-extension-installer 779  #Clipboard Indicator
 gnome-shell-extension-installer 3740 #Compiz alike magic lamp effect
+gnome-shell-extension-installer 4679 #Burn my windows
+gnome-shell-extension-installer 3210 #Wobbly windows
 ```
 
 This workspaces bar is great but will only show on one display.
