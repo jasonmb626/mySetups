@@ -278,22 +278,14 @@ mkdir ~/.local/share/wallpapers
 cp ~/git/mySetups/resources/Wallpapers/3908317.jpg ~/.local/share/wallpapers/
 ```
 
-Download extensions installer
-
-```sh
-wget -O gnome-shell-extension-installer "https://github.com/jasonmb626/gnome-shell-extension-installer/raw/master/gnome-shell-extension-installer"
-chmod +x gnome-shell-extension-installer
-sudo mv gnome-shell-extension-installer /usr/bin/
-```
-
 Now Install the Extensions
 
-#User Themes
-#Dash to Dock
-#Clipboard Indicator
-#Compiz alike magic lamp effect
-#Burn my windows
-#Wobbly windows
+- User Themes
+- Dash to Dock
+- Clipboard Indicator
+- Compiz alike magic lamp effect
+- Burn my windows
+- Wobbly windows
 
 ```sh
 gnome-shell-extension-installer 19
