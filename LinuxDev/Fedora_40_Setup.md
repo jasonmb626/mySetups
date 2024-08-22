@@ -246,8 +246,6 @@ curl -o ~/.local/share/fonts/FiraMonoNerdFont-Regular.otf https://raw.githubuser
 Or full font package [here](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/FiraMono.zip)
 or in this base repo in fonts/ttf folder.
 
-## Desktop Appearance
-
 ### Install dependencies for extending Gnome functionality
 
 ```sh
@@ -256,6 +254,8 @@ sudo dnf -y install gnome-tweaks
 ```
 
 If flatpak Gnome Extension requires you to choose from multiple matches, choose 'flathub'
+
+## Desktop Appearance
 
 ### Set some globals
 
@@ -288,6 +288,7 @@ Now Install the Extensions
 - Wobbly windows
 
 ```sh
+export PATH=$PATH:/home/jason/git/commandline_utilities
 gnome-shell-extension-installer 19
 gnome-shell-extension-installer 307
 gnome-shell-extension-installer 779
