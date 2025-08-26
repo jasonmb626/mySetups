@@ -60,7 +60,7 @@ cat <<EOF >~/.gitconfig
 [init]
 	defaultBranch = main
 [pull]
-	rebase = false
+	rebase = true
 EOF
 ```
 
