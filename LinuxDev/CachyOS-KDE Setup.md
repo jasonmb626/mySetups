@@ -117,10 +117,18 @@ Install and Apply Nordszy-cursors.tar.gz
 
 (More to come)
 
-## To make sure firewall isn't blocking KDE Connect:
+## KDE Connect
+
+Make sure firewall isn't blocking KDE Connect:
 
 ```sh
 sudo ufw allow 1714:1764/udp
 sudo ufw allow 1714:1764/tcp
 sudo ufw reload
+```
+
+Install sshfs for browsing phone filesystem
+
+```sh
+sudo pacman -S sshfs
 ```
