@@ -231,7 +231,7 @@ rm -fr /tmp/Nordzy-cursors
 Import Gnome Settings via dconf
 
 ```sh
-sed "s/%DEFHASH%/$(~/git/mySetups/LinuxDev/getNordProfileID.sh)/" ~/git/mySetups/LinuxDev/user.conf | dconf load /
+cat ~/git/mySetups/LinuxDev/gnome49.conf | dconf load /
 ```
 
 Reboot so everything takes effect
