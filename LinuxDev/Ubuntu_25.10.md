@@ -211,6 +211,10 @@ Now Install the Extensions
 export PATH=$PATH:/home/jason/.bin
 gnome-shell-extension-installer 19
 gnome-shell-extension-installer 779
+gnome-shell-extension-installer 1319
+gnome-shell-extension-installer 4412
+gnome-shell-extension-installer 6433
+gnome-shell-extension-installer 1723
 mkdir -p ~/.local/share/gnome-shell/extensions/
 git clone https://github.com/jasonmb626/multi-monitors-add-on.git ~/.local/share/gnome-shell/extensions/multi-monitors-add-on@spin83
 ```
