@@ -215,7 +215,6 @@ gnome-shell-extension-installer 1319
 gnome-shell-extension-installer 4412
 gnome-shell-extension-installer 6433
 mkdir -p ~/.local/share/gnome-shell/extensions/
-git clone https://github.com/jasonmb626/wintile.git ~/.local/share/gnome-shell/extensions/wintile@nowsci.com
 git clone https://github.com/jasonmb626/multi-monitors-add-on.git ~/.local/share/gnome-shell/extensions/multi-monitors-add-on@spin83
 ```
 
