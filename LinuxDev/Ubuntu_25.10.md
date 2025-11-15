@@ -106,12 +106,11 @@ git config --global init.defaultBranch main
 git config --global pull.rebase true
 ```
 
-but is easier to add to a script.
-
 ## Clone your dotfiles/tools repositories
 
 ```sh
-git clone git@github.com:jasonmb626/dotfiles-dev.git ~/git/dotfiles-dev
+git clone git@github.com:jasonmb626/dotfiles-dev.git ~/src/dotfiles-dev
+ln -s ~/src/dotfiles-dev/bin/ ~/.bin
 ```
 
 ## Install Docker
@@ -145,7 +144,7 @@ sudo apt-get update
 ### Install, start, enable Docker & and give use Docker permissions
 
 ```sh
-sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 sudo usermod -aG docker $USER
 sudo systemctl enable --now docker
 ```
@@ -161,7 +160,7 @@ set to /usr/bin/fish
 
 #### Install fonts
 
-Install the 2 Fira fonts recommended for Powerline 10k
+Install the 2 pathced Fira fonts  
 Download from [GitHub](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/FiraMono/Regular)
 
 ```sh
@@ -184,6 +183,7 @@ sudo apt install -y gnome-tweaks gnome-shell-extension-manager
 ### Set some globals
 
 ```sh
+mkdir -p ~/.config/environment.d/
 echo "GTK_THEME=Andromeda" >>~/.config/environment.d/theme.conf
 echo "YT_API_KEY=xxxx" >>~/.config/environment.d/keys.conf
 ```
@@ -198,8 +198,8 @@ Fill in API key from your vault if needed
 Wallpaper
 
 ```sh
-mkdir ~/.local/share/wallpapers
-cp ~/git/mySetups/resources/Wallpapers/* ~/.local/share/wallpapers/
+mkdir -p ~/.local/share/wallpapers
+cp ~/src/mySetups/resources/Wallpapers/* ~/.local/share/wallpapers/
 ```
 
 Now Install the Extensions
@@ -208,14 +208,14 @@ Now Install the Extensions
 - Clipboard Indicator
 
 ```sh
-export PATH=$PATH:/home/jason/.bin
+export PATH=$PATH:~/.bin
 gnome-shell-extension-installer 19
 gnome-shell-extension-installer 779
 gnome-shell-extension-installer 1319
 gnome-shell-extension-installer 4412
 gnome-shell-extension-installer 6433
-gnome-shell-extension-installer 1723
 mkdir -p ~/.local/share/gnome-shell/extensions/
+git clone https://github.com/jasonmb626/wintile.git ~/.local/share/gnome-shell/extensions/wintile@nowsci.com
 git clone https://github.com/jasonmb626/multi-monitors-add-on.git ~/.local/share/gnome-shell/extensions/multi-monitors-add-on@spin83
 ```
 
@@ -225,20 +225,29 @@ Icon/Cursor/Theme
 mkdir -p ~/.themes
 git clone https://github.com/EliverLara/Andromeda-gtk.git ~/.themes/Andromeda
 mkdir -p ~/.icons
-git clone https://github.com/alvatip/Nordzy-cursors /tmp/Nordzy-cursors
-cd /tmp/Nordzy-cursors
+git clone https://github.com/alvatip/Nordzy-cursors ~/src/Nordzy-cursors
+cd ~/src/Nordzy-cursors
 ./install.sh
 cd
-rm -fr /tmp/Nordzy-cursors
+rm -fr ~/src/Nordzy-cursors
 ```
 
 Import Gnome Settings via dconf
 
 ```sh
-cat ~/git/mySetups/LinuxDev/gnome49.conf | dconf load /
+cat ~/src/mySetups/LinuxDev/gnome49.conf | dconf load /
 ```
 
 Reboot so everything takes effect
+
+Terminal - set to Dracula
+Config fish
+
+```sh
+fish_config
+```
+
+Set prompt to Disco
 
 </details>
 
