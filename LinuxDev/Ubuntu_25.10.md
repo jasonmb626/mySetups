@@ -246,6 +246,7 @@ exit
 
 <details>
    <summary>If you need to rebuild the snap</summary>
+Update the contents of resources/andromeda-snap/local-source/share/themes/Andromeda/ from its gitub if newer version desired.
 ```sh
 cp -a /home/$USER/src/mySetups/resources/andromeda-snap /tmp/
 docker run --rm -it -v /tmp/ndromeda-snap:/work snapcore/snapcraft:stable
