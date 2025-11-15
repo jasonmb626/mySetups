@@ -236,8 +236,37 @@ rm -fr ~/src/Nordzy-cursors
 
 Theme for snaps
 ```sh
+curl -o /tmp/andromeda-gtk_0.1_amd64.snap https://raw.githubusercontent.com/jasonmb626/mySetups/main/resources/andromeda-gtk_0.1_amd64.snap
 sudo snap install snapcraft --classic
+sudo snap install /tmp/andromeda-gtk_0.1_amd64.snap --dangerous
+bash
+for i in $(snap connections | grep gtk-common-themes:gtk-3-themes | awk '{print $2}'); do sudo snap connect $i andromeda-gtk:gtk-3-themes; done
+exit
 ```
+
+<details>
+   <summary>If you need to rebuild the snap</summary>
+```sh
+cp -a /home/$USER/src/mySetups/resources/andromeda-snap /tmp/
+docker run --rm -it -v /tmp/ndromeda-snap:/work snapcore/snapcraft:stable
+```
+
+In the container
+```sh
+cd /work
+snapcraft --destructive-mode
+```
+andromeda-gtk_0.1_amd64.snap should now be in /tmp/andromeda-snap
+</details>
+
+
+
+## Fix firefox theming
+
+- Open Firefix
+- Right click next to the windows close, minimize, maximize buttons
+- Select Customize Toolbar
+- Click the "Title Bar" checkbox
 
 Import Gnome Settings via dconf
 
@@ -334,3 +363,13 @@ Set prompt to Disco
 ```sh
 snap install --classic code
 ```
+
+### Fix titlebar
+- Open VSCode
+- Ctrl+, to open settings
+- Search Title Bar Style
+- Change to native
+- Restart VSCode when prompted
+
+### Set theme
+- Set to Andromeda
