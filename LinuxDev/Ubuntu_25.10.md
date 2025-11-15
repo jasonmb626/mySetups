@@ -206,6 +206,9 @@ Now Install the Extensions
 
 - User Themes
 - Clipboard Indicator
+- GSConnect
+- AATWS (Advanced Alt-Tab Window Switcher) 
+- App menu is back 
 
 ```sh
 export PATH=$PATH:~/.bin
@@ -239,15 +242,6 @@ cat ~/src/mySetups/LinuxDev/gnome49.conf | dconf load /
 
 Reboot so everything takes effect
 
-Terminal - set to Dracula
-Config fish
-
-```sh
-fish_config
-```
-
-Set prompt to Disco
-
 </details>
 
 <details>
@@ -255,15 +249,11 @@ Set prompt to Disco
 
 Change the look and feel to your prefrences.
 
-### Get your wallpaper
-
-Download your [wallpaper](https://wallpaperaccess.com/download/blue-lagoon-3908317).
-
-(Recommend placing it in ~/.local/share/wallpapers)
-
-Set the background
+### Set your wallpaper
 
 Right click desktop, select Change Background. Add Picture and set it as your desktop wallpaper
+
+Set your wallapaper to one of the ones in mySetups
 
 ### Set your workspaces
 
@@ -275,48 +265,36 @@ Workspaces
 
 ### Enable Gnome Extensions
 
-#### Enable User Themes
+```sh
+extension-manager
+```
 
-Install from the [User Themes](https://extensions.gnome.org/extension/19/user-themes/) extension page
-You'll need to install the browser plugin (it'll prompt you) and then refresh the page
+Browse themes and install these:
 
-#### Enable [Dash to Dock](https://extensions.gnome.org/extension/307/dash-to-dock/)
-
-(Check in on https://extensions.gnome.org/extension/5004/dash-to-dock-for-cosmic/. Seems more maintained and doesn't seem to clash even if not using COSMIC)
-
+#### Enable [User Themes](https://extensions.gnome.org/extension/19/user-themes/) extension page
 #### Enable [Clipboard Indicator](https://extensions.gnome.org/extension/779/clipboard-indicator/)
+#### Enable [gsconnect[(https://extensions.gnome.org/extension/1319/gsconnect/)
+#### Enable [AAWS[(https://extensions.gnome.org/extension/4412/advanced-alttab-window-switcher/)
+#### Enable [App menu is back](https://extensions.gnome.org/extension/6433/app-menu-is-back/)
 
-#### Enable [Workspaces Bar](https://extensions.gnome.org/extension/3851/workspaces-bar/)
+## Download your preferred themes
 
-#### Enable [Compiz alike magic lamp effect](https://extensions.gnome.org/extension/3740/compiz-alike-magic-lamp-effect/)
+https://github.com/EliverLara/Andromeda-gtk
 
-## Download your preferred theme
 
-Download Nordic-bluish-accent.tar.xz, Nordic-Folders.tar.xz Nordzy-cursors.tar.gz from gnome-look (theme, icons)[https://www.gnome-look.org/p/1267246] and (cursors)[https://www.gnome-look.org/p/1571937]
+- place in ~/.themes
 
 ### Set the themes
 
 Open tweaks
 -> Appearance
 
-- Icons: Nordic
+- Icons: Yaru
 - Cursor: Nordzy
-- Shell: Nordic-bluish-accent-v40
-- Legacy Applications: Nordic-bluish-accent
+- Shell: Andromeda
+- Legacy Applications: Andromeda
 
 -> Window Titlebars -> Placement = Left
-
-### Terminal
-
-#### Set the Gnome Terminal Settings
-
-Open Gnome Terminal. Hamburger menu => Preferences
-
-Under profiles Choose Nord
-Check custom font, set to FiraMono Nerd Font 12
-Using down chevron next to Nord choose set as default.
-
-Optional - under colors, set transparent background.
 
 ### Set Gnome Keyboard Shortcuts
 
@@ -332,62 +310,22 @@ Set your "Switch to workspace #" to your keys
 
 This is a good time to reboot so all the changes get sourced properly.
 
-#### Finish setting up PowerLevel10k
-
-Start terminal and Powerlevel10k will prompt you for options.
-
-My options:
-
-- Diamond -> y
-- Lock -> y
-- Debian -> y
-- Do they fit -> y
-- Prompt Style -> 3 (Rainbow)
-- Character Set -> 1 (Unicode)
-- Show current time? -> 3 (12-hour format.)
-- Prompt Separators -> 1 (Angled)
-- Prompt Heads -> 1 (Sharp)
-- Prompt Tails -> 5 (Rounded)
-- Prompt Height -> 2 (Two lines)
-- Prompt Connection -> 3 (Solid)
-- Prompt Frame -> 4 (Full)
-- Connection & Frame Color -> 1 (Lightest)
-- Prompt Spacing -> 2 (Sparse)
-- Icons -> 2 (Many icons)
-- Prompt Flow -> 2 (Fluent)
-- Enable Transient Prompt? -> y (Yes)
-- Instant Prompt Mode -> 1 (Verbose)
-- Apply changes to ~/.zshrc? -> y (Yes)
-
 </details>
 
-#### Reboot or change won't take effect
+## Terminal
 
-## Complete Neovim setup?
+Set to Dracula
 
-Start neovim
+## Config fish
 
 ```sh
-nvim
+fish_config
 ```
 
-Install the markdown parser for Treesitter
-
-```
-:TSInstall markdown
-```
+Set prompt to Disco
 
 ## If using VSCode
 
-TODO: Check back on VSCodium. As of the time of writing it does not support devcontainers
-
-[VS Code](https://code.visualstudio.com/docs/setup/linux#_rhel-fedora-and-centos-based-distributions)
-
 ```sh
-sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
-sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
-sudo dnf -y check-update
-sudo dnf -y install code
+snap install --classic code
 ```
-
-Follow instructions [here](https://github.com/jasonmb626/mySetups/blob/main/VSCode_Setup.md) to set up your VS Code environment.
