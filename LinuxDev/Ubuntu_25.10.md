@@ -234,6 +234,11 @@ cd
 rm -fr ~/src/Nordzy-cursors
 ```
 
+Theme for snaps
+```sh
+sudo snap install snapcraft --classic
+```
+
 Import Gnome Settings via dconf
 
 ```sh
