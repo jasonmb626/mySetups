@@ -329,9 +329,12 @@ Set prompt to Disco
 curl -o /tmp/andromeda-gtk_0.1_amd64.snap https://raw.githubusercontent.com/jasonmb626/mySetups/main/resources/andromeda-gtk_0.1_amd64.snap
 sudo snap install snapcraft --classic
 sudo snap install /tmp/andromeda-gtk_0.1_amd64.snap --dangerous
-bash
+bash -c "for i in \$(snap connections | grep gtk-common-themes:gtk-3-themes | awk '{print \$2}'); do sudo snap connect \$i andromeda-gtk:gtk-3-themes; done"
+```
+
+Above assumes you're running fish shell, if that fails open a bash sessions and run this:
+```sh
 for i in $(snap connections | grep gtk-common-themes:gtk-3-themes | awk '{print $2}'); do sudo snap connect $i andromeda-gtk:gtk-3-themes; done
-exit
 ```
 
 <details>
