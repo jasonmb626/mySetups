@@ -49,23 +49,94 @@ The colorCustomizations are for bracket pair colorization to work with Nord them
 
 ```json
 {
-  "workbench.iconTheme": "vscode-icons",
-  "workbench.colorTheme": "Nord",
-  "editor.fontFamily": "'JetBrains Mono', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
-  "terminal.integrated.fontFamily": "Courier, MesloLGS NF",
-  "editor.formatOnSave": true,
-  "editor.tabSize": 2,
-  "editor.insertSpaces": true,
-  "editor.bracketPairColorization.enabled": true,
-  "workbench.colorCustomizations": {
-    "editorBracketHighlight.foreground1": "#88C0D0",
-    "editorBracketHighlight.foreground2": "#EBCB8B",
-    "editorBracketHighlight.foreground3": "#D08770",
-    "editorBracketHighlight.foreground4": "#BF616A",
-    "editorBracketHighlight.foreground5": "#B48EAD",
-    "editorBracketHighlight.foreground6": "#A3BE8C",
-  },
-   "files.trimTrailingWhitespace": true
+    "editor.bracketPairColorization.enabled": true,
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "window.titleBarStyle": "native",
+    "workbench.colorTheme": "Andromeda",
+    "editor.formatOnSave": true,
+    "files.autoSave": "afterDelay",
+    "files.trimTrailingWhitespace": true,
+    "vim.highlightedyank.enable": true,
+    "vim.camelCaseMotion.enable": true,
+    "vim.leader": "<space>",
+    "vim.sneak": true,
+    "vim.surround": true,
+    "vim.easymotion": true,
+    "vim.smartRelativeLine": true,
+    "vim.normalModeKeyBindings": [
+        {
+            "before": [
+                "<space>",
+                "p"
+            ],
+            "commands": [
+                "workbench.action.showCommands"
+            ]
+        }
+    ],
+    "vim.visualModeKeyBindings": [
+        {
+            "before": [
+                ">"
+            ],
+            "commands": [
+                "editor.action.indentLines"
+            ]
+        },
+        {
+            "before": [
+                "<"
+            ],
+            "commands": [
+                "editor.action.outdentLines"
+            ]
+        },
+        {
+            "before": [
+                "<space>",
+                "c",
+                "r"
+            ],
+            "commands": [
+                "editor.action.refactor"
+            ],
+            "when": "editorHasCodeActionsProvider && textInputFocus && !editorReadyOnly"
+        },
+        {
+            "before": [
+                "<space>",
+                "c",
+                "f"
+            ],
+            "commands": [
+                "editor.action.formatSelection"
+            ],
+            "when": "editorHasDocumentSelectionFormattingProvider && editorTextFocus && !editorReadyOnly"
+        },
+        {
+            "before": [
+                "<space>",
+                "c",
+                "c"
+            ],
+            "commands": [
+                "editor.action.rename"
+            ],
+            "when": "editorTextFocus && !editorReadyOnly"
+        }
+    ],
+    "[markdown]": {
+        "editor.unicodeHighlight.ambiguousCharacters": false,
+        "editor.unicodeHighlight.invisibleCharacters": false,
+        "diffEditor.ignoreTrimWhitespace": false,
+        "editor.wordWrap": "on",
+        "editor.quickSuggestions": {
+            "comments": "off",
+            "strings": "off",
+            "other": "off"
+        }
+    }
 }
 ```
 
@@ -82,12 +153,6 @@ If using Flatpak and zsh you'll need to change terminal settings or zsh won't wo
 ```
 
 #### Configure keybindings.json (Probably only necessary on Linux. Linux defaults are weird. Make them better match Windows.)
-
-Because vim has taken over normal Cut/Copy/Pase use these if you need non-vim cut/copy/paste and you're having trouble with Ctrl+C/X/V (though there's an entry below to compensate).
-
-- Ctrl+Insert instaed of Ctrl+C
-- Shift+Insert instead of Ctrl+V
-- Shift+Delete instead of Ctrl+X
 
 ```json
   {
@@ -112,78 +177,43 @@ Because vim has taken over normal Cut/Copy/Pase use these if you need non-vim cu
   }
 ```
 
+Because vim has taken over normal Cut/Copy/Pase use these if you need non-vim cut/copy/paste and you're having trouble with Ctrl+C/X/V (though there's an entry below to compensate).
+
+- Ctrl+Insert instaed of Ctrl+C
+- Shift+Insert instead of Ctrl+V
+- Shift+Delete instead of Ctrl+X
+
 If using vscode-vim, put in some keybindings to make it work better
 ```json
-   {
-        "key": "r",
-        "command": "renameFile",
-        "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
-    },
-    {
-        "key": "d",
-        "command": "deleteFile",
-        "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
-    },
-    {
-        "key": "c",
-        "command": "filesExplorer.copy",
-        "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
-    },
-    {
-        "key": "p",
-        "command": "filesExplorer.paste",
-        "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
-    },
-    {
-        "key": "a",
-        "command": "workbench.files.action.createFileFromExplorer",
-        "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
-    },
-    {
-        "key": "shift+a",
-        "command": "workbench.files.action.createFolderFromExplorer",
-        "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
-    },
-    {
-        "key": "shift+y",
-        "command": "copyFilePath",
-        "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
-    },
-    {
-        "key": "ctrl+y",
-        "command": "copyRelativeFilePath",
-        "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
-    },
-    {
-      "key": "shift+w",
-      "command": "workbench.files.action.collapseExplorerFolders",
-      "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
-    },
     {
         "key": "ctrl+k",
-        "command": "workbench.action.navigateUp"
+        "command": "workbench.action.navigateUp",
+        "when": "editorTextFocus"
     },
     {
         "key": "ctrl+j",
-        "command": "workbench.action.navigateDown"
+        "command": "workbench.action.navigateDown",
+        "when": "editorTextFocus"
     },
     {
         "key": "ctrl+h",
-        "command": "workbench.action.navigateLeft"
+        "command": "workbench.action.navigateLeft",
+        "when": "editorTextFocus"
     },
     {
         "key": "ctrl+l",
-        "command": "workbench.action.navigateRight"
+        "command": "workbench.action.navigateRight",
+        "when": "editorTextFocus"
     },
     {
-      "key": "shift+l",
+      "key": "alt+l",
       "command": "workbench.action.nextEditor",
-      "when": "editorFocus && vim.mode == 'Normal'"
+      "when": "editorTextFocus"
     },
     {
-      "key": "shift+h",
+      "key": "alt+h",
       "command": "workbench.action.previousEditor",
-      "when": "editorFocus && vim.mode == 'Normal'"
+      "when": "editorTextFocus"
     },
     {
         "key": "alt+k",
@@ -237,6 +267,11 @@ If using vscode-vim, put in some keybindings to make it work better
     {
       "key": "ctrl+a",
       "command": "editor.action.selectAll",
+      "when": "editorTextFocus && vim.mode != 'Normal'"
+    },
+    {
+      "key": "ctrl+s",
+      "command": "workbench.action.files.save",
       "when": "editorTextFocus && vim.mode != 'Normal'"
     }
 ```
