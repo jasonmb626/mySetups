@@ -320,6 +320,8 @@ Set to Dracula
 
 ```sh
 fish_config
+fish_add_path /home/$USER/.bin
+fish_add_path /home/$USER/.local/bin
 ```
 
 Set prompt to Disco
