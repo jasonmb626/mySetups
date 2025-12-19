@@ -240,8 +240,6 @@ Import Gnome Settings via dconf
 cat ~/src/mySetups/LinuxDev/gnome49.conf | dconf load /
 ```
 
-Reboot so everything takes effect
-
 </details>
 
 <details>
@@ -306,11 +304,21 @@ Navigation
 Set "Hide all normal windows" to Super+D
 Set your "Switch to workspace #" to your keys
 
+</details>
+
+#### Flathub (Optional)
+
+If you want access to flathub install it here.
+
+```sh
+sudo apt install flatpak
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+```
+
 #### Reboot
 
 This is a good time to reboot so all the changes get sourced properly.
 
-</details>
 
 ## Terminal
 
