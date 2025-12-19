@@ -313,6 +313,7 @@ If you want access to flathub install it here.
 ```sh
 sudo apt install flatpak
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+sudo apt install gnome-software-plugin-flatpak gnome-software
 ```
 
 #### Reboot
