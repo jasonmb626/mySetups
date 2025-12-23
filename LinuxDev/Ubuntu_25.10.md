@@ -160,7 +160,7 @@ set to /usr/bin/fish
 
 #### Install fonts
 
-Install the 2 pathced Fira fonts  
+Install the 2 pathced Fira fonts
 Download from [GitHub](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/FiraMono/Regular)
 
 ```sh
@@ -207,8 +207,8 @@ Now Install the Extensions
 - User Themes
 - Clipboard Indicator
 - GSConnect
-- AATWS (Advanced Alt-Tab Window Switcher) 
-- App menu is back 
+- AATWS (Advanced Alt-Tab Window Switcher)
+- App menu is back
 
 ```sh
 export PATH=$PATH:~/.bin
@@ -218,8 +218,12 @@ gnome-shell-extension-installer 1319
 gnome-shell-extension-installer 4412
 gnome-shell-extension-installer 6433
 mkdir -p ~/.local/share/gnome-shell/extensions/
-git clone https://github.com/jasonmb626/multi-monitors-add-on.git ~/.local/share/gnome-shell/extensions/multi-monitors-add-on@spin83
+git clone https://github.com/jasonmb626/multi-monitors-add-on.git /tmp
+mv /tmp/multi-monitors-add-on@spin83/multi-monitors-add-on@spin83  ~/.local/share/gnome-shell/extensions/
+rm -fr /tmp/multi-monitors-add-on@spin83
 ```
+
+We need the multi-monitors-add-on@spin83 subfolder that is part of the repo also called multi-monitors-add-on@spin83, so clone it to tmp, move the subfolder, then delete the cloned repo
 
 Icon/Cursor/Theme
 
