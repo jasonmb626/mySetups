@@ -147,7 +147,12 @@ echo "YT_API_KEY=xxxx" >>~/.config/environment.d/keys.conf
 ## Docker
 
 ```sh
-sudo pacman -S --noconfirm docker docker-compose
+sudo pacman -S --noconfirm docker docker-buildx
 sudo systemctl enable --now docker.service
 sudo usermod -aG docker $USER
+#Allow IP Forwarding...needed for docker netwroking
+sudo tee /etc/sysctl.d/99-docker.conf <<'EOF'
+net.ipv4.ip_forward = 1
+EOF
+sudo sysctl --system
 ```
