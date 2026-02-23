@@ -1,4 +1,4 @@
-# Setting up my CachyOS KDE development machine (WIP)
+# Setting up my CachyOS KDE machine (WIP)
 
 From a fresh CachyOS KDE installation
 
@@ -20,8 +20,49 @@ sudo mount -a
 paru -S clipboard-sync
 systemctl --user enable --now clipboard-sync
 ```
+
 You may get multiple options to choose from. I tried 1 and 2 and both worked.
 
+## \(Optional\) If native
+
+### Filesystem
+Add your home volume to the fstab
+
+```sh
+sudo mkdir -p /mnt/big_one
+echo "/dev/disk/by-uuid/7e3ed879-d3f7-44ad-a89d-b1dbe85814f9 /mnt/big_one/ ext4 defaults 0 0" | sudo tee -a /etc/fstab
+```
+
+### KDE Connect
+
+Make sure firewall isn't blocking KDE Connect:
+
+```sh
+sudo ufw allow 1714:1764/udp
+sudo ufw allow 1714:1764/tcp
+sudo ufw reload
+```
+
+Install sshfs for browsing phone filesystem
+
+```sh
+sudo pacman -S --noconfirm sshfs
+```
+
+### Virtmanager
+
+```sh
+sudo pacman -S qemu virt-manager dnsmasq vde2 bridge-utils openbsd-netcat libvirt
+sudo systemctl enable --now libvirtd
+sudo usermod -aG libvirt libvirt-qemu kvm qemu $USER
+```
+
+## Add Flatpak Support
+
+```sh
+sudo pacman -S --noconfirm flatpak discover
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+```
 
 ## Install your github-ssh_keys & inform ssh which keys to use for Github
 
@@ -42,10 +83,10 @@ You should now have these files and permissions in that folder, username may not
 -rw-r--r--. 1 jason jason  88 Jan 14  2024 github_id_ed25519.pub
 ```
 
-Add your SSH key to ssh-agent & test connection. (Correct key used automatically b/c set in config)
+Add your SSH key to ssh-agent
 
 ```sh
-sudo pacman -S ksshaskpass egl-wayland2
+sudo pacman -S --noconfirm ksshaskpass egl-wayland2
 systemctl --user enable --now ssh-agent
 mkdir -p ~/.config/environment.d
 echo -e "SSH_AUTH_SOCK=/run/user/1000/ssh-agent.socket\nSSH_ASKPASS_REQUIRE=prefer\nSSH_ASKPASS=/usr/bin/ksshaskpass" >~/.config/environment.d/ssh_askpass.conf
@@ -53,8 +94,10 @@ echo -e "SSH_AUTH_SOCK=/run/user/1000/ssh-agent.socket\nSSH_ASKPASS_REQUIRE=pref
 
 Installing egl-wayland2 suppresses ksshaskpass warnings and is necessary for later theming
 
+## Log out and log back in
 Log out and log back in
 
+## Finish ssh key setup
 ```sh
 ssh-add ~/.ssh/github_id_ed25519
 ```
@@ -75,60 +118,36 @@ git clone git@github.com:jasonmb626/mySetups.git ~/git/mySetups
 Set your git configurations
 
 ```sh
-cat <<EOF >~/.gitconfig
-[user]
-	email = jasonmb626@gmail.com
-	name = Jason Brunelle
-[init]
-	defaultBranch = main
-[pull]
-	rebase = true
-EOF
+git config --global user.email "jasonmb626@gmail.com"
+git config --global user.name "Jason Brunelle"
+git config --global init.defaultBranch main
+git config --global pull.rebase true
 ```
 
-The above is same as:
-
-- git config --global user.email "jasonmb626@gmail.com"
-- git config --global user.name "Jason Brunelle"
-- git config --global init.defaultBranch main
-- git config --global pull.rebase true
-
-but is easier to add to a script.
-
-
-## Install theme
-
-System Settings -> Colors & Themes -> Global Theme
-Click Get New
-Search for Andromeda
-Install and Apply Andromeda Plasma 6 by eliverlara
-
-## Move the Titlebar buttons
-System Settings -> Colors & Themes -> Global Theme -> Window Decorations
-Upper right -- Configure Titlebar Buttons...
-Close - Minimize - Maximize -------- Pin Keep_Below Keep_Above Context Help
-Apply
-
-## Cursors
-System Settings -> Colors & Themes -> Global Theme -> Cursors
-Click Get New...
-Search for Nordzy
-Install and Apply Nordszy-cursors.tar.gz
-
-(More to come)
-
-## KDE Connect
-
-Make sure firewall isn't blocking KDE Connect:
+## Clone your dotfiles/tools repositories
 
 ```sh
-sudo ufw allow 1714:1764/udp
-sudo ufw allow 1714:1764/tcp
-sudo ufw reload
+git clone git@github.com:jasonmb626/dotfiles-dev.git ~/src/dotfiles-dev
+ln -s ~/src/dotfiles-dev/bin/ ~/.bin
 ```
 
-Install sshfs for browsing phone filesystem
+## Development
+
+### Install VSCode
 
 ```sh
-sudo pacman -S sshfs
+paru -S visual-studio-code-bin
+```
+
+### Set your globals if necessary
+```sh
+echo "YT_API_KEY=xxxx" >>~/.config/environment.d/keys.conf
+```
+
+## Docker
+
+```sh
+sudo pacman -S --noconfirm docker docker-compose
+sudo systemctl enable --now docker.service
+sudo usermod -aG docker $USER
 ```
