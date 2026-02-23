@@ -60,11 +60,14 @@ To add to autostart manually Open system settings, go to Autostart, and add the 
 
 <details>
     <summary>Native - Lenovo</summary>
+
 Add your home volume to the fstab
+
 ```sh
 sudo mkdir -p /mnt/big_one
 echo "/dev/disk/by-uuid/7e3ed879-d3f7-44ad-a89d-b1dbe85814f9 /mnt/big_one/ ext4 defaults 0 0" | sudo tee -a /etc/fstab
 ```
+
 </details>
 
 ## Install your github-ssh_keys & inform ssh which keys to use for Github
@@ -218,7 +221,7 @@ gnome-shell-extension-installer 1319
 gnome-shell-extension-installer 4412
 gnome-shell-extension-installer 6433
 mkdir -p ~/.local/share/gnome-shell/extensions/
-git clone https://github.com/jasonmb626/multi-monitors-add-on.git /tmp
+git clone https://github.com/jasonmb626/multi-monitors-add-on.git /tmp/multi-monitors-add-on@spin83
 mv /tmp/multi-monitors-add-on@spin83/multi-monitors-add-on@spin83  ~/.local/share/gnome-shell/extensions/
 rm -fr /tmp/multi-monitors-add-on@spin83
 ```
@@ -315,9 +318,9 @@ Set your "Switch to workspace #" to your keys
 If you want access to flathub install it here.
 
 ```sh
-sudo apt install flatpak
+sudo apt install -y flatpak
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-sudo apt install gnome-software-plugin-flatpak gnome-software
+sudo apt install -y gnome-software-plugin-flatpak gnome-software
 ```
 
 #### Reboot
