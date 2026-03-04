@@ -51,11 +51,10 @@ sudo pacman -S --noconfirm sshfs
 
 ### Virtmanager
 
-```sh
-sudo pacman -S qemu virt-manager dnsmasq vde2 openbsd-netcat libvirt
-sudo systemctl enable --now libvirtd
-sudo usermod -aG libvirt,libvirt-qemu,kvm,qemu $USER
-```
+Follow Instructions [here](https://gist.github.com/tatumroaquin/c6464e1ccaef40fd098a4f31db61ab22)
+
+- Add yourself to the libvirt group and reboot before running the virsh commands
+- You need to start the default network too. Not just the bridged network.
 
 ## Add Flatpak Support
 
