@@ -52,9 +52,9 @@ sudo pacman -S --noconfirm sshfs
 ### Virtmanager
 
 ```sh
-sudo pacman -S qemu virt-manager dnsmasq vde2 bridge-utils openbsd-netcat libvirt
+sudo pacman -S qemu virt-manager dnsmasq vde2 openbsd-netcat libvirt
 sudo systemctl enable --now libvirtd
-sudo usermod -aG libvirt libvirt-qemu kvm qemu $USER
+sudo usermod -aG libvirt,libvirt-qemu,kvm,qemu $USER
 ```
 
 ## Add Flatpak Support
