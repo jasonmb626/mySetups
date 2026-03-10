@@ -46,20 +46,23 @@ sudo ufw reload
 Install sshfs for browsing phone filesystem
 
 ```sh
-sudo pacman -S --noconfirm sshfs
+sudo pacman -S --noconfirm --needed sshfs
 ```
 
 ### Virtmanager
 
-Follow Instructions [here](https://gist.github.com/tatumroaquin/c6464e1ccaef40fd098a4f31db61ab22)
+Follow Instructions [here](https://gist.github.com/justkremer/02471ed596eef578846b848340a7e329)
+- You'll likely need to take out bridge-utils while installing...deprecated
+- If necessary can be installed with paru -S bridge-utils
 
+Had some success with [this](https://gist.github.com/tatumroaquin/c6464e1ccaef40fd098a4f31db61ab22) but host network would have delayed connect on boot and wake.
+- This creates a bridged network, which you need to start the default network too. Not just the bridged network.
 - Add yourself to the libvirt group and reboot before running the virsh commands
-- You need to start the default network too. Not just the bridged network.
 
 ## Add Flatpak Support
 
 ```sh
-sudo pacman -S --noconfirm flatpak discover
+sudo pacman -S --noconfirm --needed flatpak discover
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 ```
 
@@ -85,7 +88,7 @@ You should now have these files and permissions in that folder, username may not
 Add your SSH key to ssh-agent
 
 ```sh
-sudo pacman -S --noconfirm ksshaskpass egl-wayland2
+sudo pacman -S --noconfirm --needed ksshaskpass egl-wayland2
 systemctl --user enable --now ssh-agent
 mkdir -p ~/.config/environment.d
 echo -e "SSH_AUTH_SOCK=/run/user/1000/ssh-agent.socket\nSSH_ASKPASS_REQUIRE=prefer\nSSH_ASKPASS=/usr/bin/ksshaskpass" >~/.config/environment.d/ssh_askpass.conf
@@ -146,7 +149,7 @@ echo "YT_API_KEY=xxxx" >>~/.config/environment.d/keys.conf
 ## Docker
 
 ```sh
-sudo pacman -S --noconfirm docker docker-compose docker-buildx
+sudo pacman -S --noconfirm --needed docker docker-compose docker-buildx
 sudo systemctl enable --now docker.service
 sudo usermod -aG docker $USER
 #Allow IP Forwarding...needed for docker netwroking
