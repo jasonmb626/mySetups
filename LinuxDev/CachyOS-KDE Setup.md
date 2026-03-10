@@ -51,7 +51,7 @@ sudo pacman -S --noconfirm --needed sshfs
 
 ### Virtmanager
 
-Follow Instructions [here](https://gist.github.com/justkremer/02471ed596eef578846b848340a7e329)
+Follow Instructions [here](https://gist.github.com/jasonmb626/ad627f162716fbbdff1f702de5adcbaf)
 - You'll likely need to take out bridge-utils while installing...deprecated
 - If necessary can be installed with paru -S bridge-utils
 
